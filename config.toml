@@ -1,8 +1,8 @@
-baseURL = "/"
+baseURL = "https://fabhertz95.github.io"
 languageCode = "en-us"
 theme = "hugo-winston-theme"
 themesDir = "themes"
-title = "Hugo Winston Theme"
+title = "Fabrizio Ottati's blog"
 paginate = 3
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
