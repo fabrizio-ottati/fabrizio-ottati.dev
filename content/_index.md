@@ -1,6 +1,7 @@
 ---
-title: Work in progress
-description: Work in progress.
+title: What and why
+description: What I do and why I do it.
+image: images/onm-logo.png
 ---
 
 Work in progress.

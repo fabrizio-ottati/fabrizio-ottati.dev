@@ -16,4 +16,8 @@ My main interests are event-based cameras, digital IC design, spiking neural net
 
 ## Career 
 
+* Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Final grade: 108/110.
+* Master of Science in Electronic Engineering, Microelectronics curriculum, Politecnico di Torino, 2017-2020. Final grade: 110/110 cum laude. 
+* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
+
 
