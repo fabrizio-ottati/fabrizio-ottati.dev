@@ -22,6 +22,8 @@ My main interests are **event-based vision**, **digital IC design**, **spiking n
 
 ## Projects 
 
+### Open Neuromorphic
+
 ![onm](../images/onm.png)
 
 This [organisation](https://github.com/open-neuromorphic) is created by a loose collective of **open-source** collaborators across **academia**, **industry** and **individual contributors**. What connects us is the **love for building tools** that can be used in the **neuromorphic community** and we want to share ownership of this vision. Open Neuromorphic (ONM) provides two things:
@@ -38,9 +40,13 @@ Projects that we list here can fall into this non-exclusive list of categories:
 
 Get in touch with the organization on [Discord](https://discord.gg/JParSCNe5k)!
 
+### Expelliarmus 
+
 ![expelliarmus](../images/expelliarmus.png)
 
 A Python/C [library](https://github.com/open-neuromorphic/expelliarmus) for **decoding DVS binary data** formats to NumPy structured arrays.
+
+### Tonic
 
 ![tonic](../images/tonic.png)
 
