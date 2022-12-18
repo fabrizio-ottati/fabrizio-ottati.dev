@@ -1,18 +1,18 @@
 {
   "links": [
     {
-      "name": "twitter",
-      "url": "https://twitter.com/zerostaticio",
-      "image": "images/social/twitter.svg"
+      "name": "mastodon",
+      "url": "https://fosstodon.org/@fabhertz",
+      "image": "images/social/mastodon.svg"
     },
     {
       "name": "github",
-      "url": "https://github.com/zerostaticthemes/hugo-winston-theme",
+      "url": "https://github.com/fabhertz95",
       "image": "images/social/github.svg"
     },
     {
       "name": "linkedin",
-      "url": "https://www.linkedin.com",
+      "url": "https://www.linkedin.com/in/fabrizio-ottati-330704141/",
       "image": "images/social/linkedin.svg"
     }
   ]
