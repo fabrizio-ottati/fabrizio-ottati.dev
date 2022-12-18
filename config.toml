@@ -3,6 +3,7 @@ languageCode = "en-us"
 theme = "hugo-winston-theme"
 themesDir = "themes"
 title = "Fabrizio Ottati"
+image = "images/onm-logo.png"
 paginate = 3
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
