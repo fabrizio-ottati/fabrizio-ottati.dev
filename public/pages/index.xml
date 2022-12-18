@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Fabrizio Ottati&#39;s blog</title>
+    <link>https://fabhertz95.github.io/pages/</link>
+    <description>Recent content in Pages on Fabrizio Ottati&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://fabhertz95.github.io/pages/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://fabhertz95.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fabhertz95.github.io/about/</guid>
+      <description>Introduction I am a Ph.D. student in the Department of Electronics and Communications of Politecnico di Torino, under the supervision of professor Luciano Lavagno and professor Mario Roberto Casu.
+My main interests are event-based cameras, digital IC design, spiking neural networks and piedmontese red wine. I am the maintainer of two open source projects in the field of neuromorphic computing, Tonic and expelliarmus.
+Career </description>
+    </item>
+    
+  </channel>
+</rss>
