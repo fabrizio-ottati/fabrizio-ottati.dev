@@ -29,6 +29,7 @@ pygmentsUseClasses = true
   headingColor = "#1c1b1d"
   textColor = "#4e5157"
   dotColor = "#00b8e6"
+  favico = "images/onm-logo.png"
 
 # markdown config settings https://gohugo.io/getting-started/configuration-markup/#goldmark
 [markup]
