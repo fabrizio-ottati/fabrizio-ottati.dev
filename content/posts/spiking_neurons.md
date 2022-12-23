@@ -3,7 +3,7 @@ title: "Spiking neurons: a digital hardware implementation"
 date: 2022-12-19
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
-draft: true
+draft: false
 ---
 
 # Spiking neurons
@@ -41,8 +41,8 @@ $$ S_i[t] = 1 ~\text{if}~ v_i[t] \geq \theta ~\text{else}~ 0 $$
 # The neurons information: storage and addressing
 
 How do we describe a neuron in hardware? First of all, we need to list the **information** associated to each $i$-neuron:
-1. its membrane potential $v_i[t]$.
-2. the weights  associated to its synapses, $w_{ij}$, that can be grouped in a vector $W_i$.
+- its membrane potential $v_i[t]$.
+- the weights  associated to its synapses, $w_{ij}$, that can be grouped in a vector $W_i$.
 
 To store all the membrane potentials of a given layer of $M$ neurons, we can use a **memory array**, addressed by the position of the $i$-neuron in the layer.
 
