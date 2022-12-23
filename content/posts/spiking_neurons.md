@@ -3,7 +3,7 @@ title: "Spiking neurons: a digital hardware implementation"
 date: 2022-12-19
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
-draft: false
+draft: true
 ---
 
 # Spiking neurons
