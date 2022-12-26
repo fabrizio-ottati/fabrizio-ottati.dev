@@ -1,6 +1,6 @@
 baseURL = "https://fabrizio-ottati.github.io"
 languageCode = "en-us"
-title = "Fabrizio Ottati"
+title = "iFabrizio Ottati"
 theme = "cactus"
 copyright = "Fabrizio Ottati" # cactus will use title if copyright is not set
 disqusShortname = "fabrizio" # Used when comments is enabled. Cactus will use site title if not set
