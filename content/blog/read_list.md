@@ -10,6 +10,7 @@ math: true
 
 Here's a list of articles and theses related to digital hardware designs for neuomorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
 
+If you are new to neuromorphic computing, I strongly suggest to get a grasp of how an SNN works from [this paper](https://arxiv.org/abs/2109.12894) and, then, to read Charlotte Frenkel's Ph.D. thesis, which is listed below.
 
 ## [*Loihi: A Neuromorphic Manycore Processor with On-Chip Learning*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Davies2018.pdf), Mike Davies et al., 2018.
 
