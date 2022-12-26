@@ -1,5 +1,5 @@
 ---
-title: "Event cameras: decoding the EVT3 format."
+title: "Event cameras: decoding the EVT3 format"
 date: 1970-01-01
 draft: true
 ---

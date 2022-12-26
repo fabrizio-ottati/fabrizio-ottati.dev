@@ -59,5 +59,5 @@ In this work, a **Recurrent Spiking Neural Network (RSNN)** processor is present
 
 The key feature of this chip is the online learning capability, using a modified version of the **feed-forward eligibility traces** algorithm, which is a bio-inspired approximation of the BackPropagatio Through Time (BPTT) algorithm employed for artificial RNNs. The chip performance is validated on gesture recognition, keyword spotting and navigation, with **sub-150μW** and **sub-squared millimeter** power and area budgets.
 
-## [*THOR -- A Neuromorphic Processor with 7.29G TSOP2/mm2Js Energy-Throughput Efficiency*](https://arxiv.org/abs/2212.01696), Mayank Senapati et al., 2022.connectivity
+## [*THOR -- A Neuromorphic Processor with 7.29G TSOP2/mm2Js Energy-Throughput Efficiency*](https://arxiv.org/abs/2212.01696), Mayank Senapati et al., 2022.
 
