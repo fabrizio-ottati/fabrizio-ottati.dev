@@ -24,7 +24,7 @@ $$ u_i(t) = \sum_{j \neq i}{w_{ij} \cdot (\alpha_v \ast \sigma_j)(t)} $$
 
 Each $j$-neuron contributes with a current (spike train multiplied by the $w_{ij}$ synapse) and these sum up at the input of the $i$-neuron. Given the membrane potential of the destination neuron, denoted with $v_i(t)$, the differential equation describing its evolution is the following:
 
-$$ v_i'(t) = -\frac{1}{\tau_v} v_i(t) + u_i(t) - \theta \cdot \sigma_i(t)$$
+$$ \frac{\partial}{\partial t} v_i(t) = -\frac{1}{\tau_v} v_i(t) + u_i(t) - \theta \cdot \sigma_i(t)$$
 
 In addition to the input currents, we have two terms: the **membrane reset**, due to the fact that, when a neuron **spikes**, its membrane potential goes back to the rest potential (usually equal to zero), and this is modeled by subtracting the threshold $\theta$ from the membrane potential $v_i(t)$; the **neuron leakage**, modeled with a **leakage factor** $\frac{1}{\tau_v}$ multiplied by the membrane potential.
 
@@ -32,7 +32,7 @@ In addition to the input currents, we have two terms: the **membrane reset**, du
 
 Such a differential equation cannot be solved directly using discrete arithmetics, like we would like to do with our digital hardware; hence, we need to **discretize** the equation. This discretization leads to the following result:
 
-$$ v_i[t] = -\beta \cdot v_i[t-1] + u_i[t] - \theta \cdot S_i[t] $$
+$$ v_i[t] = \beta \cdot v_i[t-1] + u_i[t] - \theta \cdot S_i[t] $$
 
 $$ u_i[t] = \sum_{j \neq i}{w_{ij} \cdot S_j[t]} $$  
 
@@ -76,6 +76,36 @@ Now our neuron is able to accumulate spikes but we need to differentiate between
 
 This FSM, given the operation to be executed on the $i$-neuron, controls the adder properly to add or subtract the synapse current.
 
+# Leakage 
 
+Now we have to have to introduce that makes a LIF neuron different from an Integrate and Fire one (IF): the leakage! Being this proportional to the membrane potential, we should choose a (constant) leakage factor and multiply it by $v_i[t]$ to obtain $v_i[t+1]$.
+
+However, multiplication is a costly operation in hardware; further more, the leakage factor is lower than one, so we should perform a fixed-point multiplication or, even worse, a division! How to solve this? Well, if the leakage factor $\beta$ is a power of $\frac{1}{2}$, such as $2^{-n}$, the multiplication becomes equivalent to a $n$-positions right shift! A really hardware friendly operation! 
+
+Since the leakage factor is proportional to time, how can we do this in hardware? Well, if we imagine to write:
+
+$$ \beta[t] = (2^{-n})^{\lfloor (t-t_{last})/T \rfloor} $$ 
+
+where $T$ is the number of time steps needed to decay the membrane potential of a factor $2^{-n}$ and $t_{last}$ is the timestamp of the last membrane update operation. 
+
+Now, the number of right shifts for a decay operation is equal to $n \cdot \lfloor \frac{t - t_{last}}{T} \rfloor$. Instead of calcultating this factor with an arithmetic circuit, we perform an $n$-positions right shift $\lfloor \frac{t - t_{last}}{T} \rfloor$ times!
+
+At the same time, if the number of bits on which the membrane potential is encoded, we can think of using a barrel shifter to perform the leakage operation in a single clock cycle. 
+
+![leak](/images/blog/spiking_neurons/leak.png)
+
+# Spike mechanism 
+
+Well, our neuron needs to spike! If this is encoded as a logic one, given a threshold $\theta$, we simply need to compare $v_i[t]$ to $\theta$ and generate a logic $1$ in output when the membrane potential is equal or larger than the threshold. This can be implemented using a comparator, as it is shown in the circuit. 
+
+![spike](/images/blog/spiking_neurons/spike.png)
+
+Of course, the membrane has to be reset when the neuron spikes, hence we need to subtract $\theta$ from $v_i[t]$ when the neuron fires. This can be done by driving the input multiplexer of the membrane register to provide $\theta$ in input to the membrane register and by performing a subtraction.
+
+![reset](/images/blog/spiking_neurons/reset.png)
+
+# Verilog implementation
+
+# Conclusion
 
 # Bibliography
