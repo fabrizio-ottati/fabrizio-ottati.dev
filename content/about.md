@@ -44,4 +44,4 @@ A Python/C [library](https://github.com/open-neuromorphic/expelliarmus) for **de
 
 ![tonic](/images/about/tonic.png)
 
-[Tonic](https://github.com/neuromorphs/tonic) provides publicly available **event-based vision and audio datasets** and **event transformations**. The package is fully compatible with PyTorch Vision / Audio to give you the flexibility that you need.
+[Tonic](https://github.com/neuromorphs/tonic) provides publicly available **event-based vision and audio datasets** and **event transformations**. The package is fully compatible with PyTorch Vision / Audio to give you the flexibility that you need. The project has been created by [Gregor Lenz](https://lenzgregor.com).

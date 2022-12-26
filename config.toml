@@ -49,7 +49,7 @@ weight = 3
 
   # Home page settings
   description = "Ph.D. student at Politecnico di Torino, in the High Level Synthesis Laboratory. Open source enthusiast. Digital hardware designer. Neuromorpher."
-  mainSection = "/" # your main section
+  mainSection = "/blog" # your main section
   mainSectionTitle = "Blog"
   showAllPostsOnHomePage = false # default
   postsOnHomePage = 5 # this option will be ignored if showAllPostsOnHomePage is set to true
