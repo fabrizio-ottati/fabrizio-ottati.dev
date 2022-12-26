@@ -43,7 +43,7 @@ The neurons interconnection is arranged in a hierarchical routing solution: **me
 
 This is [Charlotte Frenkel](https://chfrenkel.github.io)'s Ph.D. thesis. In this, her learning process is accurately documented, with more details on ODIN and MorphIC and other projects.
 
-## [*μBrain: An Event-Driven and Fully Synthesizable Architecture for Spiking Neural Networks*](https://www.frontiersin.org/articles/10.3389/fnins.2021.false664208/full), Jan Stuijt et al., 2021.
+## [*μBrain: An Event-Driven and Fully Synthesizable Architecture for Spiking Neural Networks*](https://www.frontiersin.org/articles/10.3389/fnins.2021.664208/full), Jan Stuijt et al., 2021.
 
 This is an **asynchronous digital architecture**, with no online-learning capabilities provided. It is an inference-only chip.
 
