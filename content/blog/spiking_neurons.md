@@ -57,9 +57,7 @@ We are now able to store and retrieve an $i$-neuron membrane potential through a
 
 Let su proceed step by step, starting from a single input $j$-neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
-We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. 
-
-What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our array of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage.
+We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our array of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage.
 
 ![synapses-memory](/images/blog/spiking_neurons/synapses-weights.png)
 
