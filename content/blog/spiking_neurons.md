@@ -53,7 +53,7 @@ Since there are $M$ neurons in the array, we need an $M$-entries vector to store
 
 To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the $i$-neuron address to index the membrane potentials memory, also denoted with $V[t]$.
 
-Now we are able to retrieve an $i$-neuron membrane potential; we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to retrieve the corresponding synapses, **multiply** these by the spikes, sum them up and, then, accumulate these in the $i$-neuron membrane. Let's go one step at time, starting from a single current: 
+We are now able to store and retrieve an $i$-neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to retrieve the corresponding synapses, **multiply** these by the spikes, sum them up and, then, accumulate these in the $i$-neuron membrane. Let's go one step at time, starting from a single current: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
 We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. 
 
