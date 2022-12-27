@@ -63,7 +63,7 @@ We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{
 
 This memory has to be addressed with the input $j$-neuron and the destination $i$-neuron, in order to obtain the weight $w_{ij}$ in output, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the $i$-neuron membrane when the $j$-neuron spikes. 
 
-# Spike accumulation
+# Spikes accumulation
 
 Now we have our array of spiking neurons thanks to the memory arrays described above. We need to start to implement some functionalities! 
 
