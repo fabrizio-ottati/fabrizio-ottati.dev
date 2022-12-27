@@ -71,7 +71,7 @@ We start with the **membrane potential charging** of a generic neuron $i$-neuron
 
 ![accumulation](/images/blog/spiking_neurons/accumulation.png)
 
-The membrane potential $v_{i}[t]$ is read from the potentials memory $V[t]$ and summed to the corrispondent synapse current $w_{ij}$. The result of is the membrane potential  of the next time step, $v_{i}[t+1]$, that will be written back to memory in the next clock cycle. The intermediate value is stored in a **register**. 
+The membrane potential $v_{i}[t]$ is read from the potentials memory $V[t]$ and added to the corrispondent synapse current $w_{ij}$. The result of is the membrane potential  of the next time step, $v_{i}[t+1]$, that will be written back to memory in the next clock cycle. The intermediate value is stored in a **register**. 
 
 To **prevent multiple read-write cycles**, one can think of adding a loop to the register in order to **accumulate all the currents** of the $j$-neurons that are spiking at timestep $t$ and writing the final value $v_{i}[t+1]$ back to memory only once.
 
