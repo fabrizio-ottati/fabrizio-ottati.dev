@@ -47,11 +47,11 @@ How do we describe a neuron in hardware? First of all, we need to list some basi
 - its **membrane potential** $v_{i}[t]$.
 - the **weights  associated to the synapses**, $w_{ij}$; since each $i$-neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
 
-Since there are $M$ neurons in the array, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture:
+Since there are $M$ neurons in the array, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture.
 
 ![potentials-memory](/images/blog/spiking_neurons/membrane-potentials.png)
 
-To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the $i$-neuron address to index the membrane potentials memory, denoted with $V[t]$.
+To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the $i$-neuron address to index the membrane potentials memory, also denoted with $V[t]$.
 
 Now we are able to retrieve an $i$-neuron membrane potential; we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to retrieve the corresponding synapses, **multiply** these by the spikes, sum them up and, then, accumulate these in the $i$-neuron membrane. Let's go one step at time, starting from a single current: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
