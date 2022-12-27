@@ -43,9 +43,9 @@ $$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$
 
 To get started, we need to define the network **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron; we denote this number with $N$. Then, we suppose to have $M$ neurons in total in our network.
 
-How do we describe a neuron in hardware? First of all, we need to list the **information** associated to each $i$-neuron:
-- its membrane potential $v_{i}[t]$.
-- the weights  associated to its synapses, $w_{ij}$; since each $i$-neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
+How do we describe a neuron in hardware? First of all, we need to list some basic information associated to each $i$-neuron:
+- its **membrane potential** $v_{i}[t]$.
+- the **weights  associated to the synapses**, $w_{ij}$; since each $i$-neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
 
 Since there are $M$ neurons in the array, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture:
 
