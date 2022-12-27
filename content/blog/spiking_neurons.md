@@ -41,7 +41,7 @@ $$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$
 
 # The neurons information: storage and addressing
 
-Before everything we need to define some characteristics for our neurons array. We need to define each neuron **fan-in**, i.e. how many neurons are connected to its input; for simplicity, we denote that number with $N$. Then, we suppose to have $M$ neurons in our array in total.
+To get started, we need to define the network **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron; we denote this number with $N$. Then, we suppose to have $M$ neurons in total in our network.
 
 How do we describe a neuron in hardware? First of all, we need to list the **information** associated to each $i$-neuron:
 - its membrane potential $v_{i}[t]$.
