@@ -28,7 +28,7 @@ Each $j$-neuron contributes with a current (spike train multiplied by the $w_{ij
 $$ \frac{\partial}{\partial t} v_{i}(t) = -\frac{1}{\tau_{v}} v_{i}(t) + u_{i}(t) - \theta \cdot \sigma_{i}(t)$$
 In addition to the input currents, we have two terms: 
 - the **membrane reset**, $\theta \cdot \sigma_{i}(t)$, due to the fact that, when a neuron **spikes**, its membrane potential goes back to the rest potential (usually equal to zero), and this is modeled by **subtracting the threshold** $\theta$ from the membrane potential $v_{i}(t)$ when an output spike occurs.
-- the **neuron leakage**, modeled with a **leakage**, $\frac{1}{\tau_{v}} v_{i}(t)$, modeled through a leakage coefficient $\frac{1}{\tau_{v}}$ that multiplies the membrane potential.
+- the **neuron leakage**, $\frac{1}{\tau_{v}} v_{i}(t)$, modeled through a **leakage coefficient** $\frac{1}{\tau_{v}}$ that multiplies the membrane potential.
 
 # Discretizing the model
 
