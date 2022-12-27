@@ -55,7 +55,7 @@ To each neuron, an **address** is associated, which can be thought as the $i$ in
 
 We are now able to store and retrieve an $i$-neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to get the corresponding synapses $W_{i}$, **multiply** these by the spikes of the associated input neurons, sum them up and, then, accumulate them in the $i$-neuron membrane. 
 
-Let's go one step at time, starting from a single current: 
+Let su proceed step by step, starting from a single input $j$-neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
 We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. 
 
