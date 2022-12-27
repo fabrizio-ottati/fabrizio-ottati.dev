@@ -2,13 +2,14 @@
 title: "Spiking neurons: a digital hardware implementation"
 date: 2022-12-27
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
+cover: "/images/blog/spiking_neurons/neurons-connected.png"
 math: true
 draft: false
 ---
 
 # Spiking neurons
 
-In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons.
+In this article, we will try to model a Leaky Integrate and Fire (LIF) spiking neuron using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons.
 
 ![neurons-connected](/images/blog/spiking_neurons/neurons-connected.png)
 
