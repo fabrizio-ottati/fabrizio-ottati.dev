@@ -21,7 +21,7 @@ where $t_{k}$ are the spike timestamps of the spike train $\sigma_{j}(t)$.
 
 The synapse connecting the $j$-neuron with the $i$-neuron is denoted with $w_{ij}$. All the incoming spike trains are then **integrated** by the $i$-neuron membrane; the integration function can be modeled by a **first-order low-pass filter**, denoted with $\alpha_{i}(t)$:
 $$ \alpha_{i}(t) = \frac{1}{\tau_{u_{i}}} e^{-\frac{t}{\tau_{u_{i}}}}$$
-The spike train incoming from the $j$-neuron, hence, is convolved with the membrane function; in practice, this correspond to the **input currents** incoming from the $
+The spike train incoming from the $j$-neuron, hence, is convolved with the membrane function; in real neurons, this corresponds to the **input currents** coming from the $
 j$-neurons that **charge** the $i$-neuron membrane potential, $v_{i}(t)$. The sum of the currents in input to the $i$-neuron is denoted with $u_{i}(t)$ and modeled through the following equation:
 $$ u_{i}(t) = \sum_{j \neq i}{w_{ij} \cdot (\alpha_{v} \ast \sigma_{j})(t)} $$
 Each $j$-neuron contributes with a current (spike train multiplied by the $w_{ij}$ synapse) and these sum up at the input of the $i$-neuron. Given the membrane potential of the destination neuron, denoted with $v_{i}(t)$, the differential equation describing its evolution  through time is the following:
