@@ -65,7 +65,7 @@ This memory has to be addressed with the input $j$-neuron and the destination $i
 
 # Spikes accumulation
 
-Now we have our array of spiking neurons thanks to the memory arrays described above. We need to start to implement some functionalities! 
+We have now all the information about our array of spiking neurons thanks to the memory arrays described above; let us start to implement some neural functionalities! 
 
 We start with the **membrane potential charging** of a generic neuron $i$-neuron. When the $j$-neuron spikes, its synapse weight $w_{ij}$ gets extracted from the synapse memory $W$ and multiplied by the spike. Since the spike is nothing but a single bit equal to 1, this is equivalent to using $w_{ij}$ itself as input current to the $i$-neuron. 
 
