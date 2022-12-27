@@ -13,6 +13,12 @@ If you are new to neuromorphic computing, I strongly suggest to get a grasp of h
 
 ## [*TrueNorth: Design and Tool Flow of a 65 mW 1 Million Neuron Programmable Neurosynaptic Chip*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Akopyan2015.pdf), Filipp Akopyan et al., 2015 
 
+This a fully digital chip, embedding **4096** cores with **1M** neurons and **256M** synapses! 
+
+It adopts a mixed design methodology: the local computational cores are **synchronous**, while the interconnecting infrastructure is **asynchronous**, i.e. event-driven. In particular, each core adopts **time-multiplexing** to compute the states of its neurons minimizing core area; each core has **256** neurons associated.
+
+TrueNorth claims to be operating in real-time: a **1KHz synchronization signal** is used to trigger the cores computations (state update, spikes processing, etc.). Moreover, they provide a software tool with one-to-one mapping to the hardware in order to deploy applications on it. 
+
 ## [*Loihi: A Neuromorphic Manycore Processor with On-Chip Learning*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Davies2018.pdf), Mike Davies et al., 2018
 
 Probably the most popular neuromorphic processor right now. What distinguishes it from the other ones are the online learning capabilities coupled with a **completely asynchronous** design: cores and routing network are completely clock-less! 
@@ -59,7 +65,6 @@ Nice **survey** paper that compares different ICs, both digital and mixed-signal
 
 In this work, a **Recurrent Spiking Neural Network (RSNN)** processor is presented. The Verilog code is [open source](https://github.com/chfrenkel/ReckON).
 
-The key feature of this chip is the online learning capability, using a modified version of the **feed-forward eligibility traces** algorithm, which is a bio-inspired approximation of the BackPropagatio Through Time (BPTT) algorithm employed for artificial RNNs. The chip performance is validated on gesture recognition, keyword spotting and navigation, with **sub-150μW** and **sub-squared millimeter** power and area budgets.
+The key feature of this chip is the online learning capability, using a modified version of the **feed-forward eligibility traces** algorithm, which is a bio-inspired approximation of the BackPropagation Through Time (BPTT) algorithm employed for artificial RNNs. The chip performance is validated on gesture recognition, keyword spotting and navigation, with **sub-150μW** and **sub-squared millimeter** power and area budgets.
 
-## [*THOR -- A Neuromorphic Processor with 7.29G TSOP2/mm2Js Energy-Throughput Efficiency*](https://arxiv.org/abs/2212.01696), Mayank Senapati et al., 2022
 
