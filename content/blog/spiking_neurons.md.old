@@ -1,16 +1,16 @@
 ---
 title: "Spiking neurons: a digital hardware implementation"
-date: 2022-12-27
+date: 1970-01-01
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
-draft: false
+draft: true
 ---
 
 # Spiking neurons
 
 In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons.
 
-![neurons-connected](/images/blog/spiking_neurons/neurons-connected.png)
+![neurons-connected](/images/blog/spiking_neurons/neurons_connected.png)
 
 In a Spiking Neural Network (SNN), neurons communicate by means of **spikes**: these activation voltages are then converted to currents through the **synapses**, charging the **membrane potential** of the destination neuron. In the following, the destination neuron is be denoted with the index $i$, while the input neuron under consideration is denoted with the index $j$. 
 
@@ -48,7 +48,7 @@ How do we describe a neuron in hardware? First of all, we need to list the **inf
 
 Since there are $M$ neurons in the array, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture:
 
-![potentials-memory](/images/blog/spiking_neurons/membrane-potentials.png)
+![potentials-memory](/images/blog/spiking_neurons/membrane_potentials.png)
 
 To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the $i$-neuron address to index the membrane potentials memory, denoted with $V[t]$.
 
@@ -58,7 +58,7 @@ We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{
 
 What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our array of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage.
 
-![synapses-memory](/images/blog/spiking_neurons/synapses-weights.png)
+![synapses-memory](/images/blog/spiking_neurons/synapses_weights.png)
 
 This memory has to be addressed with the input $j$-neuron and the destination $i$-neuron, in order to obtain the weight $w_{ij}$ in output, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the $i$-neuron membrane when the $j$-neuron spikes. 
 
@@ -86,7 +86,7 @@ This FSM, given the operation to be executed on the $i$-neuron, controls the add
 
 Inhibitory and excitatory neurons are chosen at **chip programming time**. This means that the neuron kind does not change during operation (however, we'll see that even if it does, it is not a problem for the solution we are about to propose). Hence, we can **embed this information** in the neuron description, **adding a bit to the synapse weight** that, depending on its value, denotes that neuron as excitatory or inhibitory.
 
-![synapse-encoding](/images/blog/spiking_neurons/synapse-encoding.png)
+![synapse-encoding](/images/blog/spiking_neurons/synapse_encoding.png)
 
 Given $n$ bits of quantization for the synapse, we add a bit denoted with $e$ that identifies the neuron type: if it is **excitatory**, $e=1$ and the weights is **added**; is it is **inhibitory**, $e=0$ and the weight is **subtracted**. In this way, the $e$ field of the synapse can be used to drive directly the adder. 
 
@@ -100,36 +100,30 @@ However, multiplication is an **expensive** operation in hardware; furthermore, 
 
 Well, if the leakage factor $\beta$ is a power of $\frac{1}{2}$, such as $2^{-n}$, the multiplication becomes **equivalent to a $n$-positions right shift**! A really **hardware-friendly** operation! 
 
+Since the leakage factor is proportional to time, how can we do this in hardware? Well, if we imagine to write:
+
+$$ \beta[t] = (2^{-n})^{\lfloor (t-t_{last})/T \rfloor} $$ 
+
+where $T$ is the number of time steps needed to decay the membrane potential of a factor $2^{-n}$ and $t_{last}$ is the timestamp of the last membrane update operation. 
+
+Now, the number of right shifts for a decay operation is equal to $n \cdot \lfloor \frac{t - t_{last}}{T} \rfloor$. Instead of calcultating this factor with an arithmetic circuit, we perform an $n$-positions right shift $\lfloor \frac{t - t_{last}}{T} \rfloor$ times!
+
+At the same time, if the number of bits on which the membrane potential is encoded, we can think of using a barrel shifter to perform the leakage operation in a single clock cycle. 
+
 ![leak](/images/blog/spiking_neurons/leak.png)
 
 # Spike mechanism 
 
-Well, our neuron needs to spike! If this is encoded as a logic one, given a threshold $\theta$, we simply need to **compare $v_{i}[t]$ to $\theta$** and generate a logic 1 in output **when the membrane potential is equal or larger than the threshold**. This can be implemented using a **comparator**. 
+Well, our neuron needs to spike! If this is encoded as a logic one, given a threshold $\theta$, we simply need to compare $v_i[t]$ to $\theta$ and generate a logic $1$ in output when the membrane potential is equal or larger than the threshold. This can be implemented using a comparator, as it is shown in the circuit. 
 
 ![spike](/images/blog/spiking_neurons/spike.png)
 
-The output of the comparator is used directly as spike bit.
-
-The membrane has to be **reset** when the neuron spikes; hence, we need to subtract $\theta$ from $v_{i}[t]$ when the neuron fires. This can be done by driving the input multiplexer of the membrane register to provide $\theta$ in input to the adder and perform a subtraction.
+Of course, the membrane has to be reset when the neuron spikes, hence we need to subtract $\theta$ from $v_i[t]$ when the neuron fires. This can be done by driving the input multiplexer of the membrane register to provide $\theta$ in input to the membrane register and by performing a subtraction.
 
 ![reset](/images/blog/spiking_neurons/reset.png)
 
-However, do we need all this hardware? We can be smarter than this:
-- by choosing $\theta = 2^m-1$, where $m$ is the bitwidth of the membrane register and the adder, having $v_{i}[t] \geq \theta$ is **equivalent to having an overflow in the addition**. Hence, the comparation result is equal to the **overflow flag** of the adder, and it can be provided as spike bit.
-- instead of subtracting $\theta$ from the membrane register, we can save an operation by simply **resetting** $v_{i}[t]$ to 0 when a spike occurs; this is equivalent to using the oveflow flag of the adder as **reset signal for the membrane register**. This should not be done in an actual implementation: at least a register should be used to prevent glitches in the adder circuit from resetting the membrane register when it should not be.
-
-The resulting circuit is the following.
-
-![smart-reset](/images/blog/spiking_neurons/smart-reset.png)
-
-Way simpler!
-
 # Conclusion
-
-Here we are, with a first prototype of our LIF array digital circuit. In the next episodes, I plan to make it actually work (we'll see) and provide a Verilog implementation. Of course, we will use only open source tools :) 
 
 # Bibliography
 
 - [*Loihi: A Neuromorphic Manycore Processor with On-Chip Learning*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Davies2018.pdf), Mike Davies et al., 2018.
-- [*Training Spiking Neural Networks Using Lessons From Deep Learning*](https://arxiv.org/abs/2109.12894), Jason Eshraghian et al., 2022.
-- [*Bottom-Up and Top-Down Neuromorphic Processor Design: Unveiling Roads to Embedded Cognition*](https://dial.uclouvain.be/pr/boreal/object/boreal%3A226494/datastream/PDF_01/view), Charlotte Frenkel, 2020
