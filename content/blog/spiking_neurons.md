@@ -9,7 +9,7 @@ draft: false
 
 # Spiking neurons
 
-In this article, we will try to model a Leaky Integrate and Fire (LIF) spiking neuron using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons.
+In this article, we will try to model a layer of Leaky Integrate and Fire (LIF) spiking neurons using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons from a previous layer.
 
 ![neurons-connected](/images/blog/spiking_neurons/neurons-connected.png)
 
@@ -41,13 +41,13 @@ $$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$
 
 # The neurons information: storage and addressing
 
-To get started, we need to define the network **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron; we denote this number with $N$. Then, we set the total number of neurons in the network to $M$.
+To get started, we need to define the layer **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron in the layer; we denote this number with $N$. Then, we set the total number of neurons in our layer to $M$.
 
 How do we describe a neuron in hardware? First of all, we need to list some basic information associated to each $i$-neuron:
 - its **membrane potential** $v_{i}[t]$.
 - the **weights  associated to the synapses**, $w_{ij}$; since each $i$-neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
 
-Since there are $M$ neurons in the array, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture.
+Since there are $M$ neurons in the layer, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture.
 
 ![potentials-memory](/images/blog/spiking_neurons/membrane-potentials.png)
 
@@ -57,7 +57,7 @@ We are now able to store and retrieve an $i$-neuron membrane potential through a
 
 Let us start from a single input $j$-neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
-We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our array of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
+We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our layer of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
 
 ![synapses-memory](/images/blog/spiking_neurons/synapses-weights.png)
 
@@ -65,7 +65,7 @@ This memory has to be addressed with the input $j$-neuron and the destination $i
 
 # Spikes accumulation
 
-We have now all the information about our array of spiking neurons thanks to the memory arrays described above; let us start to implement some neural functionalities! 
+We have now all the information about our layer of spiking neurons thanks to the memory arrays described above; let us start to implement some neural functionalities! 
 
 We start with the **membrane potential charging** of a generic neuron $i$-neuron. When the $j$-neuron spikes, its synapse weight $w_{ij}$ gets extracted from the synapse memory $W$ and multiplied by the spike. Since the spike is nothing but a single bit equal to 1, this is equivalent to using $w_{ij}$ itself as input current to the $i$-neuron. To accumulate this current, we need to use a **digital adder**!
 
@@ -133,7 +133,7 @@ Way simpler!
 
 # Conclusion
 
-Here we are, with a first prototype of our LIF array digital circuit. In the next episode:
+Here we are, with a first prototype of our LIF layer digital circuit. In the next episode:
 - we will make it actually work. 
 - we will implement it in Verilog. 
 - we will simulate it using open source tools, such as [Verilator](ihttps://www.veripool.org/verilator/).
