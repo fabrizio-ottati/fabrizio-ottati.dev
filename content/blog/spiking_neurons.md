@@ -2,7 +2,7 @@
 title: "Spiking neurons: a digital hardware implementation"
 date: 1970-01-01
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
-cover: "/images/blog/spiking_neurons/neurons-connected.png"
+cover: "/images/blog/spiking_neurons/ibm-awesome.png"
 math: true
 draft: false
 ---
