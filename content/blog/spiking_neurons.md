@@ -24,19 +24,21 @@ The spike train incoming from the $j$-neuron, hence, is convolved with the membr
 j$-neurons that **charge** the $i$-neuron membrane potential, $v_{i}(t)$. The sum of the currents in input to the $i$-neuron is denoted with $u_{i}(t)$ and modeled through the following equation:
 $$ u_{i}(t) = \sum_{j \neq i}{w_{ij} \cdot (\alpha_{v} \ast \sigma_{j})(t)} $$
 Each $j$-neuron contributes with a current (spike train multiplied by the $w_{ij}$ synapse) and these sum up at the input of the $i$-neuron. Given the membrane potential of the destination neuron, denoted with $v_{i}(t)$, the differential equation describing its evolution  through time is the following:
-$$ \frac{\partial}{\partial t} v_{i}(t) = -\frac{1}{\tau_{v}} v_{i}(t) + u_{i}(t) - \theta \cdot \sigma_{i}(t)$$
-In addition to the input currents, we have two terms: 
-- the **membrane reset**, $\theta \cdot \sigma_{i}(t)$, due to the fact that, when a neuron **spikes**, its membrane potential goes back to the rest potential (usually equal to zero), and this is modeled by **subtracting the threshold** $\theta$ from the membrane potential $v_{i}(t)$ when an output spike occurs.
-- the **neuron leakage**, $\frac{1}{\tau_{v}} v_{i}(t)$, modeled through a **leakage coefficient** $\frac{1}{\tau_{v}}$ that multiplies the membrane potential.
+$$ \frac{\partial}{\partial t} v_{i}(t) = -\frac{1}{\tau_{v}} v_{i}(t) + u_{i}(t)$$
+In addition to the input currents, we have the **neuron leakage**, $\frac{1}{\tau_{v}} v_{i}(t)$, modeled through a **leakage coefficient** $\frac{1}{\tau_{v}}$ that multiplies the membrane potential.
 
 # Discretizing the model
 
 Such a differential equation cannot be solved directly using discrete arithmetic, as it would be processed on digital hardware; hence, we need to **discretize** the equation. This discretization leads to the following result:
-$$ v_{i}[t] = \beta \cdot v_{i}[t-1] + u_{i}[t] - \theta \cdot S_{i}[t] $$
-where $\beta$ is the **decay coefficient** associated to the leakage. It is a number smaller than 1. The input current is given by:
-$$ u_{i}[t] = \sum_{j \neq i}{w_{ij} \cdot S_{j}[t]} $$  
-We have introduced a new function, $S_{i}[t]$, that is equal to 1 at spike time (i.e. if at timestamp $t$ the membrane potential $v_{i}[t]$ is larger than or equal to the threshold $\theta$) and 0 elsewhere:
+    $$ v_{i}[t] = \beta \cdot v_{i}[t-1] + (1 - \beta) \cdot u_{i}[t] - \theta \cdot S_{i}[t] $$
+where $\beta$ is the **decay coefficient** associated to the leakage. It is a number smaller than 1. To simplify the model, we embed $(1-\beta)$ in the input current $u_{i}[t]$, by merging it with the synapse weights as a scaling factor.
+
+Notice that the **membrane reset** mechanism has been added: when a neuron **spikes**, its membrane potential goes back to the rest potential (usually equal to zero), and this is modeled by **subtracting the threshold** $\theta$ from $v_{i}(t)$ when an output spike occurs. The output spike is modeled through a function $S_{i}[t]$:
 $$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$ 
+This is equal to 1 at spike time (i.e. if at timestamp $t$ the membrane potential $v_{i}[t]$ is larger than or equal to the threshold $\theta$) and 0 elsewhere.
+
+The input current is given by:
+$$ u_{i}[t] = \sum_{j \neq i}{w_{ij} \cdot S_{j}[t]} $$  
 
 # The neurons information: storage and addressing
 
