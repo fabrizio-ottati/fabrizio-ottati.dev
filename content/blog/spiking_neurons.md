@@ -105,7 +105,7 @@ Well, if the leakage factor $\beta$ is a power of $\frac{1}{2}$, such as $2^{-n}
 
 In this circuit, an $n$-positions righ-shift block is added to obtain $\beta \cdot v_{i}[t]$ out the $v_{i}[t]$ read from the potentials memory. A **multiplexer** is introduced to choose if the synapse weight $w_{ij}$ is put in input to the added or the leakage contribution $\beta \cdot v_{i}[t]$.
 
-Notice that leakage has to be always subtracted. Hence, we would need to modify the adder control signal so that a subtraction is performed when a leakage operation is required. A possible idea is to use a signal from the FSM and a logic AND gate to force the adder control signal to 0 during a leakage operation.
+Notice that leakage has to be always subtracted. Hence, we need to modify the adder control signal so that a subtraction is performed when a leakage operation is required. A possible idea is to use a signal from the FSM and a logic AND gate to force the adder control signal to 0 during a leakage operation.
 
 ![subtract-leak](/images/blog/spiking_neurons/subtract-leak.png)
 
