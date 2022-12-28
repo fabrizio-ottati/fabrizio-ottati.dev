@@ -13,7 +13,7 @@ In this article, we will try to model a Leaky Integrate and Fire (LIF) spiking n
 
 ![neurons-connected](/images/blog/spiking_neurons/neurons-connected.png)
 
-In a Spiking Neural Network (SNN), neurons communicate by means of **spikes**: these activation voltages are then converted to currents through the **synapses**, charging the **membrane potential** of the destination neuron. In the following, the destination neuron is be denoted with the index $i$, while the input neuron under consideration is denoted with the index $j$. 
+In a Spiking Neural Network (SNN), neurons communicate by means of **spikes**: these activation voltages are then converted to currents through the **synapses**, charging the **membrane potential** of the destination neuron. In the following, the destination neuron is denoted with the index $i$, while the input neuron under consideration is denoted with the index $j$. 
 
 We denote the input spike train incoming from the $j$-neuron with $\sigma_{j}(t)$:
 $$ \sigma_{j}(t) = \sum_{k} \delta(t-t_{k}) $$
@@ -32,16 +32,16 @@ In addition to the input currents, we have two terms:
 
 # Discretizing the model
 
-Such a differential equation cannot be solved directly using discrete arithmetics, like we would like to do with our digital hardware; hence, we need to **discretize** the equation. This discretization leads to the following result:
+Such a differential equation cannot be solved directly using discrete arithmetic, as it would be processed on digital hardware; hence, we need to **discretize** the equation. This discretization leads to the following result:
 $$ v_{i}[t] = \beta \cdot v_{i}[t-1] + u_{i}[t] - \theta \cdot S_{i}[t] $$
-The input current is given by:
+where $\beta$ is the **decay coefficient** associated to the leakage. It is a number smaller than 1. The input current is given by:
 $$ u_{i}[t] = \sum_{j \neq i}{w_{ij} \cdot S_{j}[t]} $$  
 We have introduced a new function, $S_{i}[t]$, that is equal to 1 at spike time (i.e. if at timestamp $t$ the membrane potential $v_{i}[t]$ is larger than or equal to the threshold $\theta$) and 0 elsewhere:
 $$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$ 
 
 # The neurons information: storage and addressing
 
-To get started, we need to define the network **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron; we denote this number with $N$. Then, we suppose to have $M$ neurons in total in our network.
+To get started, we need to define the network **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron; we denote this number with $N$. Then, we set the total number of neurons in the network to $M$.
 
 How do we describe a neuron in hardware? First of all, we need to list some basic information associated to each $i$-neuron:
 - its **membrane potential** $v_{i}[t]$.
@@ -55,7 +55,7 @@ To each neuron, an **address** is associated, which can be thought as the $i$ in
 
 We are now able to store and retrieve an $i$-neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to get the corresponding synapses $W_{i}$, **multiply** these by the spikes of the associated input neurons, sum them up and, then, accumulate them in the $i$-neuron membrane. 
 
-Let su proceed step by step, starting from a single input $j$-neuron: 
+Let us start from a single input $j$-neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
 We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our array of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
 
@@ -85,11 +85,11 @@ Now our neuron is able to accumulate spikes but we need to differentiate between
 
 This FSM, given the operation to be executed on the $i$-neuron, controls the adder properly to add or subtract the synapse current. However, does this design make sense?
 
-Inhibitory and excitatory neurons are chosen at **chip programming time**. This means that the neuron kind does not change during operation (however, with the solution we are about to propose, it would not be a problem to change the neuron type on-the-fly). Hence, we can **embed this information** in the neuron description, **adding a bit to the synapse weight** that, depending on its value, denotes that neuron as excitatory or inhibitory.
+Inhibitory and excitatory neurons are chosen at **chip programming time**. This means that the neuron kind does not change during operation (however, with the solution we are about to propose, it would not be a problem to change the neuron type on-the-fly). Hence, we can **embed this information** in the neuron description, **adding a bit to the synapse weights memory row** that, depending on its value, denotes that neuron as excitatory or inhibitory.
 
 ![synapse-encoding](/images/blog/spiking_neurons/synapse-encoding.png)
 
-Given $n$ bits of quantization for the synapse, we add a bit denoted with $e$ that identifies the neuron type: if it is **excitatory**, $e=1$ and the weight is **added**; is it is **inhibitory**, $e=0$ and the weight is **subtracted**. In this way, **the $e$ field of the synapse can be used to drive directly the adder**. 
+Suppose that, given a $j$-neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory row, we add a bit denoted with $e$ that identifies the neuron type and that is read together with the corresponding $j$-neuron synapse: if it is **excitatory**, $e=1$ and the weights are **added**; if it is **inhibitory**, $e=0$ and the weights are **subtracted**. In this way, **the $e$ field of the synapse can drive directly the adder**. 
 
 ![modified-adder](/images/blog/spiking_neurons/modified-adder.png)
 
@@ -122,7 +122,7 @@ The membrane has to be **reset** when the neuron spikes; hence, we need to **sub
 ![reset](/images/blog/spiking_neurons/reset.png)
 
 However, do we need all this hardware? We can be smarter than this:
-- by choosing $\theta = 2^m-1$, where $m$ is the bitwidth of the membrane register and the adder, having $v_{i}[t] \gt \theta$ is **equivalent to having an overflow in the addition**. Hence, the comparation result is equal to the **overflow flag** of the adder, which can be **directly provided in output as spike bit**.
+- by choosing $\theta = 2^m-1$, where $m$ is the bitwidth of the membrane register and the adder, having $v_{i}[t] \gt \theta$ is **equivalent to having an overflow in the addition**. Hence, the comparison result is equal to the **overflow flag** of the adder, which can be **directly provided in output as spike bit**.
 - instead of subtracting $\theta$ from the membrane register, we can save an operation by simply **resetting** $v_{i}[t]$ to 0 when a spike occurs; this is equivalent to using the oveflow flag of the adder as **reset signal for the membrane register**. This should not be done in an actual implementation: at least a **register** should be added on the reset signal of the membrane register to prevent glitches in the adder circuit from resetting it when it should not be.
 
 The resulting circuit is the following.
