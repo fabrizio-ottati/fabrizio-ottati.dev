@@ -96,7 +96,7 @@ Suppose that, given a $j$-neuron, all its $M$ output synapses are stored in a me
 
 # Leakage 
 
-Let us introduce the characteristic feature of the LIF neuron: the **leakage**! Being this proportional to the membrane potential, we shall choose a (constant) leakage factor $\beta$ and multiply it by $v_{i}[t]$ to obtain $v_{i}[t+1]$.
+Let us introduce the characteristic feature of the LIF neuron: the **leakage**! We shall choose a (constant) leakage factor $\beta$ and multiply it by $v_{i}[t]$ to obtain $v_{i}[t+1]$.
 $$ v_{i}[t+1] = \beta \cdot v_{i}[t] $$ 
 However, multiplication is an **expensive** operation in hardware; furthermore, the leakage factor is **smaller than one**, so we would need to perform a **fixed-point multiplication** or, even worse, a **division**! How to solve this?
 
@@ -141,7 +141,7 @@ Here we are, with a first prototype of our LIF layer digital circuit. In the nex
 
 # Acknowledgements 
 
-I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) for the valuable corrections and comments that made this article way better than the original draft!
+I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) and [Steven Abreu](https://stevenabreu.com) for the valuable corrections and comments that made this article way better than the original draft!
 
 # Bibliography
 
