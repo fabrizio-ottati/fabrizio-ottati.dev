@@ -139,6 +139,10 @@ Here we are, with a first prototype of our LIF layer digital circuit. In the nex
 - we will implement it in Verilog. 
 - we will simulate it using open source tools, such as [Verilator](ihttps://www.veripool.org/verilator/).
 
+# Acknowledgements 
+
+I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) for the valuable corrections and advices that made this article way better than its original draft!
+
 # Bibliography
 
 - [*Loihi: A Neuromorphic Manycore Processor with On-Chip Learning*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Davies2018.pdf), Mike Davies et al., 2018.
