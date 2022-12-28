@@ -1,8 +1,7 @@
 ---
 title: "Spiking neurons: a digital hardware implementation"
-date: 1970-01-01
+date: 2022-12-28
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
-cover: "/images/blog/spiking_neurons/ibm-awesome.png"
 math: true
 draft: false
 ---
@@ -89,7 +88,7 @@ Inhibitory and excitatory neurons are chosen at **chip programming time**. This 
 
 ![synapse-encoding](/images/blog/spiking_neurons/synapse-encoding.png)
 
-Suppose that, given a $j$-neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory row, we add a bit denoted with $e$ that identifies the neuron type and that is read together with the corresponding $j$-neuron synapse: if it is **excitatory**, $e=1$ and the weights are **added**; if it is **inhibitory**, $e=0$ and the weights are **subtracted**. In this way, **the $e$ field of the synapse can drive directly the adder**. 
+Suppose that, given a $j$-neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory $j$-row, we add a bit denoted with $e_{j}$ that identifies the neuron type and that is read together with the corresponding $j$-neuron synapse: if it is **excitatory**, $e_{j}=1$ and the weights are **added**; if it is **inhibitory**, $e_{j}=0$ and the weights are **subtracted**. In this way, **the $e_{j}$ field of the synapse can drive directly the adder**. 
 
 ![modified-adder](/images/blog/spiking_neurons/modified-adder.png)
 
