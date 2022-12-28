@@ -141,7 +141,7 @@ Here we are, with a first prototype of our LIF layer digital circuit. In the nex
 
 # Acknowledgements 
 
-I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) for the valuable corrections and advices that made this article way better than its original draft!
+I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) for the valuable corrections and comments that made this article way better than the original draft!
 
 # Bibliography
 
