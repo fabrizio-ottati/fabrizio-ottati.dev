@@ -2,21 +2,21 @@
 title: 'About'
 ---
 
-## Introduction
+# Introduction
 
 I am a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en) and professor [Mario Roberto Casu](https://scholar.google.it/citations?user=qWQ_5fEAAAAJ&hl=en).
 
 My main interests are **event-based vision**, **digital IC design**, **spiking neural networks** and piedmontese red wine. I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://github.com/neuromorphs/tonic) and [expelliarmus](https://github.com/open-neuromorphic/expelliarmus). 
 
-## Career 
+# Career 
 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017.
 * Master of Science in Electronic Engineering, Microelectronics curriculum, Politecnico di Torino, 2017-2020. 
 * Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
 
-## Projects 
+# Projects 
 
-### Open Neuromorphic
+## Open Neuromorphic
 
 ![onm](/images/about/onm.png)
 
@@ -34,13 +34,13 @@ Projects that we list here can fall into this non-exclusive list of categories:
 
 Get in touch with the organization on [Discord](https://discord.gg/JParSCNe5k)!
 
-### Expelliarmus 
+## Expelliarmus 
 
 ![expelliarmus](/images/about/expelliarmus.png)
 
 A Python/C [library](https://github.com/open-neuromorphic/expelliarmus) for **decoding DVS binary data** formats to NumPy structured arrays.
 
-### Tonic
+## Tonic
 
 ![tonic](/images/about/tonic.png)
 
