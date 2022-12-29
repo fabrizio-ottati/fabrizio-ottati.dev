@@ -122,19 +122,19 @@ Denoting with `adder_ctrl` the signal which controls the adder and with `leak_op
 
 # Spike mechanism 
 
-Well, our neuron needs to spike! If this is encoded as a logic one, given a threshold $\theta$, we simply need to **compare $v_{i}[t]$ to $\theta$** and generate a logic 1 in output **when the membrane potential is larger than the threshold**. This can be implemented using a **comparator**. 
+Our neuron needs to spike! If this is encoded as a digital bit, given a threshold $\theta$, we **compare $v_{i}[t]$ to $\theta$** and generate a logic 1 in output **when the membrane potential is larger than the threshold**. This can be implemented using a **comparator** circuit. 
 
 ![spike](/images/blog/spiking_neurons/spike.png)
 
 The output of the comparator is used directly as **spike bit**.
 
-The membrane has to be **reset** when the neuron spikes; hence, we need to **subtract $\theta$ from $v_{i}[t]$ when the neuron fires**. This can be done by driving the input multiplexer of the membrane register to provide $\theta$ in input to the adder, that operates as a subtractor.
+The membrane has to be **reset to a rest potential** when the neuron spikes; hence, we need to **subtract $\theta$ from $v_{i}[t]$ when the neuron fires**. This can be done by driving the input multiplexer of the membrane register to **provide $\theta$ in input to the adder**, that has to perfor a subtraction.
 
 ![reset](/images/blog/spiking_neurons/reset.png)
 
-However, do we need all this hardware? We can be smarter than this:
-- by choosing $\theta = 2^m-1$, where $m$ is the bitwidth of the membrane register and the adder, having $v_{i}[t] \gt \theta$ is **equivalent to having an overflow in the addition**. Hence, the comparison result is equal to the **overflow flag** of the adder, which can be **directly provided in output as spike bit**.
-- instead of subtracting $\theta$ from the membrane register, we can save an operation by simply **resetting** $v_{i}[t]$ to 0 when a spike occurs; this is equivalent to using the oveflow flag of the adder as **reset signal for the membrane register**. This should not be done in an actual implementation: at least a **register** should be added on the reset signal of the membrane register to prevent glitches in the adder circuit from resetting it when it should not be.
+However, this architecture can be simplified:
+- by choosing $\theta = 2^m-1$, where $m$ is the **bitwidth of the membrane register and the adder**, having $v_{i}[t] \gt \theta$ is **equivalent to having an overflow in the addition**; hence, the comparison result is equal to the **overflow flag** of the adder, which can be **provided directly in output as spike bit**.
+- instead of subtracting $\theta$ from the membrane register, we can **reset** $v_{i}[t]$ to 0 when a spike occurs by forcing the membrane register content to 0 with a control signal; this is equivalent to using the oveflow flag of the adder as **reset signal for the membrane register**. This should not be done in an actual implementation: at least a **register** should be added on the reset signal of the membrane register to prevent glitches in the adder circuit from resetting it when it should not be.
 
 The resulting circuit is the following.
 
