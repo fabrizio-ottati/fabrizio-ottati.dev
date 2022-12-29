@@ -52,17 +52,17 @@ Since there are $M$ neurons in the layer, we need an $M$-entries vector, denoted
 
 ![potentials-memory](/images/blog/spiking_neurons/membrane-potentials.png)
 
-To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the post-synaptic neuron address to index the membrane potentials memory, also denoted with $V[t]$.
+An **address** is associated to each neuron, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, the post-synaptic neuron address is used to index the membrane potentials memory $V[t]$.
 
-We are now able to store and retrieve an post-synaptic neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to get the corresponding synapses $W_{i}$, **multiply** these by the spikes of the associated input neurons, sum them up and, then, accumulate them in the post-synaptic neuron membrane. 
+We are now able to store and retrieve a post-synaptic neuron membrane potential using a memory; now, we would like to **charge it with some currents** in order to emulate the behaviour of a neuron membrane; to do that, we need to get the corresponding input synapses $W_{i}$, **multiply** these by the spikes of the associated pre-synaptic neurons, sum them up and, then, accumulate these in the post-synaptic neuron membrane. 
 
 Let us start from a single input pre-synaptic neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
-We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the pre-synaptic neuron connected to the post-synaptic neuron spikes! Given our layer of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
+We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not** to the total current $u_{i}[t]$. This means that the weight $w_{ij}$ is read from memory **only if the corresponding pre-synaptic neuron spikes!** Given our layer of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated with another memory array, denoted with $W$.
 
 ![synapses-memory](/images/blog/spiking_neurons/synapses-weights.png)
 
-This memory has to be addressed with the input pre-synaptic neuron and the destination post-synaptic neuron, in order to obtain the weight $w_{ij}$ in output, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the post-synaptic neuron membrane when the pre-synaptic neuron spikes. 
+This memory has to be addressed with the pre-synaptic neuron and the post-synaptic neuron indices to retrieve the weight $w_{ij}$, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the post-synaptic neuron membrane when the pre-synaptic neuron spikes. 
 
 # Spikes accumulation
 
