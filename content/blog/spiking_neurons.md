@@ -12,69 +12,69 @@ In this article, we will try to model a layer of Leaky Integrate and Fire (LIF) 
 
 ![neurons-connected](/images/blog/spiking_neurons/neurons-connected.png)
 
-In a Spiking Neural Network (SNN), neurons communicate by means of **spikes**: these activation voltages are then converted to currents through the **synapses**, charging the **membrane potential** of the destination neuron. In the following, the destination neuron is denoted with the index $i$, while the input neuron under consideration is denoted with the index $j$. 
+In a Spiking Neural Network (SNN), neurons communicate by means of **spikes**: these activation voltages are then converted to currents through the **synapses**, charging the **membrane potential** of the destination neuron. In the following, the destination neuron is denoted as **post-synaptic** neuron, with the index $i$, while the input neuron under consideration is denoted as **pre-synaptic** neuron, with the index $j$. 
 
-We denote the input spike train incoming from the $j$-neuron with $\sigma_{j}(t)$:
+We denote the input spike train incoming from the pre-synaptic neuron with $\sigma_{j}(t)$:
 $$ \sigma_{j}(t) = \sum_{k} \delta(t-t_{k}) $$
 where $t_{k}$ are the spike timestamps of the spike train $\sigma_{j}(t)$. 
 
-The synapse connecting the $j$-neuron with the $i$-neuron is denoted with $w_{ij}$. All the incoming spike trains are then **integrated** by the $i$-neuron membrane; the integration function can be modeled by a **first-order low-pass filter**, denoted with $\alpha_{i}(t)$:
+The **synapse** connecting the pre-synaptic neuron with the post-synaptic neuron is denoted with $w_{ij}$. All the incoming spike trains are then **integrated** by the post-synaptic neuron membrane; the integration function can be modeled by a **first-order low-pass filter**, denoted with $\alpha_{i}(t)$:
 $$ \alpha_{i}(t) = \frac{1}{\tau_{u_{i}}} e^{-\frac{t}{\tau_{u_{i}}}}$$
-The spike train incoming from the $j$-neuron, hence, is convolved with the membrane function; in real neurons, this corresponds to the **input currents** coming from the $
-j$-neurons that **charge** the $i$-neuron membrane potential, $v_{i}(t)$. The sum of the currents in input to the $i$-neuron is denoted with $u_{i}(t)$ and modeled through the following equation:
+The spike train incoming from the pre-synaptic neuron, hence, is convolved with the membrane function; in real neurons, this corresponds to the **input currents** coming from the pre-synaptic neurons that **charge** the post-synaptic neuron membrane potential, $v_{i}(t)$. The sum of the currents in input to the post-synaptic neuron is denoted with $u_{i}(t)$ and modeled through the following equation:
 $$ u_{i}(t) = \sum_{j \neq i}{w_{ij} \cdot (\alpha_{v} \ast \sigma_{j})(t)} $$
-Each $j$-neuron contributes with a current (spike train multiplied by the $w_{ij}$ synapse) and these sum up at the input of the $i$-neuron. Given the membrane potential of the destination neuron, denoted with $v_{i}(t)$, the differential equation describing its evolution  through time is the following:
+Each pre-synaptic neuron contributes with a current (spike train multiplied by the $w_{ij}$ synapse) and these sum up at the input of the post-synaptic neuron. Given the membrane potential of the destination neuron, denoted with $v_{i}(t)$, the differential equation describing its evolution  through time is the following:
 $$ \frac{\partial}{\partial t} v_{i}(t) = -\frac{1}{\tau_{v}} v_{i}(t) + u_{i}(t)$$
 In addition to the input currents, we have the **neuron leakage**, $\frac{1}{\tau_{v}} v_{i}(t)$, modeled through a **leakage coefficient** $\frac{1}{\tau_{v}}$ that multiplies the membrane potential.
 
-# Discretizing the model
+# Discretising the model
 
-Such a differential equation cannot be solved directly using discrete arithmetic, as it would be processed on digital hardware; hence, we need to **discretize** the equation. This discretization leads to the following result:
+Such a differential equation cannot be solved directly using discrete arithmetic, as it would be processed on digital hardware; hence, we need to **discretise** the equation. This discretisation leads to the following result:
     $$ v_{i}[t] = \beta \cdot v_{i}[t-1] + (1 - \beta) \cdot u_{i}[t] - \theta \cdot S_{i}[t] $$
-where $\beta$ is the **decay coefficient** associated to the leakage. It is a number smaller than 1. To simplify the model, we embed $(1-\beta)$ in the input current $u_{i}[t]$, by merging it with the synapse weights as a scaling factor.
+where $\beta$ is the **decay coefficient** associated to the leakage. We embed $(1-\beta)$ in the input current $u_{i}[t]$, by merging it with the synapse weights as a scaling factor; in this way, the input current $u_{i}[t]$ is **normalised** regardless of the decay constant $\tau_{v}$ value.
 
 Notice that the **membrane reset** mechanism has been added: when a neuron **spikes**, its membrane potential goes back to the rest potential (usually equal to zero), and this is modeled by **subtracting the threshold** $\theta$ from $v_{i}(t)$ when an output spike occurs. The output spike is modeled through a function $S_{i}[t]$:
-$$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \geq \theta ~\text{else}~ 0 $$ 
-This is equal to 1 at spike time (i.e. if at timestamp $t$ the membrane potential $v_{i}[t]$ is larger than or equal to the threshold $\theta$) and 0 elsewhere.
+$$ S_{i}[t] = 1 ~\text{if}~ v_{i}[t] \gt \theta ~\text{else}~ 0 $$ 
+This is equal to 1 at spike time (i.e. if at timestamp $t$ the membrane potential $v_{i}[t]$ is larger than the threshold $\theta$) and 0 elsewhere.
 
 The input current is given by:
 $$ u_{i}[t] = \sum_{j \neq i}{w_{ij} \cdot S_{j}[t]} $$  
+Notice that since $S_{i}[t]$ is either 0 or 1, the input current $u_{i}[t]$ is equal to the **sum of the synapses weights** of the pre-synaptic neurons that spike at timestamp $t$.
 
-# The neurons information: storage and addressing
+# Storage and addressing neurons states
 
-To get started, we need to define the layer **fan-in**, i.e. how many $j$-neurons are connected to input of each $i$-neuron in the layer; we denote this number with $N$. Then, we set the total number of neurons in our layer to $M$.
+Let us define the layer **fan-in**, i.e. how many pre-synaptic neurons are connected in input of each post-synaptic neuron in the layer; we denote this number with $N$. Then, we set the total number of neurons in our layer to $M$.
 
-How do we describe a neuron in hardware? First of all, we need to list some basic information associated to each $i$-neuron:
+How do we describe a neuron in hardware? First of all, we need to list some basic information associated to each post-synaptic neuron:
 - its **membrane potential** $v_{i}[t]$.
-- the **weights  associated to the synapses**, $w_{ij}$; since each $i$-neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
+- the **weights  associated with the synapses**, $w_{ij}$; since each post-synaptic neuron is connected in input to $N$ neurons, these synapses can be grouped in an $N$-entries vector $W_{i}$.
 
-Since there are $M$ neurons in the layer, we need an $M$-entries vector to store all the membrane potentials, denoted with $V[t]$, meaning that the potentials stored in it are those "sampled" at timestamp $t$. This vector can be associated to a **memory array** in our hardware architecture.
+Since there are $M$ neurons in the layer, we need an $M$-entries vector, denoted with $V[t]$, to store the membrane potentials values evaluated at timestamp $t$; this vector is associated with a **memory array** in the hardware architecture.
 
 ![potentials-memory](/images/blog/spiking_neurons/membrane-potentials.png)
 
-To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the $i$-neuron address to index the membrane potentials memory, also denoted with $V[t]$.
+To each neuron, an **address** is associated, which can be thought as the $i$ index in the $V[t]$ vector; to obtain $v_{i}[t]$, we use the post-synaptic neuron address to index the membrane potentials memory, also denoted with $V[t]$.
 
-We are now able to store and retrieve an $i$-neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to get the corresponding synapses $W_{i}$, **multiply** these by the spikes of the associated input neurons, sum them up and, then, accumulate them in the $i$-neuron membrane. 
+We are now able to store and retrieve an post-synaptic neuron membrane potential through a memory: we need to do something with it! In particular, we would like to **charge it with some currents**. To do that, we need to get the corresponding synapses $W_{i}$, **multiply** these by the spikes of the associated input neurons, sum them up and, then, accumulate them in the post-synaptic neuron membrane. 
 
-Let us start from a single input $j$-neuron: 
+Let us start from a single input pre-synaptic neuron: 
 $$ u_{ij}[t] = w_{ij} \cdot S_{j}[t] $$
-We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the $j$-neuron connected to the $i$-neuron spikes! Given our layer of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
+We know that $S_{j}[t]$ is either 1 or 0; hence, we have either $u_{ij}[t] = w_{ij}$ or $u_{ij}[t] = 0$; this means that the synapse weight is **either added or not**. What does this mean for us? It means that we read the $w_{ij}$ synapse from memory only if the pre-synaptic neuron connected to the post-synaptic neuron spikes! Given our layer of $M$ neurons, each of which is connected in input to $N$ synapses, we can think of grouping the $M \cdot N$ weights in a **matrix**, which can be associated to another memory array for its storage, that we denote with $W$.
 
 ![synapses-memory](/images/blog/spiking_neurons/synapses-weights.png)
 
-This memory has to be addressed with the input $j$-neuron and the destination $i$-neuron, in order to obtain the weight $w_{ij}$ in output, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the $i$-neuron membrane when the $j$-neuron spikes. 
+This memory has to be addressed with the input pre-synaptic neuron and the destination post-synaptic neuron, in order to obtain the weight $w_{ij}$ in output, which automatically corresponds to the $u_{ij}[t]$ current being accumulated in the post-synaptic neuron membrane when the pre-synaptic neuron spikes. 
 
 # Spikes accumulation
 
 We have now all the information about our layer of spiking neurons thanks to the memory arrays described above; let us start to implement some neural functionalities! 
 
-We start with the **membrane potential charging** of a generic neuron $i$-neuron. When the $j$-neuron spikes, its synapse weight $w_{ij}$ gets extracted from the synapse memory $W$ and multiplied by the spike. Since the spike is nothing but a single bit equal to 1, this is equivalent to using $w_{ij}$ itself as input current to the $i$-neuron. To accumulate this current, we need to use a **digital adder**!
+We start with the **membrane potential charging** of a generic neuron post-synaptic neuron. When the pre-synaptic neuron spikes, its synapse weight $w_{ij}$ gets extracted from the synapse memory $W$ and multiplied by the spike. Since the spike is nothing but a single bit equal to 1, this is equivalent to using $w_{ij}$ itself as input current to the post-synaptic neuron. To accumulate this current, we need to use a **digital adder**!
 
 ![accumulation](/images/blog/spiking_neurons/accumulation.png)
 
-The membrane potential $v_{i}[t]$ is read from the potentials memory $V[t]$ and added to the corrispondent synapse current $w_{ij}$; the result is the membrane potential  of the next time step, $v_{i}[t+1]$, that will be written back to memory in the next clock cycle. The intermediate value is stored in a **register**, denoted as "membrane register" from now on.
+The membrane potential $v_{i}[t]$ is read from the potentials memory $V[t]$ and added to the corresponding synapse current $w_{ij}$; the result is the membrane potential  of the next time step, $v_{i}[t+1]$, that will be written back to memory in the next clock cycle. The intermediate value is stored in a **register**, denoted as "membrane register" from now on.
 
-To **prevent multiple read-write cycles**, one can think of adding a loop to the register in order to **accumulate all the currents** of the $j$-neurons that are spiking at timestep $t$ and writing the final value $v_{i}[t+1]$ back to memory only once. For simplicity, we will avoid this step.
+To **prevent multiple read-write cycles**, one can think of adding a loop to the register in order to **accumulate all the currents** of the pre-synaptic neurons that are spiking at timestep $t$ and writing the final value $v_{i}[t+1]$ back to memory only once. For simplicity, we will avoid this step.
 
 ![accumulation-loop](/images/blog/spiking_neurons/accumulation-loop.png)
 
@@ -84,13 +84,13 @@ Now our neuron is able to accumulate spikes but we need to differentiate between
 
 ![inhibitory](/images/blog/spiking_neurons/inhibitory.png)
 
-This FSM, given the operation to be executed on the $i$-neuron, controls the adder properly to add or subtract the synapse current. However, does this design make sense?
+This FSM, given the operation to be executed on the post-synaptic neuron, controls the adder properly to add or subtract the synapse current. However, does this design make sense?
 
 Inhibitory and excitatory neurons are chosen at **chip programming time**. This means that the neuron kind does not change during operation (however, with the solution we are about to propose, it would not be a problem to change the neuron type on-the-fly). Hence, we can **embed this information** in the neuron description, **adding a bit to the synapse weights memory row** that, depending on its value, denotes that neuron as excitatory or inhibitory.
 
 ![synapse-encoding](/images/blog/spiking_neurons/synapse-encoding.png)
 
-Suppose that, given a $j$-neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory $j$-row, we add a bit denoted with $e_{j}$ that identifies the neuron type and that is read together with the corresponding $j$-neuron synapse: if it is **excitatory**, $e_{j}=1$ and the weights are **added**; if it is **inhibitory**, $e_{j}=0$ and the weights are **subtracted**. In this way, **the $e_{j}$ field of the synapse can drive directly the adder**. 
+Suppose that, given a pre-synaptic neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory $j$-row, we add a bit denoted with $e_{j}$ that identifies the neuron type and that is read together with the corresponding pre-synaptic neuron synapse: if it is **excitatory**, $e_{j}=1$ and the weights are **added**; if it is **inhibitory**, $e_{j}=0$ and the weights are **subtracted**. In this way, **the $e_{j}$ field of the synapse can drive the adder directly**. 
 
 ![modified-adder](/images/blog/spiking_neurons/modified-adder.png)
 
@@ -141,7 +141,7 @@ Here we are, with a first prototype of our LIF layer digital circuit. In the nex
 
 # Acknowledgements 
 
-I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) and [Steven Abreu](https://stevenabreu.com) for the valuable corrections and comments that made this article way better than the original draft!
+I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) ,[Steven Abreu](https://stevenabreu.com) and [Gregor Lenz](https://lenzgregor.com) for the valuable corrections and comments that made this article way better than the original draft!
 
 # Bibliography
 
