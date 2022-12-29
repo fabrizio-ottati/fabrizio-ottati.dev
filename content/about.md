@@ -14,6 +14,18 @@ My main interests are **event-based vision**, **digital IC design**, **spiking n
 * Master of Science in Electronic Engineering, Microelectronics curriculum, Politecnico di Torino, 2017-2020. 
 * Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
 
+# Academic service 
+
+## Reviewer 
+
+### Journals 
+
+- IEEE Transactions on Circuits and Systems I: Regular Papers.
+
+### Conferences
+
+- PRIME, International Conference on PhD Research in Microelectronics and Electronics.
+
 # Projects 
 
 ## Open Neuromorphic
