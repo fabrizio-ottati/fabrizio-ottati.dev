@@ -50,13 +50,13 @@ Get in touch with the organization on [Discord](https://discord.gg/JParSCNe5k)!
 
 ![expelliarmus](/images/about/expelliarmus.png)
 
-A Python/C [library](https://github.com/open-neuromorphic/expelliarmus) for **decoding DVS binary data** formats to NumPy structured arrays.
+A Python/C [library](https://expelliarmus.readthedocs.io) for **decoding DVS binary data** formats to NumPy structured arrays.
 
 ## Tonic
 
 ![tonic](/images/about/tonic.png)
 
-[Tonic](https://github.com/neuromorphs/tonic) provides publicly available **event-based vision and audio datasets** and **event transformations**. The package is fully compatible with PyTorch Vision / Audio to give you the flexibility that you need. The project has been created by [Gregor Lenz](https://lenzgregor.com).
+[Tonic](https://tonic.readthedocs.io) provides publicly available **event-based vision and audio datasets** and **event transformations**. The package is fully compatible with PyTorch Vision / Audio to give you the flexibility that you need. The project has been created by [Gregor Lenz](https://lenzgregor.com).
 
 # Credits
 
