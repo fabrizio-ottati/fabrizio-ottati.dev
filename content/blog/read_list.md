@@ -1,15 +1,13 @@
 ---
 title: "My neuromophic hardware read list"
 description: "Here's my list of articles and theses related to digital hardware for neuromorphic applications."
-date: 2022-12-27
+date: 2022-12-31
 draft: false
 ---
 
 # My neuromorphic (digital) hardware list
 
 Here's a list of articles and theses related to digital hardware designs for neuomorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
-
-If you are new to neuromorphic computing, I strongly suggest to get a grasp of how an SNN works from [this paper](https://arxiv.org/abs/2109.12894) and, then, to read Charlotte Frenkel's Ph.D. thesis, which is listed below. Otherwise, it will be pretty difficult to understand the content of the papers listed here.
 
 ## [*TrueNorth: Design and Tool Flow of a 65 mW 1 Million Neuron Programmable Neurosynaptic Chip*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Akopyan2015.pdf), Filipp Akopyan et al., 2015 
 
@@ -67,4 +65,12 @@ In this work, a **Recurrent Spiking Neural Network (RSNN)** processor is present
 
 The key feature of this chip is the online learning capability, using a modified version of the **feed-forward eligibility traces** algorithm, which is a bio-inspired approximation of the BackPropagation Through Time (BPTT) algorithm employed for artificial RNNs. The chip performance is validated on gesture recognition, keyword spotting and navigation, with **sub-150μW** and **sub-squared millimeter** power and area budgets.
 
+# [*SNE: an Energy-Proportional Digital Accelerator for Sparse Event-Based Convolutions*](https://arxiv.org/abs/2204.10687), Alfio di Mauro et al., 2022
 
+In this work, an **only-inference digital** chip is presented. The design is tuned towards **event cameras output processing**, employing **convolution engines** in the hardware. 
+
+The novelty of this design is that, even if it is a **synchronous one**, the number of operations performed is proportional to the **number of events** recorded by the camera, which allows very efficient inference when dealing with **sparse inputs** (e.g. low activity scenarios). 
+
+The design is validated on the **IBM DVSGesture** dataset, obtaining **80μJ per inference** when classifying samples, with a recognition accuracy of **92.80%** at most. This design is also integrated in the [PULP](https://pulp-platform.org/) platform; the SoC that embeds it is described in [*Kraken: A Direct Event/Frame-Based Multi-sensor Fusion SoC for Ultra-Efficient Visual Processing in Nano-UAVs*](https://arxiv.org/abs/2209.01065), Alfio Di Mauro et al., 2022. 
+
+The SystemVerilog code is [open source](https://github.com/pulp-platform/sne)!
