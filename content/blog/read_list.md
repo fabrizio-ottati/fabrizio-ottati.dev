@@ -65,7 +65,7 @@ In this work, a **Recurrent Spiking Neural Network (RSNN)** processor is present
 
 The key feature of this chip is the online learning capability, using a modified version of the **feed-forward eligibility traces** algorithm, which is a bio-inspired approximation of the BackPropagation Through Time (BPTT) algorithm employed for artificial RNNs. The chip performance is validated on gesture recognition, keyword spotting and navigation, with **sub-150μW** and **sub-squared millimeter** power and area budgets.
 
-# [*SNE: an Energy-Proportional Digital Accelerator for Sparse Event-Based Convolutions*](https://arxiv.org/abs/2204.10687), Alfio di Mauro et al., 2022
+## [*SNE: an Energy-Proportional Digital Accelerator for Sparse Event-Based Convolutions*](https://arxiv.org/abs/2204.10687), Alfio di Mauro et al., 2022
 
 In this work, an **only-inference digital** chip is presented. The design is tuned towards **event cameras output processing**, employing **convolution engines** in the hardware. 
 
