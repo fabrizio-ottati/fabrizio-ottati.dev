@@ -1,7 +1,7 @@
 ---
 title: "My neuromophic hardware read list"
 description: "Here's my list of articles and theses related to digital hardware for neuromorphic applications."
-date: 2022-12-31
+date: 2023-01-01
 draft: false
 ---
 
