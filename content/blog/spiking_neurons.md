@@ -1,6 +1,6 @@
 ---
 title: "Spiking neurons: a digital hardware implementation"
-date: 2022-12-29
+date: 2023-01-01
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
 draft: false
@@ -158,4 +158,3 @@ I would like to thank [Jason Eshraghian](https://jasoneshraghian.com) ,[Steven A
 - [*Loihi: A Neuromorphic Manycore Processor with On-Chip Learning*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Davies2018.pdf), Mike Davies et al., 2018.
 - [*Training Spiking Neural Networks Using Lessons From Deep Learning*](https://arxiv.org/abs/2109.12894), Jason Eshraghian et al., 2022.
 - [*Bottom-Up and Top-Down Neuromorphic Processor Design: Unveiling Roads to Embedded Cognition*](https://dial.uclouvain.be/pr/boreal/object/boreal%3A226494/datastream/PDF_01/view), Charlotte Frenkel, 2020
-- [*TrueNorth: Design and Tool Flow of a 65 mW 1 Million Neuron Programmable Neurosynaptic Chip*](https://redwood.berkeley.edu/wp-content/uploads/2021/08/Akopyan2015.pdf), Filipp Akopyan et al., 2015 
