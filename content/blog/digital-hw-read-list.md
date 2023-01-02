@@ -103,6 +103,3 @@ The final implementation, validated on an **object detection** task, achieves **
 
 The object detection network is trained offline as ANN and then **converted** to an SNN, using the **IVS 3 classes** dataset and achieving **71.5% maP** with on-chip inference.
 
-## [*THOR -- A Neuromorphic Processor with 7.29G TSOP2/mm2Js Energy-Throughput Efficiency*](https://arxiv.org/abs/2212.01696), Mayank Senapati et al.
-
-## [*Efficient Hardware Acceleration of Sparsely Active Convolutional Spiking Neural Networks*](https://arxiv.org/abs/2203.12437), Jan Sommer et al.
