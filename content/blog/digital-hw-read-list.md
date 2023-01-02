@@ -59,9 +59,9 @@ The neurons interconnection is arranged in a hierarchical routing solution: **me
 
 ## [*Always-On, Sub-300-nW, Event-Driven Spiking Neural Network based on Spike-Driven Clock-Generation and Clock- and Power-Gating for an Ultra-Low-Power Intelligent Device*](https://arxiv.org/abs/2006.12314), Dewei Wang et al.
 
-In this work, a **synchronous** architecture is proposed. The logic operates at **Near Threshold Voltage** (NTV), and **clock gating** and **power gating** are heavily used to minimize power consumption during idle operation, which results to be **300nW**. The chip is targeted at **always-on applications**, like keyword spotting (KWS). The chip is prototyped on a **65nm CMOS** process. The chip is an **only-inference** one, with no online-learning capabilities.
+In this work, a **synchronous** architecture is proposed. The logic operates at **Near Threshold Voltage** (NTV), and **clock gating** and **power gating** are heavily used to minimize power consumption during idle operation, which results to be **300nW**. The chip is targeted at **always-on applications**, like keyword spotting (KWS); and it is prototyped on a **65nm CMOS** process. The design is an **only-inference** one, with no online-learning capabilities.
 
-The architecture is a **feed-forward** one: **5 cores** are used to implement fully connected spiking layers of **Integrate and Fire** (IF) neurons. To minimize power consumption, **asynchronous wake-up circuits** are employed to activate the layers only when there are **incoming spikes**.
+The architecture belongs to the **feed-forward** category: **5 cores** are used to implement fully connected spiking layers of **Integrate and Fire** (IF) neurons. To minimize power consumption, **asynchronous wake-up circuits** are employed to activate the layers only when there are **incoming spikes**.
 
 On the **GCSC** and **HeySnips** datasets, the recognition accuracies are **91.8%** and **95.8%**, respectively. The total power consumption ranges between **75nW** and **220nW**. 
 
