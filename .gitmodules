@@ -4,3 +4,6 @@
 [submodule "themes/cactus"]
 	path = themes/cactus
 	url = git@github.com:monkeyWzr/hugo-theme-cactus.git
+[submodule "themes/gokarna"]
+	path = themes/gokarna
+	url = git@github.com:fabrizio-ottati/gokarna.git

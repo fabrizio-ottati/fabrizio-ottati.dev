@@ -3,6 +3,8 @@ title: "Books list"
 date: 2023-01-01
 description: "This is my list of technical books that I enjoyed reading."
 draft: false
+type: "post"
+tags: ["books", "hardware", "code", "c", "c++", "algorithms", "python"]
 ---
 
 This is a list of books that I enjoyed reading and studying during my university years (and also now). Click on the titles to be redirected to the sources. 

@@ -2,10 +2,10 @@
 title: "My neuromophic hardware read list"
 description: "Here's my list of articles and theses related to digital hardware for neuromorphic applications."
 date: 2023-01-02
+type: "post"
 draft: false
+tags: ["research", "neuromorphic", "hardware"]
 ---
-
-# My neuromorphic (digital) hardware list
 
 Here's a list of articles and theses related to digital hardware designs for neuomorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
 

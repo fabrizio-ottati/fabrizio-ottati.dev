@@ -1,12 +1,13 @@
 ---
 title: "Spiking neurons: a digital hardware implementation"
-date: 2023-01-02
+date: 2023-01-03
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
 draft: false
+type: "post"
+tags: ["neuromorphic", "hardware"]
+showTableOfContents: true
 ---
-
-# Spiking neurons: a digital hardware implementation
 
 In this article, we will try to model a layer of Leaky Integrate and Fire (LIF) spiking neurons using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons from a previous layer.
 
