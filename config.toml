@@ -6,6 +6,11 @@ copyright = "Fabrizio Ottati" # cactus will use title if copyright is not set
 disqusShortname = "fabrizio" # Used when comments is enabled. Cactus will use site title if not set
 # googleAnalytics = "UA-1234-5"
 
+[sitemap]
+    changefreq = 'always'
+    filename = 'sitemap.xml'
+    priority = 0.5
+
 # summaryLength = 2
 
 # Main menu which appears below site header.
