@@ -4,10 +4,9 @@ date: 2023-01-02
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
 draft: false
-image: loihi.png
 ---
 
-# Spiking neurons
+# Spiking neurons: a digital hardware implementation
 
 In this article, we will try to model a layer of Leaky Integrate and Fire (LIF) spiking neurons using digital hardware: registers, memories, adders and so on. To do so, we will consider a single output neuron connected to multiple input neurons from a previous layer.
 
@@ -93,7 +92,7 @@ This FSM, given the operation to be executed on the post-synaptic neuron, choose
 
 However, is this design efficient in terms of resources employed? It has to be reminded that inhibitory and excitatory neurons are chosen at **chip programming time**; this means that **the neuron type does not change during the chip operation** (however, with the solution we are about to propose, it would not be a problem to change the neuron type on-the-fly); hence, we can **embed this information** in the neuron description by **adding a bit to the synapses weights memory row** that, depending on its value, denotes that neuron as excitatory or inhibitory.
 
-![Synapses weight storage in memory.](images/blog/intro-digital-hw-snn/synapse-encoding.png)
+![Synapses weight storage in memory.](/images/blog/intro-digital-hw-snn/synapse-encoding.png)
 
 Suppose that, given a pre-synaptic neuron, all its $M$ output synapses are stored in a memory row of $n$ bits words, where $n$ is the number of bits to which the synapse weight is quantized. At the end of the memory row $j$, we add a bit denoted with $e_{j}$ that identifies the neuron type and that is read together with the weights from the same memory row: if the pre-synaptic neuron $j$ is **excitatory**, $e_{j}=1$ and the weight is **added**; if it is **inhibitory**, $e_{j}=0$ and the weight is **subtracted**; in this way, **the $e_{j}$ field of the synapse can drive the adder directly**. 
 
@@ -151,15 +150,6 @@ Here we are, with a first prototype of our LIF layer digital circuit. In the nex
 # Acknowledgements 
 
 I would like to thank [Jason Eshraghian](https://jasoneshraghian.com), [Steven Abreu](https://stevenabreu.com) and [Gregor Lenz](https://lenzgregor.com) for the valuable corrections and comments that made this article way better than the original draft!
-
-# Credits
-
-The cover image is the Loihi die, taken from [WikiChip](https://en.wikichip.org/wiki/intel/loihi).
-
-# Authors
-
-- [Fabrizio Ottati](https://fabrizio-ottati.github.io) is a Ph.D. student in the HLS Laboratory of the Department of Electronics and Communications, Politecnico di Torino. His main interests are event-based cameras, digital IC design and neuromorphic computing. He is one of the maintainers of two open source projects in the field of neuromorphic computing, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://expelliarmus.readthedocs.io), and one of the founders of [Open Neuromorphic](https://open-neuromorphic.github.io).
-
 
 # Bibliography
 
