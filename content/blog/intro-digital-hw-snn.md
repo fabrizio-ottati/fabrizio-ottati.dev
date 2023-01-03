@@ -3,6 +3,7 @@ title: "Spiking neurons: a digital hardware implementation"
 date: 2023-01-03
 description: "In this article, we will try to model a Leaky Spiking Neuron (LIF) using digital hardware: registers, memories, adders and so on."
 math: true
+image: "/images/blog/intro-digital-hw-snn/loihi.png"
 draft: false
 type: "post"
 tags: ["neuromorphic", "hardware"]
