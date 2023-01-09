@@ -28,12 +28,17 @@ Then, we follow the instructions in [this post](https://support.xilinx.com/s/que
 fab@fedora:Downloads $ ./Xilinx_Unified_2022.2_1014_8888_Lin64.bin --target vitis
 ```
 
-Then we apply the instructions suggested in the post:
+The installer will run and crash, but a folder `vitis` will be there with all the stuff that we need:
 
 ```bash
 fab@fedora:Downloads $ cd vitis
 fab@fedora:vitis $ ls
 bin  data  hs_err_pid811776.log  lib  tps  xsetup
+```
+
+Now, we execute the following commands: 
+
+```bash
 # Removing the harzbuff library that is causing the crash
 fab@fedora:vitis $ rm ./tps/lnx64/jre11.0.11_9/lib/libharfbuzz.so
 # Creating a symlink to my system harbuzz library.
