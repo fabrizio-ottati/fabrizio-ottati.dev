@@ -4,7 +4,7 @@ description: "Here's my list of articles and theses related to digital hardware 
 date: 2023-01-02
 type: "post"
 draft: false
-tags: ["research", "neuromorphic", "hardware"]
+tags: ["research", "neuromorphic", "hardware", "digital", "AI"]
 ---
 
 Here's a list of articles and theses related to digital hardware designs for neuomorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
@@ -103,3 +103,4 @@ The final implementation, validated on an **object detection** task, achieves **
 
 The object detection network is trained offline as ANN and then **converted** to an SNN, using the **IVS 3 classes** dataset and achieving **71.5% maP** with on-chip inference.
 
+## [*FireFly: A High-Throughput and Reconfigurable Hardware Accelerator for Spiking Neural Networks*](https://arxiv.org/abs/2301.01905), Jindong Li et al.
