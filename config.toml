@@ -38,7 +38,7 @@ pygmentsStyle = "monokai"
   socialIcons = [
     {name = "linkedin", url = "https://www.linkedin.com/in/fabrizio-ottati-330704141/"},
     {name = "github", url = "https://github.com/fabrizio-ottati"},
-    {name = "email", url = "mailto:fabriziottati@gmail.com"}
+    {name = "email", url = "mailto:mail@fabrizio-ottati.dev"}
   ]
 
 [menu]
