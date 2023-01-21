@@ -4,7 +4,14 @@ title: 'About'
 
 Fabrizio Ottati is a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en) and professor [Mario Roberto Casu](https://scholar.google.it/citations?user=qWQ_5fEAAAAJ&hl=en).
 
-His main interests are **event-based vision**, **digital IC design** and **spiking neural networks**. He is the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io). 
+His main areas of expertise are 
+* event-based vision. 
+* digital hardware design, for both ASICs and FPGAs.
+* High Level Synthesis (HLS).
+* C/C++ and Python programming.
+* neuromorphic computing.
+
+He is the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
 
 # Career 
 
@@ -22,8 +29,8 @@ His main interests are **event-based vision**, **digital IC design** and **spiki
 
 ### Conferences
 
-- PRIME, International Conference on PhD Research in Microelectronics and Electronics.
+- PRIME, International Conference on Ph.D. Research in Microelectronics and Electronics.
 
 # Credits
 
-The ONM logo has been designed by [Gregor Lenz](https://lenzgregor.com) for the [Open Neuromorphic](https://open-neuromorphic.github.io) organisation.
+The ONM logo has been designed by [Gregor Lenz](https://lenzgregor.com) for the [Open Neuromorphic](https://open-neuromorphic.org) organisation.
