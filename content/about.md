@@ -34,3 +34,5 @@ He is the maintainer of two open source projects in the field of **neuromorphic 
 # Credits
 
 The ONM logo has been designed by [Gregor Lenz](https://lenzgregor.com) for the [Open Neuromorphic](https://open-neuromorphic.org) organisation.
+
+The cat icon has been made by [Freepik](https://www.flaticon.com/authors/freepik) on [Flaticon](https://www.flaticon.com/).
