@@ -2,7 +2,7 @@
 title: "List of open source tools for digital hardware design"
 date: 2023-01-01
 description: "This is my list of tools that I find useful to work on digital hardware design on my local machine."
-draft: false
+draft: true
 type: "post"
 tags: ["open-source", "hardware"]
 ---
