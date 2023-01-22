@@ -2,7 +2,7 @@
 title: "Installing Vitis on Fedora 36"
 date: 2023-01-09
 description: "Troubleshooting Vitis installation on a Fedora machine, officially unsupported."
-draft: false
+draft: true
 type: "post"
 tags: ["vitis", "hardware", "vidado", "fedora", "hls"]
 ---
