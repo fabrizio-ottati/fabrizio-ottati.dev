@@ -25,3 +25,25 @@ This work differs from others also because it is a **forward** architecture: thi
 
 ![Forward architecture of an SNN](/images/blog/dive-in-firefly/forward-architecture.webp)
 
+## The SNN implementation 
+
+The neuron models adopted in this work as the **IF** and **LIF** ones. The conventional discretised equation is adopted:
+
+$$ v_{i}[t] = (1 - \frac{1}{\tau_{m}})u_{i}[t] + I[t] $$
+
+As usual, the membrane potential at timestep $t$ is obtained as the sum of the pre-synaptic currents, $I[t]$, and the decayed membrane potential (the decay term is ignored when using the IF model). The pre-synaptic current is described by the following equation: 
+
+$$ I[t] = \sum_{j}w_{ij}s_{j}[t] + b_{i} $$ 
+
+The synapses weights $w_{ij}$ are multiplied by the incoming spikes $s_{j}[t]$ and summed up. A bias term $b_{i}$ is considered for each post-synaptic neuron.
+
+The membrane potential $u_{i}$ update is then performed using the following equation:
+
+$$ u_{i}[t+1] = 0~\mathrm{if}~v_{i}[t] \geq \theta~\mathrm{else}~v_{i}[t] $$
+$$ s_{i}[t+1] = 1~\mathrm{if}~v_{i}[t] \geq \theta~\mathrm{else}~0 $$
+
+where $\theta$ is the spiking threshold. 
+
+From these equations, two claims can be made:
+* the most **computationally** demanding task is $I[t]$, since all the weights have to be multiplied by the spikes and accumulated. 
+* the most demanding taks from a **memory-access** point of view is the membrane potential $u_{i}[t]$, since it has to be retrieved from memory and updated at each timestep.
