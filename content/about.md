@@ -4,6 +4,8 @@ title: 'About'
 
 Fabrizio Ottati is a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en) and professor [Mario Roberto Casu](https://scholar.google.it/citations?user=qWQ_5fEAAAAJ&hl=en).
 
+His Ph.D. research focuses on applying HLS for efficient inference of SNN models on digital hardware. 
+
 His main areas of expertise are 
 * event-based vision. 
 * digital hardware design, for both ASICs and FPGAs.
@@ -18,6 +20,8 @@ He is the maintainer of two open source projects in the field of **neuromorphic 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Grade: 108/110.
 * Master of Science in Electronic Engineering, Microelectronics, Politecnico di Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
 * Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
+* Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Aug 2023.
+* Visiting researcher in [UCSC Neuromorphic Computing group](https://ncg.ucsc.edu/), led by [Jason Eshraghian](https://jasoneshraghian.com/), Oct 2023 - Dec 2023.
 
 # Academic service 
 
