@@ -21,10 +21,6 @@ For the "Algorithm and Data Structures" course that I followed, it was an incred
 
 This is the book that taught me Python. It is incredibly well written and I always come back to it when I wanted to understand how a Python feature works or if I want to learn new concepts.
 
-## [*Accelerated C++: Practical Programming by Example*](https://www.pearson.com/en-us/subject-catalog/p/accelerated-c-practical-programming-by-example/P200000009268/9780201703535), Andrew Koenig and Barbara E. Moo
-
-This booked taught me C++. Even if it has been written in 2000, it is still a very good introduction to C++, especially if you come from a C background like me. 
-
 ## [*CMOS Circuit Design, Layout and Simulation*](https://cmosedu.com/cmos1/book.htm), R. Jacob Baker
 
 The go-to source when messing with analog design and layout. No questions about it. I learned a lot from it during my "Analog Integrated Circuits" class. It allowed me to design this beauty. 
