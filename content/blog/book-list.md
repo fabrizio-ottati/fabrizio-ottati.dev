@@ -1,6 +1,6 @@
 ---
 title: "Books list"
-date: 2023-01-01
+date: 2023-02-19
 description: "This is my list of technical books that I enjoyed reading."
 draft: false
 type: "post"
