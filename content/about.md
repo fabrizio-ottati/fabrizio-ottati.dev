@@ -21,7 +21,7 @@ He is the maintainer of two open source projects in the field of **neuromorphic 
 * Master of Science in Electronic Engineering, Microelectronics, Politecnico di Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
 * Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
 * Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Aug 2023.
-* Visiting researcher in [UCSC Neuromorphic Computing group](https://ncg.ucsc.edu/), led by [Jason Eshraghian](https://jasoneshraghian.com/), Oct 2023 - Dec 2023.
+* Visiting researcher in [UCSC Neuromorphic Computing Group](https://ncg.ucsc.edu/), led by [Jason Eshraghian](https://jasoneshraghian.com/), Oct 2023 - Dec 2023.
 
 # Academic service 
 
