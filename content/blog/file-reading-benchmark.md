@@ -1,36 +1,44 @@
 ---
-title: "Reading events from disk, fast"
-date: 2023-01-22
-description: "Reduce loading times and disk footprint drastically."
-draft: true
-image: "/images/blog/expelliarmus/file_read_benchmark.png"
-tags: ["file encoding", "events", "event camera", "C programming",]
+title: "Efficient compression for event-based data"
+date: 2023-02-27
+description: "Choosing a good trade-off between disk footprint and file loading times."
+draft: false
+image: file_read_benchmark.png
+tags: ["file encoding", "events", "event camera", "compression"]
+type: "post"
 ---
 
-## Data formats for event-based data
+# Efficient compression for event-based data
 
-In contrast to PNG/JPG for images, there is no standard format for events. When streaming data from an event camera, we get millions of tuples of microsecond timestamps, x/y coordinates and polarity indicators per second that look something like this:
+## Datasets grow larger in size
+As neuromorphic algorithms tackle more complex tasks that are linked to bigger datasets, and event cameras mature to have higher spatial resolution, it is worth looking at how to encode that data efficiently when storing it on disk. To give you an example, Prophesee's latest automotive [object detection dataset](https://docs.prophesee.ai/stable/datasets.html) is some 3.5 TB in size for under 40h of recordings with a single camera.
 
-    [(11718661,  762, 147, 1) (11718665,  833, 184, 1)
-     (11718669, 1161,  72, 1) (11718674, 1110, 100, 0)
-     (11718679, 1073,  23, 1) (11718684, 1134,  56, 1)
-     (11718688,  799, 304, 0) (11718691,  391, 289, 0)
-     (11718694,  234, 275, 1) (11718699,  512, 335, 1)]
+## Event cameras record with fine-grained temporal resolution
+In contrast to conventional cameras, event cameras output changes in illumination, which is already a form of compression. But the output data rate is still a lot higher cameras because of the microsecond temporal resolution that event cameras are able to record with. When streaming data, we get millions of tuples of microsecond timestamps, x/y coordinates and polarity indicators per second that look nothing like a frame but are a list of events:
 
+    #  time, x, y, polarity
+    [(18661,  762, 147, 1) 
+     (18669, 1161,  72, 1) 
+     (18679, 1073,  23, 0) 
+     (18688,  799, 304, 0) 
+     (18694,  234, 275, 1)]
 
-With the emergence of event-based sensors, likewise came numerous ways how to store the data. A straightforward idea is to resort to existing packages such as hdf5 and numpy. When training spiking neural networks, file reading speed is a bottleneck we need to keep in mind. As the spatial resolution of event cameras grows, we receive more and more events per second! Training on bigger datasets means that we want to keep in mind the file reading speed of our data. Here we list the results of our benchmark of different file type encodings and software frameworks that can decode files. 
+## File size vs reading speed trade-off
+So how can we store such data efficiently? 
+A straightforward idea is to resort to formats such as hdf5 and numpy and store the arrays of events directly. But without exploiting any structure in the recorded data, those uncompressed formats end up having the largest file footprint. For our example automotive dataset, this would result in some 7-8 TB of data, which is undesirable. Event camera manufacturers have come up with ways to encode event streams more efficiently. Not only are we concerned about the size of event files on disk, but we also want to be able to read them back to memory as fast as possible! 
+In the following figure we plot the results of our benchmark of different file type encodings and software frameworks that can decode files.
 
-![Comparison among file size and read speed of different encodings and software tools.](/images/blog/expelliarmus/file_read_benchmark.png)
+![Comparison among file size and read speed of different encodings and software tools.](/images/blog/file-reading-benchmark/file_read_benchmark.png)
 
-The file size depends on the encoding, whereas the reading speed depends on the particular implementation of how files are read. In terms of file size, we can see that numpy doesn't use any compression whatsoever, resulting in some 1.7GB file for our sample data. Prophesee's [evt3](https://docs.prophesee.ai/stable/data/encoding_formats/evt3.html) format achieves the best compression by cleverly encoding differences in timestamps. In terms of reading speed, numpy is the fastest as it doesn't deal with any compression on disk. Unzipping the compressed events from disk on the other hand using h5py is by far the slowest. Using [Expelliarmus](https://github.com/open-neuromorphic/expelliarmus) and the [evt2](https://docs.prophesee.ai/stable/data/encoding_formats/evt2.html) file format, we get very close to numpy reading speeds while at the same time only using a fourth of the disk space. This becomes particularly important for larger datasets which can easily reach some 3-4TB when encoded in an inefficient file format. 
+Ideally, we want to be close to the origin where we read fast and compression is high. The file size depends on the encoding, whereas the reading speed depends on the particular implementation/framework of how files are read. In terms of file size, we can see that numpy doesn't use any compression whatsoever, resulting in some 1.7GB file for our sample recording. Prophesee's [EVT3](https://docs.prophesee.ai/stable/data/encoding_formats/evt3.html) and the generic lossless [brotli](https://github.com/google/brotli) formats achieve the best compression. In terms of reading speed, numpy is the fastest as it doesn't deal with any compression on disk. Unzipping the compressed events from disk on the other hand using h5py is by far the slowest. Using [Expelliarmus](https://github.com/open-neuromorphic/expelliarmus) and the [EVT2](https://docs.prophesee.ai/stable/data/encoding_formats/evt2.html) file format, we get very close to numpy reading speeds while at the same time only using a fourth of the disk space. 
 
-## Prophesee encoding formats
+## Details on Prophesee data formats 
 
 [Prophesee](https://prophesee.ai) is one of the major event cameras vendor. Their cameras use three main encoding algorithms for their data: DAT, EVT2 and EVT3. By encoding algorithm it is identified the process by which an event sensed by the camera, consisting in a tuple `(timestamp, x_address, y_address, polarity)`, is encoded to a binary data format. 
 
 ### DAT
 
-![DAT format](/images/blog/expelliarmus/dat-format.png)
+![DAT format](/images/blog/file-reading-benchmark/dat-format.png)
 
 The [DAT](https://docs.prophesee.ai/stable/data/file_formats/dat.html) format encodes an event to a 64 bits word. However, when reading the events from the binary file in chunks of 64 bits on a Little Endian (LE) machine, the image above does not correspond to reality. The following representation, instead, results to be correct:
 
@@ -96,7 +104,7 @@ A CD event is structured in the following way:
 * the first 4 bits are the event type. One might see this as the value of the polarity bit.
 * then, 6 bits are dedicated to the timestamp. However, the full resolution time stamp is given by this merged with the **upper 28 bits** passed in another event, called `TIME HIGH`, as it is shown in the following: 
 
-![EVT2 timestamp encoding](/images/blog/expelliarmus/evt2-timestamp.jpg)
+![EVT2 timestamp encoding](/images/blog/file-reading-benchmark/evt2-timestamp.jpg)
 
 Hence, the **lower 6 bits** are passed during a `CD_*` event, while the **upper 28 bits** are passed during a `TIME HIGH` event, which is structured in the following way: 
 
@@ -164,7 +172,7 @@ The version that actually works is available [here](https://github.com/open-neur
 
 With [EVT3](https://docs.prophesee.ai/stable/data/encoding_formats/evt3.html), data compression is higher: events are encoded to **16 bits** words but there ate many more event types, as it is shown in the following table, taken from [Prophesee documentation](https://docs.prophesee.ai/stable/data/encoding_formats/evt3.html).
 
-![EVT3 event types](/images/blog/expelliarmus/evt3-event-types.png)
+![EVT3 event types](/images/blog/file-reading-benchmark/evt3-event-types.png)
 
 The logic behind EVT3 is the following:  a new event is registered when the **`x` address** changes. From this principle, one has to register a camera event when one of the following three events appear in the stream:
 * `EVT_ADDR_X`: single event with the `x` coordinate encoded to it, together with polarity. The timestamp and `y` address have been passed in previous events. This event is structured as follows:
@@ -212,7 +220,7 @@ An example of vectorized event is the following:
 ```
    4 bits                   12 bits
   --------------------------------------------------------
- | VECTOR | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 1 |
+ | VECTOR | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
   --------------------------------------------------------
 ```
 
@@ -222,11 +230,6 @@ This leads to the following events being encoded to output (keep in mind that we
               Event associated to mask bit #0
   --------------------------------------------------------
  | Timestamp |   baseX + 0   |  y address  |   polarity   |
-  --------------------------------------------------------
-
-              Event associated to mask bit #1
-  --------------------------------------------------------
- | Timestamp |   baseX + 1   |  y address  |   polarity   |
   --------------------------------------------------------
 
               Event associated to mask bit #6
@@ -271,7 +274,7 @@ What about timestamps? Well, now the timestamp is encoded to a **24 bits** data 
 
 Hence, we need to glue together these values to get the full timestamp, as it is shown in the following picture taken from Prophesee documentation.
 
-![EVT3 time high and low parts of the timestamp](/images/blog/expelliarmus/evt3-time-high-time-low.png)
+![EVT3 time high and low parts of the timestamp](/images/blog/file-reading-benchmark/evt3-time-high-time-low.png)
 
 The full C++ code to handle EVT3 events is shown in the following.
 
@@ -366,11 +369,18 @@ bool decode_event(
 
 This code is just for demonstration purposes, it won't actually work, since we need to take care of other things such as timestamp overflows. A working version of this code is provided [here](https://github.com/open-neuromorphic/expelliarmus/blob/cc9fbf1f53bfccd75c920e37d4ed94aa5aec3b1b/expelliarmus/src/evt3.c#L256).
 
+
+
+## Capable frameworks
+The authors of this post have released [Expelliarmus](https://github.com/open-neuromorphic/expelliarmus) as a lightweight, well-tested, pip-installable framework that can read and write different formats easily. If you're working with DAT, EVT2 or EVT3 formats, why not give it a try? 
+
+## Summary
+When training spiking neural networks on event-based data, we want to be able to feed new data to the network as fast as possible. But given the high data rate of an event camera, the amount of data quickly becomes an issue itself, especially for more complex tasks. So we want to choose a good trade-off between a dataset size that's manageable and reading speed. We hope that this article will help future groups that record large-scale datasets to pick a good encoding format. 
+
 ## Authors
-* [Gregor Lenz](https://lenzgregor.com) [to be continued by @Gregor].
+* [Gregor Lenz](https://lenzgregor.com) is a research engineer at SynSense, where he works on machine learning pipelines that can train and deploy robust models on neuromorphic hardware. He hold a PhD in neuromorphic engineering from Sorbonne University in Paris, France.
 * [Fabrizio Ottati](https://fabrizio-ottati.dev) is a Ph.D. student in the HLS Laboratory of the Department of Electronics and Communications, Politecnico di Torino. His main interests are event-based cameras, digital hardware design and neuromorphic computing. He is one of the maintainers of two open source projects in the field of neuromorphic computing, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://expelliarmus.readthedocs.io), and one of the founders of [Open Neuromorphic](https://open-neuromorphic.org).
+* [Alexandre Marcireau](https://github.com/aMarcireau).
 
-## Bibliography
-
-* [Prophesee documentation](https://docs.prophesee.ai/stable/data/file_formats/index.html) on file and event formats.
-* [Expelliarmus](https://expelliarmus.readthedocs.io) source code.
+## Comments
+The aedat4 file contains IMU events as well as change detection events, which increases the file size artificially in contrast to the other benchmarked formats.
