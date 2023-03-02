@@ -2,8 +2,8 @@
 title: "Hardware Dive-In | FireFly: A High-Throughput and Reconfigurable Hardware Accelerator for Spiking Neural Networks"
 description: "First post of the dive-in series: in these blog post, we will investigate thoroughly research papers about digital hardware design for neuromorphic applications."
 image: /images/blog/firefly/dive-in-firefly-architecture.png
-draft: true
-date: 2023-01-23
+draft: false
+date: 2023-03-02
 type: "post"
 tags: ["research", "hardware", "digital", "neuromorphic", "FPGA", "accelerator", "Verilog", "Xilinx", "Ultrascale",]
 showTableOfContents: true
@@ -47,3 +47,105 @@ where $\theta$ is the spiking threshold.
 From these equations, two claims can be made:
 * the most **computationally** demanding task is $I[t]$, since all the weights have to be multiplied by the spikes and accumulated. 
 * the most demanding taks from a **memory-access** point of view is the membrane potential $u_{i}[t]$, since it has to be retrieved from memory and updated at each timestep.
+
+## Spiking convolution
+
+Let us consider the discrete convolution operation in a spiking layer. Consider the following quantities:
+* $c_{i}$ represents the number of channels in the **input** feature map. 
+* $c_{o}$ representes the number of channels in the **output** feature map.
+* $W_{i}$ is the **width** of the **input** feature map. 
+* $H_{i}$ is the **height** of the feature map. 
+* $K_{w}$ is the **width** of the **kernel**.
+* $K_{h}$ is the **height** of the kernel.
+* $W_{o}$ is the **width** of the **output** feature map. 
+* $H_{o}$ is the **height** of the feature map. 
+
+A convolutional kernel $K_{w} \times K_{h}$ represents the set of synapes connected to the output neurons. Considering a timestep $t$, these neurons are convolved with the whole feature map. This means that the spikes of each feature map convolutional window are used to **charge** the post-synaptic neurons. At the end of the convolution, the membrane potentials of these are **thresholded** and the corresponding spikes are generated. 
+
+Let us write some C-like code to describe this operation. 
+
+```c
+/** Function thas performs a spiking convolution.
+  *
+  * @param[in]      featureMapIn    Input feature map.
+  * @param[in]      kernel          The weights kernel.
+  * @param[out]     featureMapOut   Output feature map.
+  * @param[inout]   membranes       Membrane potentials.
+  * @param[in]      theta           Spiking threshold.
+  * @param[in]      lambda          Leakage factor. 
+  */
+void spiking_convolution (
+    spike_t featureMapIn[c_i][H_i][W_i], 
+    weights_t kernel[c_o][c_i][K_h][K_w], 
+    spike_t featureMapOut[c_o][H_o][W_o],
+    membrane_t membranes[c_o][H_o][W_o],
+    membrane_t theta, 
+    membrane_t lambda
+    ) {
+
+    int i, j, k, x, y, z; 
+    
+    // Looping over output channels.
+    for (k=0; k < c_o; k++) { // Output channels.
+        // Looping over input feature map.
+        for (i=0; i < W_i-K_w; i++) { // Feature map height.
+            for (j=0; j < H_i-K_h; j++) { // Feature map width.
+                // Looping over input channels.
+                for (z=0; z < c_i; z++) { // Input channels.
+                    // Looping over the weights kernel.
+                    for (y=0; y < K_h; y++) { // Kernel height.
+                        for (x=0; x < K_h; x++) { // Kernel width.
+                            // Multiplex and accumulate.
+                            if (featureMapIn[z][i+y][j+x])
+                                membranes[k][i+K_h/2][j+K_w/2] += 
+                                    kernel[k][z][y][x]; 
+                        }
+                    } // End kernel loop.
+                } // End input channels loop.
+            }
+        } // End input feature map loop.
+        // Looping over the membranes. 
+        for (i=0; i < H_o; i++) {
+            for (j=0; j < W_o; j++) {
+                // Leakage. 
+                membranes[k][i][j] *= 1 - lambda; 
+                // Thresholding.
+                if (membranes[k][i][j] >= theta) {
+                    featureMapOut[k][i][j] = 1; 
+                    membranes[k][i][j] = 0; 
+                } else {
+                    featureMapOut[k][i][j] = 0; 
+                }
+            }
+        }
+    } // End output channels loop.
+```
+
+I know, it's kind of confusing. This is still a standard two-dimensional convolution! 
+
+The input feature map is a $c_{i} \times H_{i} \times W_{i}$ tensor made of spikes. This is convoled with $c_{o}$ kernels, which values are the synapses connected to the neurons in the output feature map. Each kernel is a $c_{i} \times K_{h} \times K_{w}$ tensor. Supposing that we use a **stride** equal to 1 and that the input feature map uses a **padding** equal to 1, the output is a $c_{o} \times H_{o} \times W_{o}$ tensor, where:
+* $H_{o} = \frac{H_{i} + 2p - K_{h}}{s} + 1 = H_{i} + 3 - K_{h}$.
+* $W_{o} = \frac{W_{i} + 2p - K_{w}}{s} + 1 = W_{i} + 3 - K_{w}$.
+
+What changes from standard two-dimensional convolution is that the **multiply-and-accumulate** operation is substituted by a **multiplex-and-accumulate** one. Let's take a look at that code snippet.
+
+```c
+// Multiplex and accumulate.
+if (featureMapIn[z][i+y][j+x])
+    membranes[k][i+K_h/2][j+K_w/2] += 
+        kernel[k][z][y][x]; 
+```
+
+Instead of multiply the input feature with the synapse, knowing that the first is either 0 or 1, we choose to **accumulate** the synapse weight if the input spike is 1, otherwise we don't.
+
+The other difference is that once the convolution with a filter is finished, we evaluate the resulting **membrane potentials**, in which the synapses weights have been accumulated during convolution; in particular, we compare these against the **spiking threshold** $\theta$ and, if these are larger than or equal to it, the associated neurons **spike** and their membranes are **reset** to 0. The following is the code that implements this operations.
+
+```c
+// Thresholding.
+if (membranes[k][i][j] >= theta) {
+    featureMapOut[k][i][j] = 1; 
+    membranes[k][i][j] = 0; 
+} else {
+    featureMapOut[k][i][j] = 0; 
+}
+```
