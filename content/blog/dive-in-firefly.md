@@ -2,7 +2,7 @@
 title: "Hardware Dive-In | FireFly: A High-Throughput and Reconfigurable Hardware Accelerator for Spiking Neural Networks"
 description: "First post of the dive-in series: in these blog post, we will investigate thoroughly research papers about digital hardware design for neuromorphic applications."
 image: /images/blog/firefly/dive-in-firefly-architecture.png
-draft: false
+draft: true
 date: 2023-03-02
 type: "post"
 tags: ["research", "hardware", "digital", "neuromorphic", "FPGA", "accelerator", "Verilog", "Xilinx", "Ultrascale",]
