@@ -4,6 +4,16 @@ type: "page"
 tags: ["projects"]
 ---
 
+## hls4nm
+
+![hls4nm](/images/about/hls4nm-logo.png)
+
+`hls4nm` is my Ph.D. thesis. It focuses on implementing SNN models on (Xilinx) FPGAs for fast and efficient inference. I am the main developer and I collaborate with [Jason Eshraghian](https://jasoneshraghian.com) to port [snnTorch](https://github.com/jeshraghian/snntorch/) models to my framework. 
+
+The hardware development flow is based on High Level Synthesis, using Vitis HLS, developed by AMD Xilinx. 
+
+The logo has been adapted from the [hls4ml](https://github.com/fastmachinelearning/hls4ml) one, merging it with the [Open Neuromorphic](https://open-neuromorphic.org) organisation logo developed by [Gregor Lenz](https://lenzgregor.com).
+
 ## Open Neuromorphic
 
 ![onm](/images/about/onm.png)
