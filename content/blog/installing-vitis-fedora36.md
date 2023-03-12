@@ -1,6 +1,6 @@
 ---
 title: "Installing Vitis on Fedora 36"
-date: 2023-01-09
+date: 2023-03-10
 description: "Troubleshooting Vitis installation on a Fedora machine, officially unsupported."
 draft: false
 type: "post"
@@ -22,17 +22,17 @@ fab@fedora:~ $ cd ~/Downloads
 fab@fedora:Downloads $ chmod u+x ./Xilinx_Unified_2022.2_1014_8888_Lin64.bin
 ```
 
-Then, we follow the instructions in [this post](https://support.xilinx.com/s/question/0D52E00007Evd2XSAR/vivado-xsetup-jvm-crash-for-full-installer?language=en_US) (search for `vlntmrx` answer). We extract the installer in a folder called `vitis` using the following command:
+Then, we follow the instructions in [this post](https://support.xilinx.com/s/question/0D52E00007Evd2XSAR/vivado-xsetup-jvm-crash-for-full-installer?language=en_US) (search for `vlntmrx` answer). We extract the installer in a folder called `xilinx` using the following command:
 
 ```bash
-fab@fedora:Downloads $ ./Xilinx_Unified_2022.2_1014_8888_Lin64.bin --target vitis
+fab@fedora:Downloads $ ./Xilinx_Unified_2022.2_1014_8888_Lin64.bin --target xilinx
 ```
 
-The installer will run and crash, but a folder `vitis` will be there with all the stuff that we need:
+The installer will run and crash, but a folder `xilinx` will be there with all the stuff that we need:
 
 ```bash
-fab@fedora:Downloads $ cd vitis
-fab@fedora:vitis $ ls
+fab@fedora:Downloads $ cd xilinx
+fab@fedora:xilinx $ ls
 bin  data  hs_err_pid811776.log  lib  tps  xsetup
 ```
 
@@ -40,13 +40,22 @@ Now, we execute the following commands:
 
 ```bash
 # Removing the harzbuff library that is causing the crash
-fab@fedora:vitis $ rm ./tps/lnx64/jre11.0.11_9/lib/libharfbuzz.so
+fab@fedora:xilinx $ rm ./tps/lnx64/jre11.0.11_9/lib/libharfbuzz.so
 # Creating a symlink to my system harbuzz library.
-fab@fedora:vitis $ cp -s /lib64/libharfbuzz.so.0 ./tps/lnx64/jre11.0.11_9/lib/libharfbuzz.so
+fab@fedora:xilinx $ cp -s /lib64/libharfbuzz.so.0 ./tps/lnx64/jre11.0.11_9/lib/libharfbuzz.so
 # Running the installer using xsetup.
-fab@fedora:vitis $ ./xsetup
+fab@fedora:xilinx $ ./xsetup
 ```
 
-The Xilinx GUI installer should start now. I installed the tool in my home directory, under `~/.local/`.
+The Xilinx GUI installer should start now. In my case, I choose `/eda/xilinx` as installation path, executing the following commands to create it:
 
+```bash
+fab@fedora:xilinx $ sudo mkdir /eda # Creating the folder.
+fab@fedora:xilinx $ sudo chown fabrizio /eda # Changing user ownership of the folder.
+fab@fedora:xilinx $ sudo chgrp fabrizio /eda # Changing group ownership of the folder.
+fab@fedora:xilinx $ mkdir /eda/xilinx
+```
 
+In the GUI installer, provide `/eda/xilinx` as installation path.
+
+There are still problems with the GUI that I was not able to solve, but I am a shell guy, so I will be fine! 
