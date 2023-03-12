@@ -1,6 +1,6 @@
 ---
 title: "Efficient compression for event-based data"
-date: 2023-02-27
+date: 2023-02-28
 description: "Choosing a good trade-off between disk footprint and file loading times."
 draft: false
 image: file_read_benchmark.png
