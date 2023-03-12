@@ -11,7 +11,7 @@ showTableOfContents: true
 
 ![FireFly architecture](/images/blog/dive-in-firefly/firefly-architecture.webp)
 
-This is an SNN digital accelerator (in particular, an accelerator for Spiking Convolutional Neural Networks (SCNNs)) targeted to FPGA platforms; the target platformsare edge devices, such the [Avnet Ultra96-V2](https://www.xilinx.com/products/boards-and-kits/1-vad4rl.html). This kind of SoC is an ARM-based, Xilinx Zynq Ultrascale+ MPSoC development board, very popular among designers (now you know what I would like as a birthday gift :stuck_out_tongue_closed_eyes:). The microprocessor can communicate with the logic fabric (i.e. the FPGA itself) through an [AXI](https://support.xilinx.com/s/article/1053914?language=en_US) interface.
+This is an SNN digital accelerator (in particular, an accelerator for Spiking Convolutional Neural Networks (SCNNs)) targeted to FPGA platforms; the target platformsare edge devices, such the [Avnet Ultra96-V2](https://www.xilinx.com/products/boards-and-kits/1-vad4rl.html). The microprocessor can communicate with the logic fabric (i.e. the FPGA itself) through an [AXI](https://support.xilinx.com/s/article/1053914?language=en_US) interface.
 
 Differently from other FPGA solutions, here the Xilinx IPs available are exploited: in particular, the DSP, called **DSP48E2**, is used to perform the neurons membrane update during inference. This allows the architecture to reach a throughput of **5.52TSOP/s** at a clock frequency of **300MHz**.
 
