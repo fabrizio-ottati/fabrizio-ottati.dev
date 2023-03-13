@@ -25,3 +25,20 @@ The TrueNorth design has been driven by seven principles:
 Designing an asynchronous circuit is a very difficult task, since no VLSI EDAs are available for this kind of design; hence, the TrueNorth designers have decided to use conventional EDAs for the synchronous cores design and **custom design tools and flows** for the asynchronous interconnection fabric. 
 
 ## Architecture 
+
+The TrueNorth chip is not a Von Neumann machine! But what does this mean?
+
+{{< 
+    figure 
+    src="/images/blog/dive-in-truenorth/von-neumann-architecture.png" 
+    caption="The Von Neumann architecture."
+    attr="Wikipedia"
+    attrlink="https://en.wikipedia.org/wiki/Von_Neumann_architecture"
+>}}
+In a Von Neumann machine, like the one depicted above (source: )the processing unit is **separated** from the memory one, which stores both data and instructions. The processor reads the instructions from the memory, decodes them, retrieves the data on which it needs to operate from the same memory and, then, executes the instructions.
+
+In a neuromorphic chip, instead, memory and computational units are **co-located**. The neuron constitutes the computational unit (to be precise, it is the **soma**), while the synapses and the membrane are the data on which the neuron operates. The chip is programmed by deciding **which neurons are connected to which**; hence, we do not write instructions to be executed to a memory, but we program the neurons interconnections! 
+
+
+## Bibliography
+
