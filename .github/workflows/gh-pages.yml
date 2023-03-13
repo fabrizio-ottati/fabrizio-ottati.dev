@@ -22,7 +22,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify && echo 'fabrizio-ottati.dev' > CNAME
+        run: hugo --minify && echo 'fabrizio-ottati.dev' > build/CNAME
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
