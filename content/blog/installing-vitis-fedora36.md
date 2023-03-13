@@ -1,10 +1,10 @@
 ---
-title: "Installing Vitis on Fedora 36"
+title: "Installing Vitis HLS and Vivado on Fedora 36"
 date: 2023-03-10
-description: "Troubleshooting Vitis installation on a Fedora machine, officially unsupported."
+description: "Troubleshooting Vitis HLS and Vivado installation on Fedora, which is not offically supported by AMD."
 draft: false
 type: "post"
-tags: ["vitis", "hardware", "vidado", "fedora", "hls"]
+tags: ["vitis", "hardware", "vidado", "fedora", "hls", "linux"]
 ---
 
 Fedora 36 is not officially supported by Xilinx (or AMD, I should say). Hence, I had to use some workarounds to install it on my work machine.
@@ -51,8 +51,8 @@ The Xilinx GUI installer should start now. In my case, I choose `/eda/xilinx` as
 
 ```bash
 fab@fedora:xilinx $ sudo mkdir /eda # Creating the folder.
-fab@fedora:xilinx $ sudo chown fabrizio /eda # Changing user ownership of the folder.
-fab@fedora:xilinx $ sudo chgrp fabrizio /eda # Changing group ownership of the folder.
+fab@fedora:xilinx $ sudo chown fab /eda # Changing user ownership of the folder.
+fab@fedora:xilinx $ sudo chgrp fab /eda # Changing group ownership of the folder.
 fab@fedora:xilinx $ mkdir /eda/xilinx
 ```
 
