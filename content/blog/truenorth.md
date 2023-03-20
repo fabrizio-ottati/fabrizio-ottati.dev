@@ -13,7 +13,7 @@ showTableOfContents: true
 
 ## Why do we want to emulate the brain?
 
-If you have ever read an article on neuromorphic computing, you might have noticed that in the introduction of each of these there is the same statement: "The brain is much powerful than any AI machine when it comes to cognitive tasks but it runs on a **10W** power budget!". And it is absolutely true: neurons in the brain communicate among each other by means of **spikes**, which are short voltage pulses that propagate from one neuron to the other. The average spiking activity is estimated to be around **10Hz** (i.e. a spike every 100ms). 
+If you have ever read an article on neuromorphic computing, you might have noticed that in the introduction of each of these there is the same statement: "The brain is much powerful than any AI machine when it comes to cognitive tasks but it runs on a **10W** power budget!". This is absolutely true: neurons in the brain communicate among each other by means of **spikes**, which are short voltage pulses that propagate from one neuron to the other. The average spiking activity is estimated to be around **10Hz** (i.e. a spike every 100ms). This yields **very low processing power consumption**, since the activity in the brain results to be **really sparse** (at least, this is the hypothesis). 
 
 How can the brain do all this? There are several reasons (or hypotheses, I should say): 
 * the **3D connectivity** among neurons. While in nowadays chip we can place connections among logic gates and circuits only in the 2D space, in the brain we have the whole 3D space at our disposal; this allows the mammalian brain to reach a fanout in the order or **10 thousand connections** per neuron.
@@ -23,14 +23,46 @@ Hence, IBM decide to try to emulate the brain with **TrueNorth**, a **4096 cores
 
 ## Introduction
 
-The TrueNorth design has been driven by seven principles:
-* the architecture is a **purely event-driven one**, being Globally Asynchronous Locally Synchronous (GALS), with a **completely asynchronous** interconnection fabric among the **synchronous** cores. 
-* the CMOS process employed is a **low-power** one, with the goal of minimising **static power**. The technology node is **28nm** CMOS.
-* since the brain is a **massively parallel** architecture, employing **100 billion neurons** each of which has a fanout of approximately **10 thousand synapses**, parallelism is a key feature of TrueNorth: the chip employs **1 million neurons** and **256 million synapses**, by interconnecting **4096 cores**, each of which models **256 neurons** and **64 thousand** synapses.
-* the authors claim **real-time** operation, which translates to a global time synchronisations of **1ms**, i.e. the neurons are updated and spike every millisecond.
-* the architecture is **scalable**: multiple cores can be put together and, since the clock signal is distributed only **locally**, in the core fabric, the **global clock signal skew** problem of modern VLSI digital circuits does not affect TrueNorth.
-* **redundancy** is employed in the design, especially in the **memory circuits**, to make the chip **tolerant to defects**.
-* the chip operation corresponds perfectly to the software operation, when using the IBM TrueNorth application design software.
+The TrueNorth design has been driven by seven principles.
+
+### Purely event-driven architecture
+
+The architecture is a **purely event-driven one**, being Globally Asynchronous Locally Synchronous (GALS), with a **completely asynchronous** interconnection fabric among the **synchronous** cores. What does this actually mean? 
+
+{{< 
+    figure 
+    src="/images/blog/truenorth/gals.png" 
+    caption="A Globally Asynchronous Locally Synchronous architecture (SpiNNaker chip)."
+    attr="Source"
+    attrlink="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FSchematic-representation-of-the-GALS-architecture-flanked-by-an-image-of-the-SpiNNaker_fig1_359291520&psig=AOvVaw2v0Q-RPZf5-_AsxMC_fIoT&ust=1679395465318000&source=images&cd=vfe&ved=0CBAQjRxqGAoTCIDPgfGp6v0CFQAAAAAdAAAAABDbAQ"
+>}}
+
+In general, in a GALS architecture, there is an array of processing elements (PEs) which are synchronised through a global clock. The local clocks in the PEs can be different for each of them, since each PE may be running at a different speed. When two different **clock domains** have to be interfaced, the communication among them is effectively asynchronous: **handshake** protocols have to be implement among these in order to guarantee proper global operation.
+
+In TrueNorth, as in [SpiNNaker](http://apt.cs.manchester.ac.uk/projects/SpiNNaker/SpiNNchip/), there is no global clock: the PEs, which are **neurosynaptic cores**, are interconnected through a **completely asynchronous network**. In this way, the chip operations is event-driven, since the network gets activated only when there are spikes (and other kind of events) to be transmitted.
+
+### Low power operation
+
+The CMOS process employed is a **low-power** one, with the goal of minimising **static power**. The technology node is **28nm** CMOS.
+
+### Massive parallelism
+
+Since the brain is a **massively parallel** architecture, employing **100 billion neurons** each of which has a fanout of approximately **10 thousand synapses**, parallelism is a key feature of TrueNorth: the chip employs **1 million neurons** and **256 million synapses**, by interconnecting **4096 cores**, each of which models **256 neurons** and **64 thousand** synapses.
+
+### Real time operation
+
+The authors claim **real-time** operation, which translates to a global time synchronisations of **1ms**, i.e. the neurons are updated and spike every millisecond.
+
+### Scalable design
+
+The architecture is **scalable**: multiple cores can be put together and, since the clock signal is distributed only **locally**, in the core fabric, the **global clock signal skew** problem of modern VLSI digital circuits does not affect TrueNorth.
+
+### Error tolerance
+**Redundancy** is employed in the design, especially in the **memory circuits**, to make the chip **tolerant to defects**.
+
+### One-to-one correspondence between software and hardware
+
+The chip operation corresponds perfectly to the software operation, when using the IBM TrueNorth application design software.
 
 Designing an asynchronous circuit is a very difficult task, since no VLSI EDAs are available for this kind of design (well, actually now there is a [research-level one](https://github.com/asyncvlsi/)); hence, the TrueNorth designers have decided to use conventional EDAs for the synchronous cores design and **custom design tools and flows** for the asynchronous interconnection fabric. 
 
