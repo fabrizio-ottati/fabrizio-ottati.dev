@@ -160,7 +160,7 @@ The axon transmit an **action potential**, which is the famous spike! This resul
 
 {{< 
     video
-    src="neuron-potential.mp4"
+    src="https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/ActionPotentialPropagation.mp4?_=1"
     preload="auto"
     type="video/mp4"
     width="100%"
