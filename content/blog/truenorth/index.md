@@ -1,7 +1,7 @@
 ---
 title: "Bits of Chips | TrueNorth"
 description: "Analysis of the TrueNorth chip and article."
-image: brain-to-chip.png
+image: "brain-to-chip.png"
 draft: false
 date: 2023-03-26
 type: "post"
@@ -9,7 +9,7 @@ tags: ["research", "hardware", "digital", "neuromorphic"]
 showTableOfContents: true
 ---
 
-![The beautiful TrueNorth article image](brain-to-chip.png "") 
+![The beautiful TrueNorth article image](brain-to-chip.png) 
 
 ## Why do we want to emulate the brain?
 
