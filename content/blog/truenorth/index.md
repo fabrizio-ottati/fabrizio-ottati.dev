@@ -1,7 +1,7 @@
 ---
 title: "Bits of Chips | TrueNorth"
 description: "Analysis of the TrueNorth chip and article."
-image: "/static/images/previews/truenorth.png"
+image: brain-to-chip.png
 draft: false
 date: 2023-03-26
 type: "post"
