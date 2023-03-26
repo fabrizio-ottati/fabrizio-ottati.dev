@@ -106,7 +106,7 @@ In TrueNorth, a mixed approach has been adopted: a neurosynaptic core packs 256 
 
 {{<
     figure
-    src="neuron.jpg"
+    src=https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/Neuron.jpg"
     caption="A typical neuron."
     attr="Source"
     attrlink="https://openbooks.lib.msu.edu/neuroscience/chapter/the-neuron/"
@@ -116,7 +116,7 @@ A neuron is made of different parts, that are shown in the figure above. **Dendr
 
 {{<
     figure
-    src="neuron-dendrites.jpg"
+    src="https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/Dendrites.jpg"
     caption="The neuron dendrites."
     attr="Source"
     attrlink="https://openbooks.lib.msu.edu/neuroscience/chapter/the-neuron/"
@@ -126,7 +126,7 @@ Dendrites branch out from the soma. Their function is to **receive information**
 
 {{<
     figure
-    src="neuron-soma.jpg"
+    src="https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/Soma.jpg"
     caption="The neuron soma."
     attr="Source"
     attrlink="https://openbooks.lib.msu.edu/neuroscience/chapter/the-neuron/"
@@ -136,7 +136,7 @@ The soma is where the **computation** happens. This is where the membrane potent
 
 {{<
     figure
-    src="neuron-axon.jpg"
+    src="https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/Axon.jpg"
     caption="The neuron axon."
     attr="Source"
     attrlink="https://openbooks.lib.msu.edu/neuroscience/chapter/the-neuron/"
@@ -146,7 +146,7 @@ The axon is the communication channel of the neuron. It is attached to the neuro
 
 {{<
     figure
-    src="neuron-presynaptic.jpg"
+    src="https://openbooks.lib.msu.edu/app/uploads/sites/6/2020/11/Presynaptic-Terminal.jpg"
     caption="Synaptic connection among neurons."
     attr="Source"
     attrlink="https://openbooks.lib.msu.edu/neuroscience/chapter/the-neuron/"
