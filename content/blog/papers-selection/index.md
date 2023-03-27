@@ -1,12 +1,13 @@
 ---
-title: "My papers selection"
+title: "Research articles list"
 description: "A list of my favourite research papers."
-draft: false
 date: 2023-03-27
 type: "post"
-tags: ["research", "hardware", "digital"]
+tags: ["research", "hardware", "digital", "academia", "chips", "IC"]
 showTableOfContents: true
 ---
+
+Here's the list of my favourite research articles. Of course, they focus on digital hardware design and/or automation :)
 
 # 2015 
 
