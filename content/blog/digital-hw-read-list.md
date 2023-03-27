@@ -7,7 +7,7 @@ draft: false
 tags: ["research", "neuromorphic", "hardware", "digital", "AI"]
 ---
 
-Here's a list of articles and theses related to digital hardware designs for neuomorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
+Here's a list of articles and theses related to digital hardware designs for neuromorphic applications. I plan to update it regularly. To be redirected directly to the sources, click on the titles! 
 
 # 2015
 
