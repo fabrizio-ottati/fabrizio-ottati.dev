@@ -31,10 +31,10 @@ The architecture is a **purely event-driven one**, being Globally Asynchronous L
 
 {{< 
     figure 
-    src="gals.png" 
-    caption="A Globally Asynchronous Locally Synchronous architecture (SpiNNaker chip)."
+    src="https://d3i71xaburhd42.cloudfront.net/df3434c56233f707da2383620667d57632eaff72/2-Figure1-1.png"
+    caption="A Globally Asynchronous Locally Synchronous architecture."
     attr="Source"
-    attrlink="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FSchematic-representation-of-the-GALS-architecture-flanked-by-an-image-of-the-SpiNNaker_fig1_359291520&psig=AOvVaw2v0Q-RPZf5-_AsxMC_fIoT&ust=1679395465318000&source=images&cd=vfe&ved=0CBAQjRxqGAoTCIDPgfGp6v0CFQAAAAAdAAAAABDbAQ"
+    attrlink="https://d3i71xaburhd42.cloudfront.net/df3434c56233f707da2383620667d57632eaff72/2-Figure1-1.png"
 >}}
 
 In general, in a GALS architecture, there is an array of processing elements (PEs) which are synchronised through a global clock. The local clocks in the PEs can be different for each of them, since each PE may be running at a different speed. When two different **clock domains** have to be interfaced, the communication among them is effectively asynchronous: **handshake** protocols have to be implement among these in order to guarantee proper global operation.
@@ -74,7 +74,7 @@ The TrueNorth chip is not a Von Neumann machine! But what does this mean?
 
 {{< 
     figure 
-    src="von-neumann-architecture.png" 
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Von_Neumann_Architecture.svg/1920px-Von_Neumann_Architecture.svg.png"
     caption="The Von Neumann architecture."
     attr="Source"
     attrlink="https://en.wikipedia.org/wiki/Von_Neumann_architecture"
