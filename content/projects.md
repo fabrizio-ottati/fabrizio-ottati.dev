@@ -44,3 +44,6 @@ A Python [package](https://expelliarmus.readthedocs.io) for **decoding DVS binar
 
 [Tonic](https://tonic.readthedocs.io) provides publicly available **event-based vision and audio datasets** and **event transformations**. The package is fully compatible with PyTorch Vision / Audio to give you the flexibility that you need. The project has been created by [Gregor Lenz](https://lenzgregor.com).
 
+# Awesome Neuromorphic Hardware 
+
+This [repository](https://github.com/fabrizio-ottati/awesome-neuromorphic-hw) collects papers, docs, codes about neuromorphic hardware for anyone who wants to do research on it. I am continuously improving the project. Welcome to PR the works (papers, repositories) that are missed by the repo. Inspired by [awesome-model-quantization](https://github.com/htqin/awesome-model-quantization).
