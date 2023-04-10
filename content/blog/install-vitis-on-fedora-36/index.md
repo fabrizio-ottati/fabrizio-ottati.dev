@@ -92,3 +92,6 @@ fab@fedora:~ $ vitis_hls
 The following image is what you should see:
 
 ![vitis-hls-gui-running](vitis-hls-gui-running.png)
+
+You can do the same for Vivado and Vitis. Thanks to the Xilinx community for the help!
+
