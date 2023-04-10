@@ -1,6 +1,6 @@
 ---
 title: "Installing Vitis HLS and Vivado on Fedora 36"
-date: 2023-03-10
+date: 2023-04-10
 description: "Troubleshooting Vitis HLS and Vivado installation on Fedora, which is not offically supported by AMD."
 draft: false
 type: "post"
@@ -58,4 +58,37 @@ fab@fedora:xilinx $ mkdir /eda/xilinx
 
 In the GUI installer, provide `/eda/xilinx` as installation path.
 
-There are still problems with the GUI that I was not able to solve, but I am a shell guy, so I will be fine! 
+# Vitis HLS GUI 
+
+Now, we need to do some other things to allow the Vitis HLS GUI to start. We will follow the instructions shown in [this post](https://support.xilinx.com/s/question/0D54U00006TZa0tSAD/vitis-and-vitishls-on-fedora-37?language=en_US). 
+
+First of all, we move to the Vitis HLS path where we need to change some thins: `/eda/xilin/Vitis_HLS/2022.2/lib/lnx64.o/Default`:
+
+```bash
+fab@fedora:xilinx $ cd /eda/xilin/Vitis_HLS/2022.2/lib/lnx64.o/Default
+fab@fedora:Default $
+```
+
+Here, we rename the Xilinx version of `libstdc++.so.6` to `libstdc++.so.6.bak`:
+
+```bash
+fab@fedora:Default $ mv libstdc++.so.6 libstdc++.so.6.bak
+```
+
+Then, we copy the system version of `libstdc++.so.6` here via a symbolic link:
+
+```bash
+fab@fedora:Default $ ln -sf /usr/lib64/libstdc++.so.6 ./libstdc++.so.6
+```
+
+Now the GUI should work! Run in the terminal:
+
+```bash
+fab@fedora:Default $ cd
+fab@fedora:~ $ source /eda/xilinx/Vitis_HLS/2022.2/settings64.sh
+fab@fedora:~ $ vitis_hls
+```
+
+The following image is what you should see:
+
+![vitis-hls-gui-running](vitis-hls-gui-running.png)
