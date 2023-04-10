@@ -15,7 +15,7 @@ Here's the list of my favourite research articles. Of course, they focus on digi
 
 ## 2016 
 
-* [[IEEE-JSSC](https://www.rle.mit.edu/eems/wp-content/uploads/2016/11/eyeriss_jssc_2017.pdf)] *Eyeriss: An Energy-Efficient Reconfigurable Accelerator for Deep Convolutional Neural Networks*, Yu-Shin Chen et al.
+* [[IEEE-JSSC](https://people.csail.mit.edu/emer/papers/2017.01.jssc.eyeriss_design.pdf)] *Eyeriss: An Energy-Efficient Reconfigurable Accelerator for Deep Convolutional Neural Networks*, Yu-Shin Chen et al.
 
 ## 2015 
 
