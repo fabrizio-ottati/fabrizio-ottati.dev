@@ -9,6 +9,10 @@ tags: ["vitis", "hardware", "vidado", "fedora", "hls", "linux"]
 
 Fedora 36 is not officially supported by Xilinx (or AMD, I should say). Hence, I had to use some workarounds to install it on my work machine.
 
+# Why Vitis/Vivado?
+
+Vitis HLS and Vivado are **freeware**! This means that the tool itself is not open source, but anyone can download it and use it! I use it in my research and I find it useful to be able to run some small testbenches on my local machine without ssh-ing to the lab server.
+
 # Downloading the web installer
 
 First of all, you need to download the [Vitis Linux web installer](https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Unified_2022.2_1014_8888_Lin64.bin), available at [this page](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vitis.html). I chose the **Vitis Core Development Kit - 2022.2** package, and saved it in my `~/Downloads` directory.
