@@ -23,6 +23,12 @@ He is the maintainer of two open source projects in the field of **neuromorphic 
 * Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Aug 2023.
 * Visiting researcher in [UCSC Neuromorphic Computing Group](https://ncg.ucsc.edu/), led by [Jason Eshraghian](https://jasoneshraghian.com/), Oct 2023 - Dec 2023.
 
+# Publications
+
+## 2023
+
+* [[ArXiv](https://arxiv.org/abs/2304.04640)] *NeuroBench: Advancing Neuromorphic Computing through Collaborative, Fair and Representative Benchmarking*, Jason Yik et al.
+
 # Academic service 
 
 ## Reviewer 
