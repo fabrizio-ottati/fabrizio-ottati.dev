@@ -29,6 +29,10 @@ He is the maintainer of two open source projects in the field of **neuromorphic 
 
 * [[ArXiv](https://arxiv.org/abs/2304.04640)] *NeuroBench: Advancing Neuromorphic Computing through Collaborative, Fair and Representative Benchmarking*, Jason Yik et al.
 
+## 2021 
+
+* [[ArXiv](https://arxiv.org/abs/2304.04995)] *Custom Memory Design for Logic-in-Memory: Drawbacks and Improvements over Conventional Memories*, Fabrizio Ottati et al.
+
 # Academic service 
 
 ## Reviewer 
