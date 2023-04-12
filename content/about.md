@@ -15,6 +15,8 @@ His main areas of expertise are
 
 He is the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
 
+You can download my CV from [here](/docs/CV.pdf).
+
 # Career 
 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Grade: 108/110.
