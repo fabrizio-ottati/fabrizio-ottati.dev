@@ -1,13 +1,13 @@
 ---
-title: "Installing Vitis HLS and Vivado on Fedora 36"
-date: 2023-04-10
+title: "Installing Vitis HLS and Vivado on Fedora 37"
+date: 2023-05-03
 description: "Troubleshooting Vitis HLS and Vivado installation on Fedora, which is not offically supported by AMD."
 draft: false
 type: "post"
 tags: ["vitis", "hardware", "vidado", "fedora", "hls", "linux"]
 ---
 
-Fedora 36 is not officially supported by Xilinx (or AMD, I should say). Hence, I had to use some workarounds to install it on my work machine.
+Fedora 37 is not officially supported by Xilinx (or AMD, I should say). Hence, I had to use some workarounds to install it on my work machine.
 
 # Why Vitis/Vivado?
 
@@ -96,6 +96,32 @@ fab@fedora:~ $ vitis_hls
 The following image is what you should see:
 
 ![vitis-hls-gui-running](vitis-hls-gui-running.png)
+
+# Change `ld` in Vivado
+
+When trying to run a C compilation in Vitis HLS, you might get the following error:
+
+```bash
+/eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld: /lib64/libm.so.6: unknown type [0x13] section `.relr.dyn'
+/eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld: skipping incompatible /lib64/libm.so.6 when searching for /lib64/libm.so.6
+/eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld: cannot find /lib64/libm.so.6
+```
+
+To fix this, we simply have to change the `ld` binary with the system one. To do that, we first create a backup copy of `ld`: 
+
+```bash
+fab@fedora:~ mv /eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld /eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld.bak
+```
+
+Then, we create a symbolic link to `/usr/bin/ld`:
+
+```bash 
+fab@fedora:~ ln -s /usr/bin/ld /eda/xilinx/Vivado/2022.2/tps/lnx64/binutils-2.37/bin/ld
+```
+
+Now everything should work! 
+
+# Conclusions
 
 You can do the same for Vivado and Vitis. Thanks to the Xilinx community for the help!
 
