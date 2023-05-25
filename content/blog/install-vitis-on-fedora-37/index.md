@@ -1,6 +1,6 @@
 ---
 title: "Installing Vitis HLS and Vivado on Fedora 37"
-date: 2023-05-03
+date: 2023-05-25
 description: "Troubleshooting Vitis HLS and Vivado installation on Fedora, which is not offically supported by AMD."
 draft: false
 type: "post"
