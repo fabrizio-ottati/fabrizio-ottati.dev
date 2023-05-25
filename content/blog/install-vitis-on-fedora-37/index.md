@@ -66,10 +66,10 @@ In the GUI installer, provide `/eda/xilinx` as installation path.
 
 Now, we need to do some other things to allow the Vitis HLS GUI to start. We will follow the instructions shown in [this post](https://support.xilinx.com/s/question/0D54U00006TZa0tSAD/vitis-and-vitishls-on-fedora-37?language=en_US). 
 
-First of all, we move to the Vitis HLS path where we need to change some thins: `/eda/xilin/Vitis_HLS/2022.2/lib/lnx64.o/Default`:
+First of all, we move to the Vitis HLS path where we need to change some thins: `/eda/xilinx/Vitis_HLS/2022.2/lib/lnx64.o/Default`:
 
 ```bash
-fab@fedora:xilinx $ cd /eda/xilin/Vitis_HLS/2022.2/lib/lnx64.o/Default
+fab@fedora:xilinx $ cd /eda/xilinx/Vitis_HLS/2022.2/lib/lnx64.o/Default
 fab@fedora:Default $
 ```
 
