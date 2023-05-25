@@ -9,6 +9,8 @@ tags: ["vitis", "hardware", "vidado", "fedora", "hls", "linux"]
 
 Fedora 37 is not officially supported by Xilinx (or AMD, I should say). Hence, I had to use some workarounds to install it on my work machine.
 
+These instructions have been tested for the 2022.2 and 2023.1 versions. 
+
 # Why Vitis/Vivado?
 
 Vitis HLS and Vivado are **freeware**! This means that the tool itself is not open source, but anyone can download it and use it! I use it in my research and I find it useful to be able to run some small testbenches on my local machine without ssh-ing to the lab server.
