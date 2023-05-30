@@ -1,7 +1,7 @@
 ---
 title: "Research articles list"
 description: "A list of my favourite research papers."
-date: 2023-04-10
+date: 2023-05-30
 type: "post"
 tags: ["research", "hardware", "digital", "academia", "chips", "IC"]
 showTableOfContents: true
@@ -9,6 +9,9 @@ showTableOfContents: true
 
 Here's the list of my favourite research articles. Of course, they focus on digital hardware design and/or automation :)
 
+## 2022
+
+* [[IEEE-ISSCC](https://ieeexplore.ieee.org/document/9731734)] *ReckOn: A 28nm Sub-mm2 Task-Agnostic Spiking Recurrent Neural Network Processor Enabling On-Chip Learning over Second-Long Timescales*, Charlotte Frenkel et al. [[Code](https://github.com/chfrenkel/reckon/)]
 ## 2017
 
 * [[IEEE-JPROC](https://arxiv.org/abs/1703.09039)] *Efficient Processing of Deep Neural Networks: A Tutorial and Survey*, Vivienne Sze et al.  [[NeurIPS slides](http://eyeriss.mit.edu/2019_neurips_tutorial.pdf)]
