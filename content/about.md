@@ -45,6 +45,7 @@ You can download my CV from [here](/docs/CV.pdf).
 
 ### Conferences
 
+- ICONS, International Conference on Neuromorphic Systems.
 - PRIME, International Conference on Ph.D. Research in Microelectronics and Electronics.
 
 # Credits
