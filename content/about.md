@@ -42,6 +42,7 @@ You can download my CV from [here](/docs/CV.pdf).
 ### Journals 
 
 - IEEE Transactions on Circuits and Systems I: Regular Papers.
+- IEEE Journal on Emerging and Selected Topics in Circuits and Systems.
 
 ### Conferences
 
