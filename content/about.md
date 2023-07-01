@@ -6,7 +6,7 @@ I am a Ph.D. student in the [Department of Electronics and Communications](https
 
 My Ph.D. research focuses on digital hardware design and automation with the goal of improving deep learning models efficiency.
 
-My main areas of interest are 
+My main areas of interest are:
 * event-based vision. 
 * digital hardware design.
 * high level synthesis (HLS).
