@@ -2,28 +2,26 @@
 title: 'About'
 ---
 
-Fabrizio Ottati is a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en) and professor [Mario Roberto Casu](https://scholar.google.it/citations?user=qWQ_5fEAAAAJ&hl=en).
+I am a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en).
 
-His Ph.D. research focuses on applying HLS for efficient inference of SNN models on digital hardware. 
+My Ph.D. research focuses on digital hardware design and automation with the goal of improving deep learning models efficiency.
 
-His main areas of expertise are 
+My main areas of interest are 
 * event-based vision. 
-* digital hardware design, for both ASICs and FPGAs.
-* High Level Synthesis (HLS).
-* C/C++ and Python programming.
-* neuromorphic computing.
+* digital hardware design.
+* high level synthesis (HLS).
+* computer science (I am particularly fascinated by algorithms).
+* brain inspired computing (mainly, spiking neural networks).
+* deep learning.
 
-He is the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
-
-You can download my CV from [here](/docs/CV.pdf).
+I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
 
 # Career 
 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Grade: 108/110.
 * Master of Science in Electronic Engineering, Microelectronics, Politecnico di Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
-* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-ongoing.
-* Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Aug 2023.
-* Visiting researcher in [UCSC Neuromorphic Computing Group](https://ncg.ucsc.edu/), led by [Jason Eshraghian](https://jasoneshraghian.com/), Oct 2023 - Dec 2023.
+* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-2024.
+* Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Sep 2023.
 
 # Publications
 
