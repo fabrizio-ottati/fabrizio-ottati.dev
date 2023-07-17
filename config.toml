@@ -12,7 +12,7 @@ pygmentsStyle = "monokai"
 
 [params]
   footer = "Fabrizio Ottati"
-  description = "Hardware enthusiast. Open sourcer. Neuromorpher."
+  description = "Digital hardware enthusiast. Open sourcer."
   avatarURL = "/images/cat-icon.png"
   AvatarAltText = "fabrizio"
   avatarSize = "size-l"
