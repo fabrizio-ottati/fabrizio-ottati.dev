@@ -5,6 +5,7 @@ date: 2023-05-30
 type: "post"
 tags: ["research", "hardware", "digital", "academia", "chips", "IC"]
 showTableOfContents: true
+draft: true
 ---
 
 Here's the list of my favourite research articles. Of course, they focus on digital hardware design and/or automation :)
