@@ -2,16 +2,24 @@
 title: 'About'
 ---
 
-I am a Ph.D. student in the [Department of Electronics and Communications](https://www.det.polito.it/) of [Politecnico di Torino](https://www.polito.it/), under the supervision of professor [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en).
+I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno/377/cuccaro-vetere) in the south of Italy. Since I was a kid, I was incredibly interested in science, thanks particularly to a TV show called Super Quark, hosted by [Piero Angela](https://en.wikipedia.org/wiki/Piero_Angela). My dream was to become a scientist. Now I am trying to do so, having fun with computers, hardware and artificial intelligence.
 
-My Ph.D. research focuses on digital hardware design and automation with the goal of improving deep learning models efficiency.
+I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
+
+I am currently in [Delft](https://en.wikipedia.org/wiki/Delft), doing an internship in [Charlotte Frenkel](https://chfrenkel.github.io/)'s lab, in collaboration with Professor Guido De Croon from  [MAVLab](https://mavlab.tudelft.nl/), trying to make autonomous small drones to fly autonomously using custom hardware and event based cameras.
+
+![Artù and Merlino](/images/about/gattacci.jpg)
+
+I have two beautiful cats, Artù and Merlino. I love them. A lot. 
+
+My research focuses on digital hardware design and automation with the goal of improving deep learning models efficiency.
 
 My main areas of interest are:
 * event-based vision. 
 * deep learning.
 * digital hardware design.
 * high level synthesis (HLS).
-* computer science. Fancy graphs, recursion, metaprogramming, the more the better.
+* computer science. Fancy graphs, recursion, metaprogramming, compilers, the more the better.
 * brain inspired computing (mainly, spiking neural networks).
 
 I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
