@@ -8,11 +8,11 @@ My Ph.D. research focuses on digital hardware design and automation with the goa
 
 My main areas of interest are:
 * event-based vision. 
+* deep learning.
 * digital hardware design.
 * high level synthesis (HLS).
-* computer science (I am particularly fascinated by algorithms).
+* computer science. Fancy graphs, recursion, metaprogramming, the more the better.
 * brain inspired computing (mainly, spiking neural networks).
-* deep learning.
 
 I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
 
@@ -20,7 +20,7 @@ I am the maintainer of two open source projects in the field of **neuromorphic c
 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Grade: 108/110.
 * Master of Science in Electronic Engineering, Microelectronics, Politecnico di Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
-* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, 2020-2024.
+* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, Nov 2020 - Feb 2024.
 * Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Sep 2023.
 
 # Publications
