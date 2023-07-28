@@ -8,7 +8,7 @@ I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I 
 
 I am currently in [Delft](https://en.wikipedia.org/wiki/Delft), doing an internship in [Charlotte Frenkel](https://chfrenkel.github.io/)'s lab, in collaboration with Professor Guido De Croon from  [MAVLab](https://mavlab.tudelft.nl/), trying to make autonomous small drones to fly autonomously using custom hardware and event based cameras.
 
-![Artù and Merlino](/images/about/gattacci.jpg)
+![Artù and Merlino](/images/about/gattacci.png)
 
 I have two beautiful cats, Artù and Merlino. I love them. A lot. 
 
