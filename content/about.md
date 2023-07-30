@@ -4,9 +4,9 @@ title: 'About'
 
 I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno/377/cuccaro-vetere) in the south of Italy. Since I was a kid, I was incredibly interested in science, thanks particularly to a TV show called Super Quark, hosted by [Piero Angela](https://en.wikipedia.org/wiki/Piero_Angela). My dream was to become a scientist. Now I am trying to do so, having fun with computers, hardware and artificial intelligence.
 
-I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
+I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of Professor [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
 
-I am currently in [Delft](https://en.wikipedia.org/wiki/Delft), doing an internship in [Charlotte Frenkel](https://chfrenkel.github.io/)'s lab, in collaboration with Professor Guido De Croon from  [MAVLab](https://mavlab.tudelft.nl/), trying to make autonomous small drones to fly autonomously using custom hardware and event based cameras.
+I am currently in [Delft](https://en.wikipedia.org/wiki/Delft), doing an internship in Professor [Charlotte Frenkel](https://chfrenkel.github.io/)'s lab, in collaboration with Professor Guido De Croon from  [MAVLab](https://mavlab.tudelft.nl/), trying to allow small drones to fly autonomously using custom hardware and event based cameras.
 
 ![Artù and Merlino](/images/about/gattacci.png)
 
