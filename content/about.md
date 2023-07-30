@@ -22,7 +22,7 @@ My main areas of interest are:
 * computer science. Fancy graphs, recursion, metaprogramming, compilers, the more the better.
 * brain inspired computing (mainly, spiking neural networks).
 
-I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org).
+I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my CV from [here](/docs/cv.pdf).
 
 # Career 
 
