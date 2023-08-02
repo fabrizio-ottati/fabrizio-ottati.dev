@@ -10,7 +10,7 @@ type: page
 ### 2023-04-20
 
 I have visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorphic! And we had some nice beer and ramen too :) 
-[innatera-dinner](innatera-visit.jpg)
+![innatera-dinner](innatera-visit.jpg)
 Thanks to Kasia Kozdon and Rui Texeira for inviting me!
 
 ### 2023-02-01
