@@ -36,12 +36,12 @@ pygmentsStyle = "monokai"
       });
     </script>
   """
-  socialIcons = [
-    {name = "linkedin", url = "https://www.linkedin.com/in/fabrizio-ottati-330704141/"},
-    {name = "github", url = "https://github.com/fabrizio-ottati"},
-    {name = "email", url = "mailto:fabrizio.ottati@polito.it"},
-    {name = "twitter", url = "https://twitter.com/OttatiFabrizio"}
-  ]
+#   socialIcons = [
+#     {name = "linkedin", url = "https://www.linkedin.com/in/fabrizio-ottati-330704141/"},
+#     {name = "github", url = "https://github.com/fabrizio-ottati"},
+#     {name = "email", url = "mailto:fabrizio.ottati@polito.it"},
+#     {name = "twitter", url = "https://twitter.com/OttatiFabrizio"}
+#   ]
 
 [menu]
   [[menu.main]]
@@ -52,15 +52,15 @@ pygmentsStyle = "monokai"
 
   [[menu.main]]
     name = "Blog"
-    pre = "<span data-feather='pen-tool'></span>"
+    pre = "<span data-feather='code'></span>"
     url = "/blog/"
     weight = 2
 
-  # [[menu.main]]
-  #   name = "Projects"
-  #   pre = "<span data-feather='code'></span>"
-  #   url = "/projects/"
-  #   weight = 3
+  [[menu.main]]
+    name = "News"
+    pre = "<span data-feather='message-circle'></span>"
+    url = "/news/"
+    weight = 3
 
   [[menu.main]]
     name = "About"
@@ -69,9 +69,30 @@ pygmentsStyle = "monokai"
     weight = 4
 
   [[menu.main]]
+    identifier = "github"
     pre = "<span data-feather='github'></span>"
     url = "https://github.com/fabrizio-ottati"
     weight = 5
+
+  [[menu.main]]
+    identifier = "email"
+    pre = "<span data-feather='mail'></span>"
+    url = "mailto:fabrizio.ottati@polito.it"
+    weight = 6
+
+  [[menu.main]]
+    identifier = "linkedin"
+    pre = "<span data-feather='linkedin'></span>"
+    url = "https://www.linkedin.com/in/fabrizio-ottati-330704141/"
+    weight = 7
+
+  [[menu.main]]
+    identifier = "twitter"
+    pre = "<span data-feather='twitter'></span>"
+    url = "https://twitter.com/OttatiFabrizio"
+    weight = 8
+
+
 [markup]
   [markup.tableOfContents]
     startLevel = 1
