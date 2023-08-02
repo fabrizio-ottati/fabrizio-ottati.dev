@@ -9,15 +9,15 @@
 }
 
 @font-face {
-  font-family: Lato;
+  font-family: Hack;
   font-weight: 400;
-  src: url("/fonts/Lato-Regular.ttf");
+  src: url("/fonts/Hack-Regular.ttf");
 }
 
 @font-face {
-  font-family: Lato;
+  font-family: Hack;
   font-weight: 700;
-  src: url("/fonts/Lato-Bold.ttf");
+  src: url("/fonts/Hack-Bold.ttf");
 }
 
 html {
