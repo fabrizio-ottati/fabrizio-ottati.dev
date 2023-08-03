@@ -15,12 +15,14 @@ I presented a poster and I did a talk at the [ProRISC & SAFE](https://www.tudelf
 
 I visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorphic! And we had some nice beer and ramen too :) Thanks to Kasia Kozdon and Rui Texeira for inviting me!
 
-![innatera-visit](innatera-visit.jpg)
+{{< figure src="innatera-visit.jpg" caption="The amazing ramen I had at [this place](https://g.co/kgs/niFw8j)." >}}
 
 ### 2023-02-01
 
 I joined [Charlotte Frenkel](https://chfrenkel.github.io)'s research team at TU Delft for a visiting period. I am going to work on SNN deployment to FPGAs for [autonomous drones](https://mavlab.tudelft.nl/research-topics/), in collaboration with Guido de Croon's research team.
 
-### 2022-12-13
+### 2022-12-15
 
 I changed Ph.D. advisor and research team. I'll be working under the supervision of [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en&oi=ao).
+
+{{< figure src="birthday.jpg" caption="The birthday cake my colleagues and friends bought for me :)" >}}
