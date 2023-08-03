@@ -13,7 +13,9 @@ I presented a poster and I did a talk at the [ProRISC & SAFE](https://www.tudelf
 
 ### 2023-04-20
 
-I have visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorphic! And we had some nice beer and ramen too :) Thanks to Kasia Kozdon and Rui Texeira for inviting me!
+I visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorphic! And we had some nice beer and ramen too :) Thanks to Kasia Kozdon and Rui Texeira for inviting me!
+
+![innatera-visit](innatera-visit.jpg)
 
 ### 2023-02-01
 
