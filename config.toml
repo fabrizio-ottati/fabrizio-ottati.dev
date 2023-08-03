@@ -57,9 +57,9 @@ pygmentsStyle = "monokai"
     weight = 2
 
   [[menu.main]]
-    name = "News"
+    name = "Updates"
     pre = "<span data-feather='message-circle'></span>"
-    url = "/news/"
+    url = "/updates/"
     weight = 3
 
   [[menu.main]]
