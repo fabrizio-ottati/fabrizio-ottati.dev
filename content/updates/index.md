@@ -7,6 +7,10 @@ type: page
 
 [Jason Eshraghian](https://jasoneshraghian.com) and I gave a tutorial on high level synthesis for neuromorphic computing at [ICONS 2023](https://icons.ornl.gov/schedule/)! Check out the [Github repository](https://github.com/fabrizio-ottati/icons23-tutorial).
 
+### 2023-07-11
+
+I presented a poster and I did a talk at the [ProRISC & SAFE](https://www.tudelft.nl/prorisc-safe/programme-2023/program) conference, hosted by TU Delft, on my internship here.
+
 ### 2023-04-20
 
 I have visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorphic! And we had some nice beer and ramen too :) Thanks to Kasia Kozdon and Rui Texeira for inviting me!
