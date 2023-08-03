@@ -21,6 +21,8 @@ I visited [Innatera](https://www.innatera.com/) headquarters for Open Neuromorph
 
 I joined [Charlotte Frenkel](https://chfrenkel.github.io)'s research team at TU Delft for a visiting period. I am going to work on SNN deployment to FPGAs for [autonomous drones](https://mavlab.tudelft.nl/research-topics/), in collaboration with Guido de Croon's research team.
 
+{{< figure src="tu-delft-intro.jpg" >}}
+
 ### 2022-12-15
 
 I changed Ph.D. advisor and research team. I'll be working under the supervision of [Luciano Lavagno](https://scholar.google.com/citations?user=tRCNWC4AAAAJ&hl=en&oi=ao).
