@@ -7,7 +7,7 @@ type: page
 
 I gave a talk in [Innatera](https://innatera.com/) about our [latest position paper](https://arxiv.org/abs/2306.15749) and my Ph.D. research. It has been really fun. 
 
-{{< figure src="strange-dutch.heic" caption="The strange dutch dish I had." >}}
+{{< figure src="strange-dutch.jpg" caption="The strange dutch dish I had." >}}
 
 ### 2023-08-01
 
