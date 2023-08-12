@@ -3,6 +3,12 @@ title: "Updates"
 type: page
 ---
 
+### 2023-08-11
+
+I gave a talk in [Innatera](https://innatera.com/) about our [latest position paper](https://arxiv.org/abs/2306.15749) and my Ph.D. research. It has been really fun. 
+
+{{< figure src="strange-dutch.heic" caption="The strange dutch dish I had." >}}
+
 ### 2023-08-01
 
 [Jason Eshraghian](https://jasoneshraghian.com) and I gave a tutorial on high level synthesis for neuromorphic computing at [ICONS 2023](https://icons.ornl.gov/schedule/)! Check out the [Github repository](https://github.com/fabrizio-ottati/icons23-tutorial).
