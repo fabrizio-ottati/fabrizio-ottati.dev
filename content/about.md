@@ -6,8 +6,6 @@ I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno
 
 I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of Professor [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
 
-I am currently in [Delft](https://en.wikipedia.org/wiki/Delft), doing an internship in Professor [Charlotte Frenkel](https://chfrenkel.github.io/)'s lab, in collaboration with Professor Guido De Croon from  [MAVLab](https://mavlab.tudelft.nl/), trying to allow small drones to fly autonomously using custom hardware and event based cameras.
-
 ![Artù and Merlino](/images/about/gattacci.png)
 
 I have two beautiful cats, Artù and Merlino. I love them. A lot. 
@@ -17,10 +15,9 @@ My research focuses on digital hardware design and automation with the goal of i
 My main areas of interest are:
 * event-based vision. 
 * deep learning.
-* digital hardware design.
+* digital hardware design and its automation.
 * high level synthesis (HLS).
 * computer science. Fancy graphs, recursion, metaprogramming, compilers, the more the better.
-* brain inspired computing (mainly, spiking neural networks).
 
 I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my CV from [here](/docs/cv.pdf).
 
