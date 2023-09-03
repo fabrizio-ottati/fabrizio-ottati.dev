@@ -2,7 +2,7 @@
 title: 'About'
 ---
 
-I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno/377/cuccaro-vetere) in the south of Italy. Since I was a kid, I was incredibly interested in science, thanks particularly to a TV show called Super Quark, hosted by [Piero Angela](https://en.wikipedia.org/wiki/Piero_Angela). My dream was to become a scientist. Now I am trying to do so, having fun with computers, hardware and artificial intelligence.
+I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno/377/cuccaro-vetere) in the south of Italy. Since I was a kid, I have been really interested in science and computers.
 
 I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of Professor [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
 
@@ -16,10 +16,8 @@ My main areas of interest are:
 * event-based vision. 
 * deep learning.
 * digital hardware design and its automation.
-* high level synthesis (HLS).
-* computer science. Fancy graphs, recursion, metaprogramming, compilers, the more the better.
 
-I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my CV from [here](/docs/cv.pdf).
+I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my **CV** from [here](/docs/cv.pdf).
 
 # Career 
 
