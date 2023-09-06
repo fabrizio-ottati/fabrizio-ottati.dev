@@ -3,6 +3,11 @@ title: "Updates"
 type: page
 ---
 
+### 2023-09-13
+
+I am going to give a talk the Istituto Italiano di Tecnologia, Genova, Italy, for the [research group](https://edpr.iit.it) of Dr. [Chiara Bartolozzi](https://edpr.iit.it/people-details/-/people/chiara-bartolozzi)! Thanks also to [Giulia D'Angelo](https://edpr.iit.it/people-details/-/people/giulia-dangelo) for inviting me :)
+
+
 ### 2023-08-11
 
 I gave a talk in [Innatera](https://innatera.com/) about our [latest position paper](https://arxiv.org/abs/2306.15749) and my Ph.D. research. It has been really fun. 
