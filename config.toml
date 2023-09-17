@@ -12,7 +12,7 @@ pygmentsStyle = "monokai"
 
 [params]
   footer = "Fabrizio Ottati"
-  description = "Digital hardware enthusiast. Open sourcer."
+  description = "猿も木から落ちる"
   avatarURL = "/images/cat-icon.png"
   AvatarAltText = "fabrizio"
   avatarSize = "size-l"
