@@ -23,7 +23,7 @@ I am the maintainer of two open source projects in the field of **neuromorphic c
 
 * Bachelor of Science in Electronic Engineering, Politecnico di Torino, 2014-2017. Grade: 108/110.
 * Master of Science in Electronic Engineering, Microelectronics, Politecnico di Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
-* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, Nov 2020 - Feb 2024.
+* Ph.D. in Electrical, Electronic and Telecommunications Engineering, Politecnico di Torino, Nov 2020 - Dec 2023.
 * Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s laboratory, Feb 2023 - Sep 2023.
 
 # Publications
