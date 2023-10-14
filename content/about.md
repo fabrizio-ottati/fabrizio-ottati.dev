@@ -30,7 +30,7 @@ I am the maintainer of two open source projects in the field of **neuromorphic c
 
 ## 2023
 
-* [[ArXiv](https://arxiv.org/abs/2306.15749)] *To Spike or Not To Spike: A Digital Hardware Perspective on Deep Learning Acceleration*, Fabrizio Ottati et al.
+* [[IEEE-JETCAS](https://arxiv.org/abs/2306.15749)] *To Spike or Not To Spike: A Digital Hardware Perspective on Deep Learning Acceleration*, Fabrizio Ottati et al.
 * [[ArXiv](https://arxiv.org/abs/2304.04640)] *NeuroBench: Advancing Neuromorphic Computing through Collaborative, Fair and Representative Benchmarking*, Jason Yik et al.
 
 ## 2021 
