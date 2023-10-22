@@ -2,7 +2,7 @@
 title: "Books list"
 date: 2023-02-19
 description: "This is my list of technical books that I enjoyed reading."
-draft: false
+draft: true
 type: "post"
 tags: ["books", "hardware", "code", "c", "c++", "algorithms", "python"]
 ---
