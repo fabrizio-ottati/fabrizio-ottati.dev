@@ -4,7 +4,7 @@ title: 'About'
 
 I come from a [pretty small village](https://www.e-borghi.com/en/village/Salerno/377/cuccaro-vetere) in the south of Italy. Since I was a kid, I have been really interested in science and computers.
 
-I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of Professor [Luciano Lavagno](https://g.co/kgs/a8ahe2). I am working in an amazing team, focusing on high level synthesis of digital circuits, compilers and deep learning acceleration on FPGAs. 
+I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I am doing my Ph.D. in electronics engineering, under the supervision of Professor Luciano Lavagno. I am working in an amazing team, focusing on high level synthesis of digital circuits and deep learning acceleration on FPGAs. 
 
 ![Artù and Merlino](/images/about/gattacci.png)
 
@@ -15,9 +15,9 @@ My research focuses on digital hardware design and automation with the goal of i
 My main areas of interest are:
 * event-based vision. 
 * deep learning.
-* digital hardware design and its automation.
+* digital hardware design.
 
-I am the maintainer of two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my **CV** from [here](/docs/cv.pdf).
+I co-maintain two open source projects in the field of **neuromorphic computing**, [Tonic](https://tonic.readthedocs.io) and [Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder of [Open Neuromorphic](https://open-neuromorphic.org). You can download my **CV** from [here](/docs/cv.pdf).
 
 # Career 
 
@@ -31,7 +31,6 @@ I am the maintainer of two open source projects in the field of **neuromorphic c
 ## 2023
 
 * [[IEEE-JETCAS](https://arxiv.org/abs/2306.15749)] *To Spike or Not To Spike: A Digital Hardware Perspective on Deep Learning Acceleration*, Fabrizio Ottati et al.
-* [[ArXiv](https://arxiv.org/abs/2304.04640)] *NeuroBench: Advancing Neuromorphic Computing through Collaborative, Fair and Representative Benchmarking*, Jason Yik et al.
 
 ## 2021 
 
@@ -50,6 +49,7 @@ I am the maintainer of two open source projects in the field of **neuromorphic c
 
 - ICONS, International Conference on Neuromorphic Systems.
 - PRIME, International Conference on Ph.D. Research in Microelectronics and Electronics.
+- NeuroEdge workshop 2023.
 
 # Credits
 
