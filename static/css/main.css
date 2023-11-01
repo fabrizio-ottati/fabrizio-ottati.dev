@@ -8,23 +8,25 @@
   --light-text-color: black;
 }
 
+/* Normal font. */
 @font-face {
   font-family: Onest;
   font-weight: 400;
-  src: url("/fonts/Onest/static/Onest-Regular.ttf");
+  src: url("/fonts/Onest/Onest-VariableFont_wght.ttf");
 }
 
+/* Bold font. */
 @font-face {
   font-family: Onest;
   font-weight: 700;
-  src: url("/fonts/Onest/static/Onest-Bold.ttf");
+  src: url("/fonts/Onest/Onest-VariableFont_wght.ttf");
 }
 
 html {
   background-color: rgb(var(--light-primary-color));
   color: var(--light-text-color);
-  font-family: "Onest";
-  font-size: 14;
+  font-family: "Onest", sans-serif;
+  font-size: 12;
   min-height: 100%;
   position: relative;
 }
