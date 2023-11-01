@@ -9,21 +9,21 @@
 }
 
 @font-face {
-  font-family: Hack;
+  font-family: Onest;
   font-weight: 400;
-  src: url("/fonts/Hack-Regular.ttf");
+  src: url("/fonts/Onest/static/Onest-Regular.ttf");
 }
 
 @font-face {
-  font-family: Hack;
+  font-family: Onest;
   font-weight: 700;
-  src: url("/fonts/Hack-Bold.ttf");
+  src: url("/fonts/Onest/static/Onest-Bold.ttf");
 }
 
 html {
   background-color: rgb(var(--light-primary-color));
   color: var(--light-text-color);
-  font-family: "Hack", monospace;
+  font-family: "Onest";
   font-size: 14;
   min-height: 100%;
   position: relative;
