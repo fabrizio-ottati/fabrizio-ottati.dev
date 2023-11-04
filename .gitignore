@@ -4,3 +4,4 @@ content/posts/originals
 *.zip
 resources
 public
+.DS_Store
