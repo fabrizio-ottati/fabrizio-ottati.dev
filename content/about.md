@@ -38,14 +38,13 @@ I co-maintain two open source projects in the field of **neuromorphic computing*
 
 # Academic service 
 
-## Reviewer 
-
-### Journals 
+## Reviewer: journals 
 
 - IEEE Transactions on Circuits and Systems I: Regular Papers.
 - IEEE Journal on Emerging and Selected Topics in Circuits and Systems.
+- IEEE Transactions on Biomedical Circuits and Systems.
 
-### Conferences
+## Reviewer: conferences
 
 - ICONS, International Conference on Neuromorphic Systems.
 - PRIME, International Conference on Ph.D. Research in Microelectronics and Electronics.
