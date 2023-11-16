@@ -49,6 +49,7 @@ I co-maintain two open source projects in the field of **neuromorphic computing*
 - ICONS, International Conference on Neuromorphic Systems.
 - PRIME, International Conference on Ph.D. Research in Microelectronics and Electronics.
 - NeuroEdge workshop 2023.
+- ISCAS, International Symposium on Circuits And Systems.
 
 # Credits
 
