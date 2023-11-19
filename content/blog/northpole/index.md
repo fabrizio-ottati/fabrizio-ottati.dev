@@ -9,7 +9,7 @@ tags: ["research", "hardware", "digital", "deep learning"]
 showTableOfContents: true
 ---
 
-In NorthPole, there is this *axiomatic* terminology: the authors claim that NorthPole design has been driven by 10 axioms inspired by human biology. We will use it as guidelines to analyze the paper. 
+In NorthPole, there is this *axiomatic* terminology: the authors claim that NorthPole design has been driven by 10 axioms inspired by human biology. We will use them as guidelines to analyze the paper. 
 
 ## Axiomatic design
 
@@ -22,27 +22,29 @@ Fancy terminology :)
 
 NorthPole is an application specific integrated circuit (ASIC): it can run only deep neural networks (DNNs). Regarding "no data-dependent conditional branching", it means that is supports a *static scheduling*: the succession of instructions to be performed is static and pre-defined, as it should be when you are performing matrix multiplication and running neural networks. There are no branches with data-dependend `if`s. 
 
+Moreover, it is an inference-only device, *i.e.*, you cannot train a deep neural network (DNN) on it, but only run it in inference. Training is important, but inference is as fundamental: for instance, consider that at the current moment each ChatGPT inference costs 0.04$ to OpenAI [[Semianalysis](https://www.semianalysis.com/p/the-inference-cost-of-search-disruption)] to run in the cloud, just considering the number of machines needed and the electricity needed to power them and keep them cool. 
+
 Things change if you take into account sparsity; although, also in that case you need to introduce a structured approach if you want to improve performance using sparsity [[Wu et al.](https://arxiv.org/abs/2305.12718)]. 
 
 ### Axiom 2 
 > Inspired by biological precision , NorthPole is optimized for 8, 4, and 2-bit low-precision. This is sufficient to achieve state-of-the-art inference accuracy on many neural networks while dispensing with the high-precision required for training.
 
-Well, we have been running DNNs on 8-bit since ~2017 without claiming biological inspiration. Recently, however, progress has been made and we can use 4-bit quantization with marginal loss in performance compared to the 32-bit floating point baseline that you trained on your GPU [[Keller et al.](https://ieeexplore.ieee.org/abstract/document/10019275?casa_token=fmLtbZfys2cAAAAA:UQvvJ3LWrATwWYtBQZ7HSAZigZdRe-k06Z9rOcKVc4c1LrrqXCe49E5IFgKRyC952n0Fmp_9UQ)]. 
+Well, we have been running DNNs using INT8 since ~2017 without claiming biological inspiration. Recently, however, progress has been made and we can use INT4 quantization with marginal loss in performance compared to the 32-bit floating point (FP32) baseline that you trained on your GPU [[Keller et al.](https://ieeexplore.ieee.org/abstract/document/10019275?casa_token=fmLtbZfys2cAAAAA:UQvvJ3LWrATwWYtBQZ7HSAZigZdRe-k06Z9rOcKVc4c1LrrqXCe49E5IFgKRyC952n0Fmp_9UQ)]. 
 
-Moreover, 16 bit floating point precision is starting to be enough for training. State of the art GPUs are also supporting  8 bit floating point and *integer* precision [[NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)]).
+Moreover, FP16 precision is starting to be enough for training. State of the art GPUs are also supporting FP8 and *integer* precision [[NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)]).
 
 ### Axiom 3
 > NorthPole has a distributed, modular core array (16-by-16), with each core capable of massive parallelism (8192 2-bit operations per cycle) (Fig. 2F). Cortex-like modularity of the tiled core array enables homogeneous scalability in two dimensions and, perhaps, even in three dimensions and is also amenable to heterogeneous chiplet integration.
 
 Here comes the fancy terminology.
 
-When claiming 8192 operations per clock cycle, using 2-bit operands, it might mean that NorthPole has 2048 multiply-and-accumulate (MAC) units that work on 8-bit precision operands. These can be probably configured in single-instruction-multiple-data mode, *i.e.*, you can "glue" together 4 2-bit operands to form an 8-bit word and work on these in parallel. Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning accelerators have 2048 MAC units per core.  
+When claiming 8192 operations per clock cycle, using INT2 operands, it might mean that NorthPole has 2048 multiply-and-accumulate (MAC) units that work on INT8 precision operands. These can be probably configured in single-instruction-multiple-data mode, *i.e.*, you can "glue" together 4 INT2 operands to form an INT8 word and work on these in parallel. Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning accelerators have 2048 MAC units per core.  
 
 Regarding the cortex-like modularity, here I can only guess. Deep neural networks have been inspired by the cortex, since this is a multi-layer structure in which information is passed among layers. Each layer performs a certain function, like in deep convolutional neural networks: the first layers extract high level features (*e.g.*, edges), while the deep layers combine this information to get something useful out of it. 
 
 What the heck does this have to do with hardware, you might ask? Well, since NorthPole hosts all the layers on chip, it is likely that the activation from one layer are passed to the next layer. Each layer has a set of MACs mapped to it, hence you have layers of MACs that exchange data: here's your cortex! 
 
-One can do a more formal description of such architecture. In deep learning accelerators, one can distinguish among *overlay* and *layer-fuse* architectures [[Gilbert et al.](https://eems.mit.edu/wp-content/uploads/2023/07/2023_ispass_looptree.pdf)]. We will use a matrix multiplication to wrap your head around it. 
+One can do a more formal description of such architecture. In deep learning accelerators, one can distinguish among *overlay* and *layer-fuse* architectures [[Gilbert et al.](https://eems.mit.edu/wp-content/uploads/2023/07/2023_ispass_looptree.pdf)]. We will use a matrix multiplication example to wrap your head around it. 
 
 {{< 
     figure 
@@ -51,7 +53,7 @@ One can do a more formal description of such architecture. In deep learning acce
     caption="An example of overlay architecture."
 >}}
 
-Suppose you want to multiply 3 matrices, A, B and C. Your goal is to maximize the number of processing engines (PEs) being used in your architecture. A PE in nothing but a MAC unit with a bunch of registers and memories around. In an overlay accelerator, you would map as many PEs as possible to comput A\*B, store this partial matrix off-chip (or somewhere else with a fancier memory hierarchy), retrieve it later and use it to comput the final product (A\*B)\*C. Cool, but you need to store a (possibly) huge matrix off-chip and then retrieve, which costs a lot of time and energy!
+Suppose you want to multiply 3 matrices, A, B and C. Your goal is to maximize the number of processing engines (PEs) being used in your architecture at any time. A PE in nothing but a MAC unit with a bunch of registers and memories around. In an overlay accelerator, you would map as many PEs as possible to compute A\*B, store this partial matrix off-chip (or somewhere else with a fancier memory hierarchy), retrieve it later and use it to compute the final product (A\*B)\*C. Cool, but you need to store a (possibly) huge matrix off-chip and then retrieve it, which costs a lot of time and energy!
 
 
 {{< 
@@ -61,7 +63,7 @@ Suppose you want to multiply 3 matrices, A, B and C. Your goal is to maximize th
     caption="An example of layer-fuse architecture."
 >}}
 
-In layer-fuse architectures (also called *dataflow*, which also means another thing in accelerator just to mess with your mind), instead, the PEs work on all the operands at once. The secret is that, when the operands are too big to fit on the available PEs, you perform part of the computations in an iteration, and the remaning part in another, as it is show in the figure above for the matrix multiplication example.
+In layer-fuse architectures (also called *dataflow*, which also means another thing in hardware accelerators just to mess with you), instead, the PEs work on all the operands at once. The secret is that, when the operands are too big to fit on the available PEs, you perform part of the computations in an iteration, and the remaning part in another, as it is shown in the figure above for the matrix multiplication example.
 
 ### Axiom 4
 > NorthPole distributes memory among cores (Figs. 1B and 2F) and, within a core, not only places memories near compute (2) but also intertwines critical compute with memory (Fig. 2, A and B). The nearness of memory and compute enables each core to exploit data locality for energy efficiency. NorthPole dedicates a large area to on-chip memory that is neither centralized nor organized in a tradi- tional memory hierarchy.
@@ -89,10 +91,10 @@ Anyway, the take-home message is: PEs communicate using dedicated busses, in wha
 ### Axiom 6
 > Another two NoCs enable reconfiguring synaptic weights and programs on each core for high-speed operation of compute units (Fig. 2, C and D). The brain’s organic biochemical substrate is suitable for supporting many slow analog neurons, where each neuron is hardwired to a fixed set of synaptic weights. Directly following this architectural construct leads to an inefficient use of inorganic silicon, which is suitable for fewer and faster digital neurons. Reconfigurability resolves this key dilem- ma by storing weights and programs just once in the distributed memory and reconfiguring the weights during the execution of each layer using one NoC and reconfiguring the programs before the start of the layer using another NoC. Stated differently, these two NoCs serve to substantially increase (up to 256 times, in some cases) the effective on-core memory sizes for weights and programs such that each core computes as if the weights and program for the entire network are stored on every core. Consequently, NorthPole achieves 3000 times more computation and 640 times larger network models than TrueNorth (14), although it has only four times more transistors (supplementary text S1).
 
-*Work in progress.*
+My bad: two more NoCs, to load the weights to the PEs and the instructions to be performed (*i.e.*, the sequence of operations to be carried out). The comparison with TrueNorth is not really fair: completely different designs, completely different goals. Why should we count transistors in 2023, by the way?
 
 ### Axiom 7
-> NorthPole exploits data-independent branching to support a fully pipelined, stall- free, deterministic control operation for high temporal utilization without any memory misses, which are a hallmark of the von Neumann ar- chitecture. Lack of memory misses eliminates the need for speculative, nondeterministic ex- ecution. Deterministic operation enables a set of eight threads for various compute, memory, and communication operations to be synchro- nized by construction and to operate at a high utilization.
+> NorthPole exploits data-independent branching to support a fully pipelined, stall-free, deterministic control operation for high temporal utilization without any memory misses, which are a hallmark of the von Neumann architecture. Lack of memory misses eliminates the need for speculative, nondeterministic execution. Deterministic operation enables a set of eight threads for various compute, memory, and communication operations to be synchronized by construction and to operate at a high utilization.
 
 *Work in progress.*
 
