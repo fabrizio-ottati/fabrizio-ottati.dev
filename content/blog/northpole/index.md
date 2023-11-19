@@ -96,7 +96,7 @@ My bad: two more NoCs, to load the weights to the PEs and the instructions to be
 ### Axiom 7
 > NorthPole exploits data-independent branching to support a fully pipelined, stall-free, deterministic control operation for high temporal utilization without any memory misses, which are a hallmark of the von Neumann architecture. Lack of memory misses eliminates the need for speculative, nondeterministic execution. Deterministic operation enables a set of eight threads for various compute, memory, and communication operations to be synchronized by construction and to operate at a high utilization.
 
-*Work in progress.*
+This comes from the fact that NorthPole is running neural networks: if you know *exactly* which operations will be performed, with no branching in your program, and all the data is as close as possible to the PEs, and data movement is fully deterministic (*e.g.*, first I process the channel dimension, then the width, then the height etc.), I would be *very* worried if I had stalls or cache misses :) 
 
 ### Axiom 8
 > Turning to algorithms and software, co-optimized training algorithms (fig. S3) enable state-of-the-art inference accuracy to be achieved by incorporating low-precision constraints into training. Judiciously selecting precision for each layer enables optimal use of on-chip resources without compromising inference accuracy (sup- plementary texts S9 and S10).
