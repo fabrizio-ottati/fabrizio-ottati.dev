@@ -9,6 +9,8 @@ tags: ["research", "hardware", "digital", "deep learning"]
 showTableOfContents: true
 ---
 
+# Still in draft mode!
+
 In NorthPole, there is this *axiomatic* terminology: the authors claim that NorthPole design has been driven by 10 axioms inspired by human biology. We will use them as guidelines to analyze the paper. 
 
 ## Axiomatic design
@@ -101,12 +103,12 @@ This comes from the fact that NorthPole is running neural networks: if you know 
 ### Axiom 8
 > Turning to algorithms and software, co-optimized training algorithms (fig. S3) enable state-of-the-art inference accuracy to be achieved by incorporating low-precision constraints into training. Judiciously selecting precision for each layer enables optimal use of on-chip resources without compromising inference accuracy (sup- plementary texts S9 and S10).
 
-*Work in progress.*
+Wow, IBM has reinvented quantization aware training! Too bad we did not know in 2016 [[Zhou et al.](https://arxiv.org/abs/1606.06160)] :)
 
 ### Axiom 9
-> Codesigned software (fig. S3) auto- matically determines an explicit orchestration schedule for computation, memory, and com- munication to achieve high compute utiliza- tion in space and time while ensuring that there are no resource collisions. Network com- putation is broken down into layers, and each layer computation is spatially mapped to the core array. To minimize long-distance com- munication, spatial locality of neural activa- tions is maintained across layers when possible. To prevent resource idling, core computation and intra- and intercore data movement are temporally synchronized so that data and programs are present on each core before use. Together, algorithms and software constitute an end-to-end toolchain that exploits the full capabilities of the architecture while providing a path to migrate existing applications and workflows to the architecture.
+> Codesigned software (fig. S3) automatically determines an explicit orchestration schedule for computation, memory, and communication to achieve high compute utilization in space and time while ensuring that there are no resource collisions. Network computation is broken down into layers, and each layer computation is spatially mapped to the core array. To minimize long-distance communication, spatial locality of neural activations is maintained across layers when possible. To prevent resource idling, core computation and intra and intercore data movement are temporally synchronized so that data and programs are present on each core before use. Together, algorithms and software constitute an end-to-end toolchain that exploits the full capabilities of the architecture while providing a path to migrate existing applications and workflows to the architecture.
 
-*Work in progress.*
+So, they will provide a quantization aware training framework for DNNs, and they state that the dataflow of the accelerator is optimized to maximize efficiency. Eyeriss [[Chen et al.](https://dspace.mit.edu/bitstream/handle/1721.1/101151/eyeriss_isscc_2016.pdf)] strikes again.
 
 ### Axiom 10 
 > NorthPole employs a usage model that consists of writing an input frame and reading an output frame (Figs. 1D and 3), which enables it to operate independently of the attached general processor (16). Once NorthPole is configured with network weights and an orchestration schedule, it is fully self-contained and computes all layers on-chip, requiring no off-chip data or weight movement. Thus, externally, the entire NorthPole chip appears as a form of active memory with only three commands (write input, run network, read output), with the minimum possible input-output bandwidth requirement; these features make NorthPole well suited for direct integration with high-bandwidth sensors, for embedding in computing and IT infrastructure, and for real-time, embedded control of complex systems (22).
