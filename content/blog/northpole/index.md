@@ -83,8 +83,6 @@ NorthPole is a spatial architecture, in contrast to GPUs and TPUs that are tempo
 
 Eyeriss [[Chen et al.](https://dspace.mit.edu/bitstream/handle/1721.1/101151/eyeriss_isscc_2016.pdf)] proposed this approach and taxonomy in 2016. Field programmable gate arrays (FPGAs) have been doing this since the beginning, with distributed SRAM near the login or the special purpose macros available on the silicon. I do not know if it is brain-inspired but it makes sense from a silicon perspective if you want to maximize efficiency.
 
-GPUs and TPUs do not use this approach because these are general purpose machines, that must be able to run a variety of tasks beyond neural networks (actually, CPUs suck at it, but it's okay since these are supposed to run every possible code that can be compiled for them).
-
 ### Axiom 5
 > NorthPole uses two dense networks- on-chip (NoCs) (20) to interconnect the cores, unifying and integrating the distributed computation and memory (Fig. 2, C and D) that would otherwise be fragmented. These NoCs are inspired by long-distance white-matter and short-distance gray-matter pathways in the brain and by neuroanatomical topological maps found in cortical sensory and motor systems (21). One gray matter–inspired NoC enables spatial computing between adjacent cores (Fig. 3 and fig. S1). Another white matter–inspired NoC enables neuron activations to be spatially redistributed among all cores.
 
