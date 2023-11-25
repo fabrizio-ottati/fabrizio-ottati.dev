@@ -26,9 +26,32 @@ NorthPole is an application specific integrated circuit (ASIC): it can run only 
 
 This is extremely important, because engineers have spent a lot of time making branches impact on performance minimum, especially in superscalar processors that have to deal with any possible code being compiled for them. For more information on this, the reader is referred to [Computer architecture](https://books.google.it/books/about/Computer_Architecture.html?id=v3-1hVwHnHwC&redir_esc=y), by Hennessy, Patterson and Asanovic.
 
-Moreover, NorthPole is an inference-only accelerator, *i.e.*, you cannot train a deep neural network (DNN) on it, but only run it in inference. Training is important, but inference is as fundamental: for instance, consider that at the current moment each ChatGPT inference costs 0.04$ to OpenAI [[Semianalysis](https://www.semianalysis.com/p/the-inference-cost-of-search-disruption)] to run in the cloud, just considering the number of machines and the electricity needed to power them and keep them cool. 
+Moreover, NorthPole is an inference-only accelerator, *i.e.*, you cannot train a DNN on it, but only run it in inference. Training is important, but inference is too: for instance, consider that at the current moment each ChatGPT inference costs 0.04$ to OpenAI [[Semianalysis](https://www.semianalysis.com/p/the-inference-cost-of-search-disruption)] to run in the cloud, just taking into account the number of machines and the electricity needed to power them and keep them cool. 
 
-Things change if you take into account sparsity, *i.e.*, when you take into account that layers in DNNs output a lot of zeros; since mutiplying by zero is useless, a smart approach would lead to skip all the operations with zeros involved. However, also in that case you need to introduce a structured approach (*i.e.*, the zeros distribution in the matrices cannot be random, but it has to follow a structure) if you want to improve performance using sparsity [[Wu et al.](https://arxiv.org/abs/2305.12718)]. For instance, Nvidia graphics processing units (GPUs) support 2:4 sparsity, which means that every 4 elements in a matrix, 2 are zeros (more or less, I am not being extremely precise on this).
+Things change if you take into account the sparsity of the data inside a neural network, *i.e.*, when you take into account that layers in DNNs output a lot of zeros; since mutiplying by zero is useless, a smart approach would lead to skip all the operations with zeros involved. To put this in code terms:
+
+```python
+def dot_prod(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
+    res = torch.Tensor([0])
+    for i in range(len(a)):
+        a_i, b_i = a[i], b[i] # Reading the inputs.
+        res += a_i * b_i # When either a[i]==0 or b[i]==0, you are accumulating zeros,
+                         # which is useless.
+    return res
+
+def dummy_sparse_dot_prod(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
+    res = torch.Tensor([0])
+    for i in range(len(a)):
+        a_i, b_i = a[i], b[i] # Reading the inputs.
+        if a_i != 0 and b_i != 0:
+            res += a_i * b_i # Now all the zeros are being skipped.
+    return res
+```
+
+It seems easy, isn't it? Well, it is not. The `if` in `dummy_sparse_dot_prod` is a mess. Why so? 
+Well, the problem is that when this code is running in hardware, the line `a_i, b_i = a[i], b[i]` is much more costly (*i.e.*, it takes more *energy* to execute it) than `a_i * b_i`! This is due to how we design our digital circuits to perform these operations. Hence, what you would like to avoid is to *read* the inputs, more than to multiply them! And if to check that these are not zero you need to read them, well, you have lost the game :)
+
+Hence, when you want to skip zero-computations, you need to introduce a structured approach (*i.e.*, the zeros distribution in the matrices cannot be random, but it has to follow a structure) if you want to improve performance using sparsity [[Wu et al.](https://arxiv.org/abs/2305.12718)], which means reading and processing only non-zero samples. For instance, Nvidia graphics processing units (GPUs) support 2:4 sparsity, which means that every 4 elements in a matrix, 2 are zeros (more or less, I am not being extremely precise on this).
 
 ## Axiom 2 
 > Inspired by biological precision , NorthPole is optimized for 8, 4, and 2-bit low-precision. This is sufficient to achieve state-of-the-art inference accuracy on many neural networks while dispensing with the high-precision required for training.
@@ -38,11 +61,85 @@ Well, we have been running DNNs using INT8 since ~2017 without claiming biologic
 Moreover, FP16 precision is starting to be enough for training. State of the art GPUs are also supporting FP8 and *integer* precision [[NVIDIA H100 Tensor Core GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)]).
 
 ## Axiom 3
-> NorthPole has a distributed, modular core array (16-by-16), with each core capable of massive parallelism (8192 2-bit operations per cycle) (Fig. 2F). Cortex-like modularity of the tiled core array enables homogeneous scalability in two dimensions and, perhaps, even in three dimensions and is also amenable to heterogeneous chiplet integration.
+> NorthPole has a distributed, modular core array (16-by-16), with each core capable of massive parallelism (8192 2-bit operations per cycle) (Fig. 2F). 
 
-Here comes the fancy terminology.
+When claiming 8192 operations per clock cycle, using INT2 operands, it might mean that NorthPole has 
+2048 multiply-and-accumulate (MAC) units that work on INT8 precision operands. These can be probably 
+configured in single-instruction-multiple-data (SIMD) mode, *i.e.*, you can "glue" together 4 INT2 
+operands to form an INT8 word and work on these in parallel. I know this might sound strange if you 
+have never dealt with hardware, so I will try my best using fancy Python.
 
-When claiming 8192 operations per clock cycle, using INT2 operands, it might mean that NorthPole has 2048 multiply-and-accumulate (MAC) units that work on INT8 precision operands. These can be probably configured in single-instruction-multiple-data mode, *i.e.*, you can "glue" together 4 INT2 operands to form an INT8 word and work on these in parallel. Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning accelerators have 2048 MAC units per core.  
+Let's start by defining our MAC unit. A MAC accepts three inputs: `a` and `b`, that are the operands 
+to be multiplied, and `c`, which is the operand to which `a * b` is added to. 
+```python
+class MAC:
+    def __init__(self, SIMD_mode: str = "INT8") -> None:
+        self.SIMD_mode = SIMD_mode
+        return
+
+    @property.setter
+    def SIMD_mode(self, mode) -> None:
+        assert mode in ("INT8", "INT4", "INT2")
+        self.SIMD_mode = mode
+        return
+
+    def __call__(
+        self, a: torch.Tensor, b: torch.Tensor, c: torch.Tensor
+        ) -> torch.Tensor:
+        if self.SIMD_mode == "INT8":
+            # In this case, it means that a, b, and c contain a single value.
+            res = torch.zeros(shape=(1,))
+            res = c + a * b
+        elif self.SIMD_mode == "INT4":
+            # a, b and c contain 2 values to be elaborated _separately_.
+            res = torch.zeros(shape=(2,))
+            for i in range(2):
+                res[i] += a[i] * b[i]
+        elif self.SIMD_mode == "INT2":
+            # a, b and c contain 4 values to be elaborated _separately_.
+            res = torch.zeros(shape=(4,))
+            for i in range(4):
+                res[i] += a[i] * b[i]
+        return res
+        
+```
+Look at our shiny MAC unit: depending on how we configure it, *i.e.*, to which value we set its 
+configuration parameter `SIMD_mode`, when performing a MAC, it will work on a single triple of INT8 
+values, 2 triples of INT4 values or 4 triples of INT2 values.
+
+Now, our NorthPole core will have 256 of these units.
+```python
+class NorthPoleCore:
+    def __init__(self, MACs_cfg: str = "INT8") -> None:
+        self.MACs = [MAC() for i in range(256)]
+        assert cfg in ("INT8", "INT4", "INT2")
+        self.MACs_cfg = cfg
+        return
+
+    def config_MACs(self, cfg) -> None:
+        for i in range(256):
+            self.MACs[i].SIMD_mode = cfg
+        return
+     
+    def __call__(
+        self, a: torch.Tensor, b: torch.Tensor, c: torch.Tensor
+        ) -> torch.Tensor:
+        if self.MACs_cfg == "INT8":
+            assert a.shape == b.shape == c.shape == torch.Size([256])
+        elif self.MACs_cfg == "INT4":
+            assert a.shape == b.shape == c.shape == torch.Size([256, 2])
+        elif self.MACs_cfg == "INT2":
+            assert a.shape == b.shape == c.shape == torch.Size([256, 4])
+        for i, mac in enumerate(self.MACs): # Imagine that all the iterations of this
+                                            # loop are performed in parallel.
+            c[i] = mac(a[i], b[i], c[i])
+        return c
+```
+As you might notice, all the MACs work in parallel
+
+Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning accelerators have 2048 MAC units per core.  
+
+> Cortex-like modularity of the tiled core array enables homogeneous scalability in two dimensions and, perhaps, even in three dimensions and is also amenable to heterogeneous chiplet integration.
 
 Regarding the cortex-like modularity, here I can only guess. Deep neural networks have been inspired by the cortex, since this is a multi-layer structure in which information is passed among layers. Each layer performs a certain function, like in deep convolutional neural networks: the first layers extract high level features (*e.g.*, edges), while the deep layers combine this information to get something useful out of it. 
 
@@ -81,7 +178,7 @@ NorthPole is a *spatial* architecture, in contrast to GPUs and TPUs that are *te
     caption="Spatial (left) and temporal (right) architectures."
 >}}
 
-Eyeriss [[Chen et al.](https://dspace.mit.edu/bitstream/handle/1721.1/101151/eyeriss_isscc_2016.pdf)] proposed this approach and taxonomy in 2016. Field programmable gate arrays (FPGAs) have been doing this since the beginning, with distributed SRAM near the login or the special purpose macros available on the silicon. I do not know if it is brain-inspired but it makes sense from a silicon perspective if you want to maximize efficiency.
+Eyeriss [[Chen et al.](https://dspace.mit.edu/bitstream/handle/1721.1/101151/eyeriss_isscc_2016.pdf)] proposed this approach and taxonomy in 2016. Field programmable gate arrays (FPGAs) have been doing this since the beginning, with distributed SRAM near the logic or the special purpose macros available on the silicon. I do not know if it is brain-inspired but it makes sense from a silicon perspective if you want to maximize efficiency.
 
 ## Axiom 5
 > NorthPole uses two dense networks- on-chip (NoCs) (20) to interconnect the cores, unifying and integrating the distributed computation and memory (Fig. 2, C and D) that would otherwise be fragmented. These NoCs are inspired by long-distance white-matter and short-distance gray-matter pathways in the brain and by neuroanatomical topological maps found in cortical sensory and motor systems (21). One gray matter–inspired NoC enables spatial computing between adjacent cores (Fig. 3 and fig. S1). Another white matter–inspired NoC enables neuron activations to be spatially redistributed among all cores.
@@ -124,3 +221,52 @@ Uhm, real-time embedded system. So it must be super efficient to be run on such 
 Our previous guesses were right: each core can carry out 2048 INT8 operations in parallel per iteration, which means that are 2048 PEs per core. Pay attention to the on-chip memory capability: 768 kB per core! That is *a lot* of memory. To understand how much, you can consider a neural network in which each parameter (for simplicity, weights only) is stored as INT8, occupying 1 B in memory. This means that a network with 768 k parameters can be hosted on a single core (forgive me, it is not fully precise as I am considering only the weights).
 
 The "wires" crossing the chip is a very poor choice of words, but is gives you an idea on how many busses interconnect the 256 cores. 
+
+# Energy, space and time
+
+> For methodological rigor that ensures a fair and level comparison of various implementations, it is critical that all evaluation metrics be independent of the details of the implementations, which can vary arbitrarily across architectures at the discretion of the designers. The architecture-independent goodness metric adopted here is that all implementations must be measured at state-of-the-art inference accuracy. 
+
+This means that they will consider the data from other papers in which they used the data format 
+(for NorthPole, either INT8, INT4 or INT2) that gives the highest accuracy on the network being run
+
+> The architecture-independent cost metrics adopted here are now introduced. Turning first to energy, 
+different integrated- circuit (IC) implementations have different throughputs 
+[in frames per second (FPS)] at different power consumptions (in watts). Therefore, FPS per watt 
+(equals frames per joule) is a widely used energy metric for comparing ICs.
+
+To measure efficiency on image classification tasks, the author consider how many inferences you can 
+run on the accelerator using only one joule of energy. Here, I will consider only two GPUs from 
+Nvidia and NorthPole, because that is the most interesting comparison. The DNN being used is a 
+ResNet50, and it is benchmarked on ImageNet.
+
+| Accelerator | Power  | Throughput (FPS) | FPS / W | Data format        | Only DNNs? | Training? |
+|-------------|--------|------------------|---------|--------------------|------------|-----------|
+| Nvidia A100 | 400    | 30,814           | 80      | **FP32**,16; INT8  | ✘          | ✔         |
+| Nvidia H100 | 700    | **81,292**       | 116     | **FP32**,16;INT8,4 | ✘          | ✔         |
+| NorthPole   | **74** | 42,460           | **571** | **INT8**,4,1       | ✔          | ✘         |
+
+Northpole seems to be winning! And by a lot! This is mostly due to the fact that A100 and H100 are 
+incredibly powerful devices (look at the power consumption!) and you can use them to run *any* model 
+you want, also for training in FP32 and FP16. NortPole, instead, is meant only for inference of 
+quantized (*i.e.*, INT8 parameters) neural networks. 
+
+Moreover, the GPUs being considered use large amount of off-chip (hence, energy-hungry) memory to 
+deal with any kind of DL workload being run on them. Hence, most of the inefficiency is due to 
+the large energy consumption associated to retrieving data from external DRAM.
+
+Shall we call in a [fair competitor](https://ieeexplore.ieee.org/abstract/document/10019275)? :)
+
+| Accelerator   | Power  | Throughput (FPS) | FPS / W  | Data format  | Only DNNs? | Training? |
+|---------------|--------|------------------|----------|--------------|------------|-----------|
+| Keller et al. | N/A    | 212              | **4714** | INT8,**4**   | ✔          | ✘         |
+| NorthPole     | **74** | **42,460**       | 571      | **INT8**,4,2 | ✔          | ✘         |
+
+The competitor (Keller et al.) is a chip developed by Nvidia and published last year. The data are 
+taken from the JSSC journal version of the paper. A *big* disclaimer: the measurements come from a 
+tapeout from Nvidia, *i.e.*, they have designed a new accelerator and produced in silicon, and then they have run a neural network on it and measured performance. It is not (yet) a plug-in accelerator, but it will soon been. This explains why the throughput is so low but look at that efficiency: it is outstanding.
+
+The Nvidia accelerator is meant for inference only and it uses a very fancy technique 
+[[Dai et al.](https://proceedings.mlsys.org/paper_files/paper/2021/file/48a6431f04545e11919887748ec5cb52-Paper.pdf)] 
+to use INT4 precision without compromising accuracy. Moreover, the accelerator is designed to run 
+large Transformers on it, but I have used their ResNet50 data for fair comparison.
+
