@@ -118,3 +118,9 @@ In short, the network is hosted completely on the chip, and you pass the inputs 
 Uhm, real-time embedded system. So it must be super efficient to be run on such a limited system, right? However, in Table 1, the power consumption required by running an INT8 version of the ResNet50 is 74 W. Ouch :)
 
 # Silicon implementation
+
+> NorthPole has been fabricated in a 12-nm pro- cess and has 22 billion transistors in an 800-mm2 area, 256 cores, 2048 (4096 and 8192) operations per core per cycle at 8-bit (at 4- and 2-bit, respectively) precision, 224 megabytes of on-chip memory (768 kilobytes per core, 32-megabyte framebuffer for input-output), more than 4096 wires crossing each core both horizontally and vertically, and 2048 threads.
+
+Our previous guesses were right: each core can carry out 2048 INT8 operations in parallel per iteration, which means that are 2048 PEs per core. Pay attention to the on-chip memory capability: 768 kB per core! That is *a lot* of memory. To understand how much, you can consider a neural network in which each parameter (for simplicity, weights only) is stored as INT8, occupying 1 B in memory. This means that a network with 768 k parameters can be hosted on a single core (forgive me, it is not fully precise as I am considering only the weights).
+
+The "wires" crossing the chip is a very poor choice of words, but is gives you an idea on how many busses interconnect the 256 cores. 
