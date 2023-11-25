@@ -220,8 +220,7 @@ class NorthPoleCore:
         return c
 ```
 
-In the hardware implementation, the MACs work in parallel, which give an
-incredible boost in speed.
+In the hardware implementation, the MACs work in parallel.
 
 Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning
 accelerators have 2048 MAC units per core.
