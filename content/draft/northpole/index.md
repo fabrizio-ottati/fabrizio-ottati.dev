@@ -143,7 +143,7 @@ def naive_mat_vec_mul(v: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
 As you can see, the MAC is the fundamental operation employed in a matrix-vector
 product. That's why we care about it.
 
-These MACs can be probably configured in single-instruction-multiple-data (SIMD)
+These MACs can be configured in single-instruction-multiple-data (SIMD)
 mode, _i.e._, you can "glue" together 4 INT2 operands to form an INT8 word and
 work on these in parallel. 
 
