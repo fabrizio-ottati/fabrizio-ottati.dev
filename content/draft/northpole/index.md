@@ -402,7 +402,7 @@ required to run an INT8 version of ResNet50 is 74 W. Ouch :)
 
 # Silicon implementation
 
-> NorthPole has been fabricated in a 12-nm pro- cess and has 22 billion
+> NorthPole has been fabricated in a 12-nm process and has 22 billion
 transistors in an 800-mm2 area, 256 cores, 2048 (4096 and 8192) operations per
 core per cycle at 8-bit (at 4- and 2-bit, respectively) precision, 224 megabytes
 of on-chip memory (768 kilobytes per core, 32-megabyte framebuffer for
@@ -426,9 +426,9 @@ architectures at the discretion of the designers. The architecture-independent
 goodness metric adopted here is that all implementations must be measured at
 state-of-the-art inference accuracy.
 
-This means that they will consider the data from other papers in which they used
-the data format (for NorthPole, either INT8, INT4 or INT2) that gives the
-highest accuracy on the network being run
+The authors consider the data from other papers in which they used the data
+format (FP, INT) that gives the highest accuracy on the network being run on the
+chip, to ensure fair comparison.
 
 > The architecture-independent cost metrics adopted here are now introduced.
 Turning first to energy, > different integrated- circuit (IC) implementations
