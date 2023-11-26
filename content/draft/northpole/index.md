@@ -518,11 +518,11 @@ However, shall we call in a
 | Keller et al. | N/A    | 212              | **4714**        | INT8,**4**   | ✔          | ✘         |
 | NorthPole     | **74** | **42,460**       | 571             | **INT8**,4,2 | ✔          | ✘         |
 
-The competitor (Keller et al.) is a chip developed by Nvidia and published last
-year. The data are taken from the JSSC journal version of the paper. A _big_
-disclaimer: the measurements come from a tapeout from Nvidia, _i.e._, they have
-designed a new accelerator and produced a test chip, and then they have run a
-neural network on it and measured performance. It is not (yet) a plug-in
+The competitor (Keller et al.) is a chip developed by Nvidia and published in
+2022 at ISSCC. The data are taken from the JSSC journal version of the paper. A
+_big_ disclaimer: the measurements come from a tapeout from Nvidia, _i.e._, they
+have designed a new accelerator and produced a test chip, and then they have run
+a neural network on it and measured performance. It is not (yet) a plug-in
 accelerator like NorthPole. This explains why the throughput is so low and the
 efficiency so high.
 
@@ -532,6 +532,10 @@ uses a very fancy quantization technique
 to use INT4 precision without compromising accuracy. Moreover, the accelerator
 is designed to run large Transformers on it, but I have used their ResNet50 data
 for fair comparison with NorthPole.
+
+Another reason for which Keller et al. is much more efficient than NorthPole is
+that it supports _sparsity-aware processing_, _i.e._, it skips zero computations
+without reading the zero values (I am simplifying).
 
 # (My) conclusions
 
@@ -561,3 +565,14 @@ there where more technical details in the paper, since it very divulgative. I
 would expect a presentation like this at some commercial conference where new
 products are advertised. For sure, we would have got a different paper if they 
 chose an IEEE journal instead of Science, where hardware is not really common.
+
+# Bibliography
+
+* [_Neural inference at the frontier of energy, space, and time_](https://www.science.org/doi/10.1126/science.adh1174), Dharmendra S. Modha et al., Science, 2023.
+* [_HighLight: Efficient and Flexible DNN Acceleration with Hierarchical Structured Sparsity_](https://arxiv.org/abs/2305.12718), Yannan Nellie Wu et al., IEEE Micro, 2023.
+* [_A 95.6-TOPS/W Deep Learning Inference Accelerator With Per-Vector Scaled 4-bit Quantization in 5 nm_](https://ieeexplore.ieee.org/abstract/document/10019275?casa_token=fmLtbZfys2cAAAAA:UQvvJ3LWrATwWYtBQZ7HSAZigZdRe-k06Z9rOcKVc4c1LrrqXCe49E5IFgKRyC952n0Fmp_9UQ), Ben Keller et al., IEEE Journal of Solid State Circuits (JSSC), 2023.
+*  [_Computing's energy problem (and what we can do about it)_](https://ieeexplore.ieee.org/document/6757323), Mark Horowitz, IEEE International Solid-State Circuits Conference (ISSCC), 2014.
+* [_NVIDIA H100 Tensor Core GPU Architecture_](https://resources.nvidia.com/en-us-tensor-core), Nvidia, 2023.
+* [_LoopTree: Enabling Exploration of Fused-layer Dataflow Accelerators_](https://eems.mit.edu/wp-content/uploads/2023/07/2023_ispass_looptree.pdf), Michael Gilbert et al., IEEE International Symposium on Performance Analysis of Systems and Software (ISPASS), 2023.
+* [_Efficient Processing of Deep Neural Networks: A Tutorial and Survey_](https://ieeexplore.ieee.org/abstract/document/8114708), Vivienne Sze et al., IEEE Proceedings, 2017.
+* [_VS-Quant: Per-Vector Scaled Quantization for Accurate Low-Precision Neural Network Inference_](https://proceedings.mlsys.org/paper_files/paper/2021/file/48a6431f04545e11919887748ec5cb52-Paper.pdf), Steve Dai et al, Machine Learning and Systems (MLSys), 2021.
