@@ -1,9 +1,9 @@
 ---
 title: "Neural inference at the frontier of energy, space and time - NorthPole, IBM"
-description: "Translating to human language the new paper from IBM."
+description: "Translating the new paper from IBM to human language."
 image: brain-to-chip.png
 draft: false
-date: 2023-11-19
+date: 2023-11-25
 type: "post"
 tags: ["research", "hardware", "digital", "deep learning"]
 showTableOfContents: true
@@ -24,7 +24,7 @@ interrelated, synergistic axioms that build on brain-inspired computing.
 
 Fancy terminology :)
 
-## Axiom 1
+## Axiom 1 - A dedicated DNN inference engine
 
 > Turning to architecture, NorthPole is specialized for neural inference.  For
 example, it has no data-dependent conditional branching, and it does not support
@@ -97,14 +97,19 @@ processing units (GPUs) support 2:4 sparsity, which means that every 4 elements
 in a matrix, 2 are zeros (more or less, I am not being extremely precise on
 this).
 
-## Axiom 2
+## Axiom 2 - Getting inspired by biological neurons 
 
-> Inspired by biological precision , NorthPole is optimized for 8, 4, and 2-bit
+> Inspired by biological precision, NorthPole is optimized for 8, 4, and 2-bit
 low-precision. This is sufficient to achieve state-of-the-art inference accuracy
 on many neural networks while dispensing with the high-precision required for
 training.
 
-Uh, what's that? Why should I care about the precision of the data in my neural
+Neurons in biology communicate by means of voltage spikes. This can interpreted
+as binary signals: if I have a spike, I have a logic one; if there is no spike, 
+I have a logic zero. This information encoding, if implemented in hardware, 
+requires a single bit. This is the analogy the authors are referring to.
+
+Why should I care about the precision of the data in my neural
 network? Let's introduce a couple of concepts.
 
 By _precision_ it is meant the number of bits to which your data is encoded. The
@@ -148,7 +153,7 @@ Moreover, FP16 precision is starting to be enough for training. State of the art
 GPUs are also supporting FP8 and _integer_ precision [[NVIDIA H100 Tensor Core
 GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)].
 
-## Axiom 3
+## Axiom 3 - Massive computational parallelism
 
 > NorthPole has a distributed, modular core array (16-by-16), with each core
 capable of massive parallelism (8192 2-bit operations per cycle) (Fig. 2F).
@@ -259,7 +264,7 @@ needed to execute a MAC! Instead, if the MAC unit accesses the data in the PE
 itself (the PE register file bar) or from another PE (the NoC bar), the energy
 drawback is bearable. 
 
-## Axiom 4
+## Axiom 4 - Efficiency in distribution
 
 > NorthPole distributes memory among cores (Figs. 1B and 2F) and, within a core,
 not only places memories near compute (2) but also intertwines critical compute
@@ -290,9 +295,9 @@ logic or the special purpose macros available on the silicon. I do not know if
 it is brain-inspired but it makes sense from a silicon perspective if you want
 to maximize efficiency.
 
-## Axiom 5
+## Axiom 5 - A neural Network-on-Chip
 
-> NorthPole uses two dense networks- on-chip (NoCs) (20) to interconnect the
+> NorthPole uses two dense networks on-chip (NoCs) (20) to interconnect the
 cores, unifying and integrating the distributed computation and memory (Fig. 2,
 C and D) that would otherwise be fragmented. These NoCs are inspired by
 long-distance white-matter and short-distance gray-matter pathways in the brain
@@ -306,7 +311,7 @@ network-on-chip (NoC). There are two NoCs in NorthPole: one to exchange the
 intermediate results among PEs (the _gray_ matter NoC), one for the inputs of
 the neural network (the _white_ matter).
 
-## Axiom 6
+## Axiom 6 - Beyond data: efficient code distribution
 
 > Another two NoCs enable reconfiguring synaptic weights and programs on each
 core for high-speed operation of compute units (Fig. 2, C and D). The brain’s
@@ -330,7 +335,7 @@ performed (_i.e._, the sequence of operations to be carried out). The comparison
 with TrueNorth is not really fair: completely different designs, completely
 different goals.
 
-## Axiom 7
+## Axiom 7 - No branches, lots of party
 
 > NorthPole exploits data-independent branching to support a fully pipelined,
 stall-free, deterministic control operation for high temporal utilization
@@ -341,19 +346,19 @@ compute, memory, and communication operations to be synchronized by construction
 and to operate at a high utilization.
 
 This comes from the fact that NorthPole is running neural networks: if you know
-_exactly_ which operations will be performed, with no branching in your program,
-and all the data is as close as possible to the PEs, and data movement is fully
-deterministic (_e.g._, first I process the channel dimension, then the width,
-then the height etc.), I would be _very_ worried if I had stalls or cache misses
-:)
+_exactly_ which operations will be performed, with no branching in your program
+(_i.e._, no `if`s), and all the data is as close as possible to the PEs, and
+data movement is fully deterministic (_e.g._, first I process the channel
+dimension, then the width, then the height etc.), I would be _very_ worried if I
+had stalls or cache misses :)
 
-## Axiom 8
+## Axiom 8 - Low precision, same performance with backprop
 
 > Turning to algorithms and software, co-optimized training algorithms (fig. S3)
 enable state-of-the-art inference accuracy to be achieved by incorporating
 low-precision constraints into training. Judiciously selecting precision for
 each layer enables optimal use of on-chip resources without compromising
-inference accuracy (sup- plementary texts S9 and S10).
+inference accuracy (supplementary texts S9 and S10).
 
 In short: IBM will provide a quantization aware training (QAT) toolchain with
 the NorthPole system. QAT starts, usually, from a full precision FP32 
@@ -363,7 +368,7 @@ of the network: to recover this, the DNN is trained for few more epochs to use
 backprop to tune the network taking into account the approximations brought by
 the quantization process.
 
-## Axiom 9
+## Axiom 9 - Start optimizing inference from the code
 
 > Codesigned software (fig. S3) automatically determines an explicit
 orchestration schedule for computation, memory, and communication to achieve
@@ -384,7 +389,7 @@ Eyeriss [[Chen et
 al.](https://dspace.mit.edu/bitstream/handle/1721.1/101151/eyeriss_isscc_2016.pdf)]
 strikes again.
 
-## Axiom 10
+## Axiom 10 - What happens in NorthPole, stays in NorthPole
 
 > NorthPole employs a usage model that consists of writing an input frame and
 reading an output frame (Figs. 1D and 3), which enables it to operate
@@ -531,10 +536,9 @@ on top of my head. Sigh.
 NorthPole is an interesting experiment: it is an extremely large accelerator,
 with a distributed memory hierarchy that allows extreme efficiency when
 parallelizable workloads, such as DNNs, are targeted. Regarding the brain
-inspiration, I do not agree at all: calling a NoC white or gray matter is not
-enough (and it does not make any sense) to claim biological inspiration.
-NorthPole is "just" an excellent engineering work, that takes into account key
-factors:
+inspiration, I do not agree with calling a NoC white or gray matter to claim
+biological inspiration.  In my opinion, NorthPole is "just" an excellent
+engineering work, that takes into account key factors:
 * reduced precision operations are much more efficient that high-precision ones.
 An FP32 multiplication costs _much_ more than an INT8 one.
 * DNNs are extremely robust to quantization, and with INT8 precision there is 
@@ -542,11 +546,25 @@ basically no accuracy degradation.
 * memory accesses are much more costly than computations when going up the 
 memory hierarchy (_i.e._, external DRAMs and so on).
 
+However, this brain-inspired approach seems to prove more useful than other ones
+at the moment, such as spiking network: the distributed memory hierarchy leads to 
+great improvement in processing efficiency, without compromising network 
+performance.
+
 I can see clusters of NorthPole being stacked in servers to improve inference
 efficiency (see the OpenAI case). It is not an edge computing solution. I wish
 there where more technical details in the paper, since it is very divulgative. I
 am fairly sure that we would have got a different paper if they
 chose an IEEE journal instead of Science, where hardware is not really common.
+
+# Acknowledgements
+
+I would like to thank [Jascha Achterberg](https://www.jachterberg.com) for 
+reviewing this blog post and the super-useful discussion about the 
+brain-inspired traits of NorthPole: he convinced me that the way in which the 
+authors claim biology inspiration actually proves useful (_e.g._, distributed 
+memory hierarchy), differently from other approaches that severly compromise
+performance (_e.g._, accuracy), with negligible efficiency improvements.
 
 # Bibliography
 
