@@ -244,7 +244,10 @@ thing in hardware accelerators just to mess with you), instead, the PEs work on
 all the operands at once. The secret is that, when the operands are too big to
 fit on the available PEs, you perform part of the computations in an iteration,
 and the remaning part in another, as it is shown in the figure above for the
-matrix multiplication example.
+matrix multiplication example. It has to be remarked that the intermediate 
+results are kept among the PEs, that exchange them to finish the computation.
+Ideally, there are no off-chip memory accesses, or it is strongly reduced when 
+compared to an overlay architecture
 
 ## Axiom 4
 
