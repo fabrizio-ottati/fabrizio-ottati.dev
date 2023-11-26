@@ -145,54 +145,7 @@ product. That's why we care about it.
 
 These MACs can be probably configured in single-instruction-multiple-data (SIMD)
 mode, _i.e._, you can "glue" together 4 INT2 operands to form an INT8 word and
-work on these in parallel. I know this might sound strange if you have never
-dealt with hardware, so I will try my best using fancy Python.
-
-Let's start by defining our MAC unit. A MAC accepts three inputs: `a` and `b`,
-that are the operands to be multiplied, and `c`, which is the operand to which
-`a * b` is added to.
-
-```python
-class MAC:
-    def __init__(self, SIMD_mode: str = "INT8") -> None:
-        self.SIMD_mode = SIMD_mode
-        return
-
-    @property.setter
-    def SIMD_mode(self, mode) -> None:
-        assert mode in ("INT8", "INT4", "INT2")
-        self.SIMD_mode = mode
-        return
-
-    def __call__(
-        self, a: torch.Tensor, b: torch.Tensor, c: torch.Tensor
-        ) -> torch.Tensor:
-        if self.SIMD_mode == "INT8":
-            # In this case, it means that a, b, and c contain a single value.
-            res = torch.zeros(shape=(1,))
-            res = c + a * b
-        elif self.SIMD_mode == "INT4":
-            # a, b and c contain 2 values to be elaborated _separately_.
-            res = torch.zeros(shape=(2,))
-            parallel_for i in range(2):
-                # Imagine that all the iterations of this
-                # loop are performed in parallel.
-                res[i] = c[i] + a[i] * b[i]
-        elif self.SIMD_mode == "INT2":
-            # a, b and c contain 4 values to be elaborated _separately_.
-            res = torch.zeros(shape=(4,))
-            parallel_for i in range(4):
-                # Imagine that all the iterations of this
-                # loop are performed in parallel.
-                res[i] = c[i] + a[i] * b[i]
-        return res
-
-```
-
-Look at our shiny MAC unit: depending on how we configure it, _i.e._, to which
-value we set its configuration parameter `SIMD_mode`, when performing a MAC, it
-will work on a single triple of INT8 values, 2 triples of INT4 values or 4
-triples of INT2 values.
+work on these in parallel. 
 
 {{<
 figure
@@ -203,42 +156,10 @@ caption="The single-instruction-multiple-data MAC unit of NorthPole."
 
 Above it is shown a visual description of how this parallelism is exploited. The
 total word width is always 8 bit, but more values can be glued together to be
-processed in parallel in the MAC. Now, our NorthPole core will have 256 of these
-units.
-
-```python
-class NorthPoleCore:
-    def __init__(self, MACs_cfg: str = "INT8") -> None:
-        self.MACs = [MAC() for i in range(256)]
-        assert cfg in ("INT8", "INT4", "INT2")
-        self.MACs_cfg = cfg
-        return
-
-    def config_MACs(self, cfg) -> None:
-        for i in range(256):
-            self.MACs[i].SIMD_mode = cfg
-        return
-
-    def __call__(
-        self, a: torch.Tensor, b: torch.Tensor, c: torch.Tensor
-        ) -> torch.Tensor:
-        if self.MACs_cfg == "INT8":
-            assert a.shape == b.shape == c.shape == torch.Size([256])
-        elif self.MACs_cfg == "INT4":
-            assert a.shape == b.shape == c.shape == torch.Size([256, 2])
-        elif self.MACs_cfg == "INT2":
-            assert a.shape == b.shape == c.shape == torch.Size([256, 4])
-        parallel_for i, mac in enumerate(self.MACs): 
-            # Imagine that all the iterations of this
-            # loop are performed in parallel.
-            c[i] = mac(a[i], b[i], c[i])
-        return c
-```
-
-In the hardware implementation, the MACs work in parallel.
-
-Not bad but, also, nothing new: usually state-of-the-art (SotA) deep learning
-accelerators have 2048 MAC units per core.
+processed in parallel in the MAC, which produces more outputs at once for the
+INT4 and INT2 precisions. Now, our NorthPole core will have 256 of these units,
+and these work in parallel on different sections of the neural network layer
+being processed.
 
 > Cortex-like modularity of the tiled core array enables homogeneous scalability
 in two dimensions and, perhaps, even in three dimensions and is also amenable to
