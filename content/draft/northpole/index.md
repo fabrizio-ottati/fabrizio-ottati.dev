@@ -104,9 +104,42 @@ low-precision. This is sufficient to achieve state-of-the-art inference accuracy
 on many neural networks while dispensing with the high-precision required for
 training.
 
-Well, we have been running DNNs using INT8 since ~2017 without claiming
+Uh, what's that? Why should I care about the precision of the data in my neural
+network? Let's introduce a couple of concepts.
+
+By _precision_ it is meant the number of bits to which your data is encoded. The
+larger this number is, the larger numbers you can describe with your bit word,
+but also smaller since some of those bits are used to encode the decimals.
+However, you cannot use a large number of bits for each datum: first, because
+it would require much more memory to host these data; second, it requires much 
+more energy to process them! 
+
+|    Operation   | Floating point energy [pJ] |   Integer energy [pJ]   |               Energy ratio FP/INT              |
+|:--------------:|:--------------------------:|:-----------------------:|:----------------------------------------------:|
+|    Addition    |   0.4 (16 b), 0.9 (32 b)   | 0.03 (8 b), 0.1 (32 b)  |  **~13.3x** (16 b / 8 b), **9x** (32 b / 32 b) |
+| Multiplication |   1.1 (16 b), 3.7 (32 b)   |  0.2 (8 b), 3.1 (32 b)  | **5.5x** (16 b / 8 b), **~1.2x** (32 b / 32 b) |
+
+In the table above [[Horowitz](https://ieeexplore.ieee.org/document/6757323)], 
+the energy required to perform addition on `int`s and `float`s is provided. You
+could notice that it is much more convenient to work with `int`s! This is due to
+the fact that the physical hardware required to perform floating point 
+arithmetic is _much_ more complex that the corresponding integer one. That is 
+why we want to represent our DNNs weights and activations with integers!
+
+However, you cannot simply convert an integer to a floating point value. For 
+instance, the number 1.2345 would become 1 as an integer. This means that you
+would degrade the information encoded in the data, and the network would not 
+perform as expected, showing a large loss in accuracy. For this reason,
+researchers have come up with _quantization_ algorithms: these allow to convert
+floating point values to integer ones while loosing as few information as 
+possible in the process. Since some information is lost in any case, the DNN 
+usually needs to be retrained a bit using its integer version in order to 
+recover the loss in performance.
+
+We have been running DNNs using INT8 since ~2017 without claiming
 biological inspiration. Recently, however, progress has been made and we can use
-INT4 quantization with marginal loss in performance compared to the 32-bit
+INT4 quantization (only 4 bits to represent a number) with marginal loss in
+performance compared to the 32-bit
 floating point (FP32) baseline that you trained on your GPU 
 [[Keller et
 al.](https://ieeexplore.ieee.org/abstract/document/10019275?casa_token=fmLtbZfys2cAAAAA:UQvvJ3LWrATwWYtBQZ7HSAZigZdRe-k06Z9rOcKVc4c1LrrqXCe49E5IFgKRyC952n0Fmp_9UQ)].
@@ -310,7 +343,7 @@ each layer enables optimal use of on-chip resources without compromising
 inference accuracy (sup- plementary texts S9 and S10).
 
 In short: IBM will provide a quantization aware training (QAT) toolchain with
-the NorthPole system. QAT takes starts, usually, from a full precision FP32 
+the NorthPole system. QAT starts, usually, from a full precision FP32 
 model and converts all the weights and activations to integers, in order to 
 reduce their precision. This leads to information loss that worsens the accuracy
 of the network: to recover this, the DNN is trained for few more epochs to use
@@ -482,11 +515,13 @@ for on-chip networks [...]
 will make me sleep better tonight, knowing that I do not have a DDR4 stick 
 on top of my head. Sigh.
 
-NorthPole is an interesting experiment: it is an extremely large accelerator, 
-with a distributed memory hierarchy that allows extreme efficiency when 
-parallelizable workloads, such as DNNs, are targeted. Regarding the brain 
-inspiration, I do not agree at all. This is an excellent engineering work, 
-that takes into account key factors:
+NorthPole is an interesting experiment: it is an extremely large accelerator,
+with a distributed memory hierarchy that allows extreme efficiency when
+parallelizable workloads, such as DNNs, are targeted. Regarding the brain
+inspiration, I do not agree at all: calling a NoC white or gray matter is not
+enough (and it does not make any sense) to claim biological inspiration.
+NorthPole is "just" an excellent engineering work, that takes into account key
+factors:
 * reduced precision operations are much more efficient that high-precision ones.
 An FP32 multiplication costs _much_ more than an INT8 one.
 * DNNs are extremely robust to quantization, and with INT8 precision there is 
@@ -496,9 +531,8 @@ memory hierarchy (_i.e._, external DRAMs and so on).
 
 I can see clusters of NorthPole being stacked in servers to improve inference
 efficiency (see the OpenAI case). It is not an edge computing solution. I wish
-there where more technical details in the paper, since it is very divulgative. I 
-would expect a presentation like this at some commercial conference where new
-products are advertised. For sure, we would have got a different paper if they 
+there where more technical details in the paper, since it is very divulgative. I
+am fairly sure that we would have got a different paper if they
 chose an IEEE journal instead of Science, where hardware is not really common.
 
 # Bibliography
