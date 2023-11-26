@@ -174,12 +174,16 @@ class MAC:
         elif self.SIMD_mode == "INT4":
             # a, b and c contain 2 values to be elaborated _separately_.
             res = torch.zeros(shape=(2,))
-            for i in range(2):
+            parallel_for i in range(2):
+                # Imagine that all the iterations of this
+                # loop are performed in parallel.
                 res[i] = c[i] + a[i] * b[i]
         elif self.SIMD_mode == "INT2":
             # a, b and c contain 4 values to be elaborated _separately_.
             res = torch.zeros(shape=(4,))
-            for i in range(4):
+            parallel_for i in range(4):
+                # Imagine that all the iterations of this
+                # loop are performed in parallel.
                 res[i] = c[i] + a[i] * b[i]
         return res
 
@@ -190,7 +194,17 @@ value we set its configuration parameter `SIMD_mode`, when performing a MAC, it
 will work on a single triple of INT8 values, 2 triples of INT4 values or 4
 triples of INT2 values.
 
-Now, our NorthPole core will have 256 of these units.
+{{<
+figure
+src="simd-mac.png"
+width=600px
+caption="The single-instruction-multiple-data MAC unit of NorthPole."
+>}}
+
+Above it is shown a visual description of how this parallelism is exploited. The
+total word width is always 8 bit, but more values can be glued together to be
+processed in parallel in the MAC. Now, our NorthPole core will have 256 of these
+units.
 
 ```python
 class NorthPoleCore:
@@ -214,8 +228,9 @@ class NorthPoleCore:
             assert a.shape == b.shape == c.shape == torch.Size([256, 2])
         elif self.MACs_cfg == "INT2":
             assert a.shape == b.shape == c.shape == torch.Size([256, 4])
-        for i, mac in enumerate(self.MACs): # Imagine that all the iterations of this
-                                            # loop are performed in parallel.
+        parallel_for i, mac in enumerate(self.MACs): 
+            # Imagine that all the iterations of this
+            # loop are performed in parallel.
             c[i] = mac(a[i], b[i], c[i])
         return c
 ```
