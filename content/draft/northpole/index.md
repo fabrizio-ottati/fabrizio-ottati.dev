@@ -522,7 +522,7 @@ However, shall we call in a
 
 The competitor (Keller et al.) is a chip developed by Nvidia and published in
 2022 at ISSCC. The data are taken from the JSSC journal version of the paper. A
-_big_ disclaimer: the measurements come from a tapeout from Nvidia, _i.e._, they
+_big_ disclaimer: the measurements come from a tapeout of Nvidia, _i.e._, they
 have designed a new accelerator and produced a test chip, and then they have run
 a neural network on it and measured performance. It is not (yet) a plug-in
 accelerator like NorthPole. This explains why the throughput is so low and the
