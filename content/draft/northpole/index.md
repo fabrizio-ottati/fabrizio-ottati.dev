@@ -511,3 +511,4 @@ chose an IEEE journal instead of Science, where hardware is not really common.
 * [_LoopTree: Enabling Exploration of Fused-layer Dataflow Accelerators_](https://eems.mit.edu/wp-content/uploads/2023/07/2023_ispass_looptree.pdf), Michael Gilbert et al., IEEE International Symposium on Performance Analysis of Systems and Software (ISPASS), 2023.
 * [_Efficient Processing of Deep Neural Networks: A Tutorial and Survey_](https://ieeexplore.ieee.org/abstract/document/8114708), Vivienne Sze et al., IEEE Proceedings, 2017.
 * [_VS-Quant: Per-Vector Scaled Quantization for Accurate Low-Precision Neural Network Inference_](https://proceedings.mlsys.org/paper_files/paper/2021/file/48a6431f04545e11919887748ec5cb52-Paper.pdf), Steve Dai et al, Machine Learning and Systems (MLSys), 2021.
+* [_What Every Developer Should Know About GPU Computing_](https://codeconfessions.substack.com/p/gpu-computing), Abhinav Upadhyay, 2023.
