@@ -77,7 +77,7 @@ pygmentsStyle = "monokai"
   [[menu.main]]
     identifier = "email"
     pre = "<span data-feather='mail'></span>"
-    url = "mailto:fabrizio.ottati@polito.it"
+    url = "mailto:fabriziottati@gmail.com"
     weight = 6
 
   [[menu.main]]
