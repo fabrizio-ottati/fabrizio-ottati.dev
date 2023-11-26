@@ -226,7 +226,9 @@ NorthPole is a _spatial_ architecture, in contrast to GPUs and TPUs that are
 _temporal_ architectures [[Sze et
 al.](https://ieeexplore.ieee.org/abstract/document/8114708)]: this means that
 instead of having a single on-chip memory that all the PEs share, (part of)
-memory is co-located with the processing units.
+memory is co-located with the processing units. For more information about GPUs,
+I suggest [this excellent blog](https://codeconfessions.substack.com/p/gpu-computing)
+written by [Abhinav Upadhyay](https://twitter.com/abhi9u).
 
 {{<
 figure
