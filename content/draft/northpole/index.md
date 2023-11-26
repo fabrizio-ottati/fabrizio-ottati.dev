@@ -113,7 +113,7 @@ al.](https://ieeexplore.ieee.org/abstract/document/10019275?casa_token=fmLtbZfys
 
 Moreover, FP16 precision is starting to be enough for training. State of the art
 GPUs are also supporting FP8 and _integer_ precision [[NVIDIA H100 Tensor Core
-GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)]).
+GPU Architecture](https://resources.nvidia.com/en-us-tensor-core)].
 
 ## Axiom 3
 
@@ -496,7 +496,7 @@ memory hierarchy (_i.e._, external DRAMs and so on).
 
 I can see clusters of NorthPole being stacked in servers to improve inference
 efficiency (see the OpenAI case). It is not an edge computing solution. I wish
-there where more technical details in the paper, since it very divulgative. I 
+there where more technical details in the paper, since it is very divulgative. I 
 would expect a presentation like this at some commercial conference where new
 products are advertised. For sure, we would have got a different paper if they 
 chose an IEEE journal instead of Science, where hardware is not really common.
