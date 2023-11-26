@@ -430,11 +430,6 @@ high energy efficiency because of less data movement, which is enabled by a lack
 of off-chip memory, the intertwining of on-chip memory with compute, the
 locality of spatial computing, and a better use of low-precision computation.
 
-I am not so sure about
-
-> [...] and a better use of low-precision computation.
-
-because I suspect they are comparing themselves to the FP32 execution on H100. 
 Moreover:
 
 > All compared architectures implement considerably faster clock rates than
