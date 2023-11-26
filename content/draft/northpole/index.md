@@ -249,6 +249,16 @@ results are kept among the PEs, that exchange them to finish the computation.
 Ideally, there are no off-chip memory accesses, or it is strongly reduced when 
 compared to an overlay architecture
 
+{{< 
+figure src="memory-energy.png" caption="Stolen from my thesis." width=600px
+>}}
+
+The graph above explains why it is a good idea to keep data among the PEs: to 
+retrieve activations from off-chip memory, one has to employ **200x** the energy
+needed to execute a MAC! Instead, if the MAC unit accesses the data in the PE
+itself (the PE register file bar) or from another PE (the NoC bar), the energy
+drawback is bearable. 
+
 ## Axiom 4
 
 > NorthPole distributes memory among cores (Figs. 1B and 2F) and, within a core,
@@ -431,9 +441,9 @@ format (FP, INT) that gives the highest accuracy on the network being run on the
 chip, to ensure fair comparison.
 
 > The architecture-independent cost metrics adopted here are now introduced.
-Turning first to energy, > different integrated- circuit (IC) implementations
-have different throughputs > [in frames per second (FPS)] at different power
-consumptions (in watts). Therefore, FPS per watt > (equals frames per joule) is
+Turning first to energy, different integrated- circuit (IC) implementations
+have different throughputs (in frames per second (FPS)) at different power
+consumptions (in watts). Therefore, FPS per watt (equals frames per joule) is
 a widely used energy metric for comparing ICs.
 
 To measure efficiency on image classification tasks, the author consider how
@@ -450,11 +460,11 @@ consider to be meaningful.
 | Nvidia H100 |    700    |    **81,292**    |             116             | FP32,16; INT8,4 |      ✘     |     ✔     |
 |  NorthPole  |   **74**  |      42,460      |           **571**           |     INT8,4,1    |      ✔     |     ✘     |
 
-Northpole seems to be winning! And by a lot! This is mostly due to the fact that A100 and H100 are
-incredibly powerful devices (look at the power consumption!) and you can use
-them to run _any_ model you want, also for training in FP32 and FP16. NortPole,
-instead, is meant only for inference of quantized (_i.e._, INT8 parameters)
-neural networks.
+Northpole seems to be winning! And by a lot! This is mostly due to the fact that
+A100 and H100 are incredibly powerful devices (look at the power consumption!)
+and you can use them to run _any_ model you want, also for training in FP32 and
+FP16. NortPole, instead, is meant only for inference of quantized (_i.e._, INT8
+parameters) neural networks.
 
 Moreover, the GPUs being considered use large amount of off-chip (hence,
 energy-hungry) memory to deal with any kind of DL workload being run on them.
