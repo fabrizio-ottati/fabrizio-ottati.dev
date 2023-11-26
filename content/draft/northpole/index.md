@@ -470,11 +470,11 @@ benchmarked on ImageNet. They also consider other "exotic" figures of merit,
 such as "frames per second per watt per billion of transistor", which I do not
 consider to be meaningful.
 
-| Accelerator | Power  | Throughput (FPS) | FPS / W | Data format        | Only DNNs? | Training? |
-| ----------- | ------ | ---------------- | ------- | ------------------ | ---------- | --------- |
-| Nvidia A100 | 400    | 30,814           | 80      | **FP32**,16; INT8  | ✘          | ✔         |
-| Nvidia H100 | 700    | **81,292**       | 116     | **FP32**,16;INT8,4 | ✘          | ✔         |
-| NorthPole   | **74** | 42,460           | **571** | **INT8**,4,1       | ✔          | ✘         |
+| Accelerator | Power  | Throughput (FPS) | Inferences / J | Data format        | Only DNNs? | Training? |
+| ----------- | ------ | ---------------- | -------        | ------------------ | ---------- | --------- |
+| Nvidia A100 | 400    | 30,814           | 80             | **FP32**,16; INT8  | ✘          | ✔         |
+| Nvidia H100 | 700    | **81,292**       | 116            | **FP32**,16;INT8,4 | ✘          | ✔         |
+| NorthPole   | **74** | 42,460           | **571**        | **INT8**,4,1       | ✔          | ✘         |
 
 Northpole seems to be winning! And by a lot! This is mostly due to the fact that A100 and H100 are
 incredibly powerful devices (look at the power consumption!) and you can use
@@ -513,10 +513,10 @@ tasks. Hence, is it fair this comparison with general purpose hardware? Sure.
 However, shall we call in a 
 [fairer competitor](https://ieeexplore.ieee.org/abstract/document/10019275)? :)
 
-| Accelerator   | Power  | Throughput (FPS) | FPS / W  | Data format  | Only DNNs? | Training? |
-| ------------- | ------ | ---------------- | -------- | ------------ | ---------- | --------- |
-| Keller et al. | N/A    | 212              | **4714** | INT8,**4**   | ✔          | ✘         |
-| NorthPole     | **74** | **42,460**       | 571      | **INT8**,4,2 | ✔          | ✘         |
+| Accelerator   | Power  | Throughput (FPS) | Inferences / J  | Data format  | Only DNNs? | Training? |
+| ------------- | ------ | ---------------- | --------        | ------------ | ---------- | --------- |
+| Keller et al. | N/A    | 212              | **4714**        | INT8,**4**   | ✔          | ✘         |
+| NorthPole     | **74** | **42,460**       | 571             | **INT8**,4,2 | ✔          | ✘         |
 
 The competitor (Keller et al.) is a chip developed by Nvidia and published last
 year. The data are taken from the JSSC journal version of the paper. A _big_
