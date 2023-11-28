@@ -1,7 +1,7 @@
 ---
 title: "Neural inference at the frontier of energy, space and time - NorthPole, IBM"
 description: "Translating the new paper from IBM to human language."
-image: brain-to-chip.png
+image: cover.png
 draft: false
 date: 2023-11-25
 type: "post"
