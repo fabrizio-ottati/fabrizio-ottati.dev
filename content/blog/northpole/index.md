@@ -1,13 +1,14 @@
 ---
 title: "Neural inference at the frontier of energy, space and time - NorthPole, IBM"
 description: "Translating the new paper from IBM to human language."
-image: cover.png
 draft: false
-date: 2023-11-25
+date: 2023-11-28
 type: "post"
 tags: ["research", "hardware", "digital", "deep learning"]
 showTableOfContents: true
 ---
+
+{{< figure src="on-chip-cartoon.png" width=600px >}}
 
 [NorthPole](https://research.ibm.com/blog/northpole-ibm-ai-chip) is the new
 shiny artificial intelligence (AI) accelerator developed by IBM. The creators
