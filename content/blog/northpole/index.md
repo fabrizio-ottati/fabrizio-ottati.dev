@@ -172,14 +172,16 @@ it processes 8192 INT2 numbers.
 However, NorthPole also supports INT4 and INT8 operands. This means that the
 underlying hardware must be _reconfigurable_. To understand this, we must figure
 out which is the fundamental operation implemented by modern deep learning
-accelerators (but not only): multilply-and-accumulate (MAC) operation.  Why do
+accelerators (but not only): the multiply-and-accumulate (MAC) operation.  Why do
 we care about MACs?
 
 DNNs are basically matrix multipliers: a neural network receives a vector in 
 input and multiplies it by a matrix of weights, producing in output another 
-vector. The read is referred to the awesome YouTube playlist created by
+vector. The reader is referred to the awesome YouTube playlist created by
 [3Blue1Brown](https://youtu.be/aircAruvnKk?si=tzbdXPm_WL5-dg9y) for more
-information on this. Let us consider a _naive_ matrix-vector multiplication. 
+information on this. 
+
+Let us consider a _naive_ matrix-vector multiplication. 
 
 ```python
 def naive_mat_vec_mul(v: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
@@ -377,7 +379,27 @@ In my opinion, the instruction core plays an important role. Having a
 specialized instruction set architecture (ISA) has a large impact on
 performance.
 
-## Axiom 7 - No branches, lots of party
+| ISA operation | Energy [pJ] | Energy overhead (instruction decoding / computation) |
+|:-------------:|:-----------:|:----------------------------------------------------:|
+|      HFMA     |     1.5     |                          20x                         |
+|     HDP4A     |      6      |                          5x                          |
+|      HMMA     |     110     |                         0.22x                        |
+|      IMMA     |     160     |                         0.16x                        |
+
+Above it is a table considering the ISA of the Nvidia H100 chip 
+[[William J. Dally](https://www.computer.org/csdl/proceedings-article/hcs/2023/10254716/1QKTnGyUPbG)].
+The ISA instruction correspond to a matrix multiplication core operation,
+roughly. The total energy associated to each operation is displayed, together
+with the ratio between the energy dedicated to instruction decoding (understand
+what you need to do, prepare operands fetching) and the actual computation being
+carried out. You can see that in `HFMA` and `HDP4A`, lots of energy is wasted in
+control logic! If you need many simple operation to perform a matrix
+multiplication, you will lose lots of energy and time in just arranging the
+hardware to do so. In Nvidia case, it is better to use a more complex ISA and
+devolve energy only to "useful" stuff. And I think that this play a role also in
+NorthPole, even if it is not clearly stated.
+
+## Axiom 7 - No branches, lots of fun!
 
 > NorthPole exploits data-independent branching to support a fully pipelined,
 stall-free, deterministic control operation for high temporal utilization
@@ -559,11 +581,6 @@ is designed to run large Transformers on it, but I have used their ResNet50 data
 for fair comparison with NorthPole. Like NorthPole, it is an inference-only
     accelerator.
 
-Another reason for which Keller et al. is much more efficient than NorthPole is
-that it supports _sparsity-aware processing_, _i.e._, it skips zero computations
-without reading the zero values (I am simplifying). From the NorthPole article,
-it does not seem that sparsity-aware computation is supported.
-
 # (My) conclusions
 
 In conclusion, the following statement
@@ -578,7 +595,7 @@ NorthPole is a super-interesting experiment: it is an extremely large
 accelerator, with a distributed memory hierarchy that allows extreme efficiency
 when parallelizable workloads, such as DNNs, are targeted. Regarding the brain
 inspiration, I do not know if calling NoCs white or gray matter is enough, and I
-do not think that matter at all.  In my opinion, NorthPole is an excellent
+do not think that it matters at all!  In my opinion, NorthPole is an excellent
 engineering work, that takes into account key factors:
 * reduced precision operations are much more efficient that high-precision ones.
   An FP32 multiplication costs _much_ more than an INT8 one.
@@ -594,8 +611,9 @@ compromising network performance on the selected tasks (object detection and
 recognition in the NorthPole paper).
 
 I can see clusters of NorthPole being stacked in servers to improve inference
-efficiency (see the OpenAI case). It is not, in my opinion, an edge computing solution. I wish
-there where more technical details in the paper, since it is more on the divulgative side.
+efficiency (see the OpenAI case). It is not, in my opinion, an edge computing
+solution. I wish there where more technical details in the paper, since it is
+more on the divulgative side.
 
 # Acknowledgements
 
