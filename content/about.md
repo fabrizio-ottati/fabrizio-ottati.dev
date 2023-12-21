@@ -10,8 +10,6 @@ I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I 
 
 I have two beautiful cats, Artù and Merlino. I love them. A lot. 
 
-My research focuses on digital hardware design and automation with the goal of improving deep learning models efficiency.
-
 My main areas of interest are:
 * event-based vision. 
 * deep learning.
@@ -43,6 +41,7 @@ I co-maintain two open source projects in the field of **neuromorphic computing*
 - IEEE Transactions on Circuits and Systems I: Regular Papers.
 - IEEE Journal on Emerging and Selected Topics in Circuits and Systems.
 - IEEE Transactions on Biomedical Circuits and Systems.
+- IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems.
 
 ## Reviewer: conferences
 
