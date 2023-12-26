@@ -403,21 +403,18 @@ of telling it "Just multiply these two matrices, please.".
 
 For `HDP4A`, the instruction performs a dot product between vectors of 4
 elements, and then accumulate. This was introduced in the Nvidia Volta
-architecture.
-
-In Nvidia case, it is better to use a more complex ISA and devolve energy only
-to "useful" stuff. And I think that this play a role also in NorthPole, even if
-it is not clearly stated.
-
-In the Volta architecture, tensor cores were introduced, which translates into
-having specialized ISA instruction to perform full matrix multiplication (of
-small matrices, of course, like 4x4).  In fact, `HMMA` stands for half-precision
+architecture: tensor cores were introduced, which translates into having
+specialized ISA instruction to perform full matrix multiplication (of small
+matrices, of course, like 4x4).  In fact, `HMMA` stands for half-precision
 matrix multiply and accumulate: with a single ISA instruction, a (small) matrix
 multiplication is performed, hence you minimize the overhead of the control
-logic. In the Turing the integer cores were introduced: `IMMA` stands for
-integer MMA, which provides even better performance as you do not have to deal
-with the floating point format. In this, two 8x8 matrices in INT8 precision are
-multiplied together.
+logic. In the Turing architecture, the integer cores were introduced: `IMMA`
+stands for integer MMA, which provides even better performance as you do not
+have to deal with the floating point format. In this, two 8x8 matrices in INT8
+precision are multiplied together.
+
+We can expect NorthPole to do something similar at the low level of the software
+stack, in order to achieve that outstanding efficiency.
 
 ## Axiom 7 - No branches, lots of fun!
 
