@@ -2,7 +2,7 @@
 title: "Neural inference at the frontier of energy, space and time - NorthPole, IBM"
 description: "Translating the new paper from IBM to human language."
 draft: false
-date: 2023-11-28
+date: 2023-12-26
 type: "post"
 tags: ["research", "hardware", "digital", "deep learning"]
 showTableOfContents: true
@@ -398,6 +398,12 @@ multiplication, you will lose lots of energy and time in just arranging the
 hardware to do so. In Nvidia case, it is better to use a more complex ISA and
 devolve energy only to "useful" stuff. And I think that this play a role also in
 NorthPole, even if it is not clearly stated.
+
+In fact, `HMMA` stands for half-precision (FP16) matrix multiply and accumulate:
+with a single ISA instruction, a (small) matrix multiplication is performed,
+hence you minimize the overhead of the control logic. I suppose that `IMMA`
+stands for integer MMA, which provides even better performance as you do not
+have to deal with the floating point format.
 
 ## Axiom 7 - No branches, lots of fun!
 
