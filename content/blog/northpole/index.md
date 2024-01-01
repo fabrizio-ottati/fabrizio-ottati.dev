@@ -641,6 +641,10 @@ authors claim biology inspiration actually proves useful (_e.g._, distributed
 memory hierarchy), differently from other approaches that severly compromise
 performance (_e.g._, accuracy), with negligible efficiency improvements.
 
+I would also like to thank [Siddharth Joshi](https://siddharth-joshi.com) for
+pointing out that Keller et al.  does not directly support sparsity in hardware,
+contrarily to what I believed.
+
 # Bibliography
 
 * [_Neural inference at the frontier of energy, space, and time_](https://www.science.org/doi/10.1126/science.adh1174), Dharmendra S. Modha et al., Science, 2023.
