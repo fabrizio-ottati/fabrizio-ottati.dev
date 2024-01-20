@@ -12,7 +12,7 @@ did my Ph.D. in electronics engineering, under the supervision of Professor
 Luciano Lavagno, working in an amazing team, focusing on high level
 synthesis of digital circuits and deep learning acceleration on FPGAs. 
 
-Now I am working as AI/ML Processor Engineer in [NXP](https://www.nxp.com).
+Now I am working as AI hardware architect in [NXP](https://www.nxp.com).
 
 ![Artù and Merlino](/images/about/gattacci.png)
 
