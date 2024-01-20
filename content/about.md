@@ -19,29 +19,24 @@ Now I am working as AI hardware architect in [NXP](https://www.nxp.com).
 I have two beautiful cats, Artù and Merlino. I love them. A lot. 
 
 My main areas of interest are:
-* event-based vision. 
 * deep learning.
-* digital hardware design.
+* computer architecture.
+* deep learning hardware acceleration for edge AI.
+* deep learing models quantization.
 * computer science (still trying to finish a proper algorithms and data
   structures course since 2020).
 
-I co-maintain two open source projects in the field of **neuromorphic
-computing**, [Tonic](https://tonic.readthedocs.io) and
-[Expelliarmus](https://github.com/expelliarmus.readthedocs.io), and the founder
-of [Open Neuromorphic](https://open-neuromorphic.org). You can download my
-**CV** from [here](/docs/cv.pdf).
-
 # Career 
 
-* Bachelor of Science in Electronic Engineering, Politecnico di Torino,
-  2014-2017. Grade: 108/110.
-* Master of Science in Electronic Engineering, Microelectronics, Politecnico di
-  Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
+* AI/ML Processor Engineer, NXP, Jan 2024 - ongoing.
 * Ph.D. in Electrical, Electronic and Telecommunications Engineering,
   Politecnico di Torino, Nov 2020 - Dec 2023.
   * Visiting researcher in [Charlotte Frenkel](https://chfrenkel.github.io/)'s
     laboratory, Feb 2023 - Sep 2023.
-* AI/ML Processor Engineer, NXP, Jan 2024 - ongoing.
+* Master of Science in Electronic Engineering, Microelectronics, Politecnico di
+  Torino, 2017-2020. Grade: 110/110, Summa Cum Laude. 
+* Bachelor of Science in Electronic Engineering, Politecnico di Torino,
+  2014-2017. Grade: 108/110.
 
 # Publications
 
