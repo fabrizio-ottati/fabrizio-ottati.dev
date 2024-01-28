@@ -9,7 +9,7 @@ science and computers.
 
 I moved to [Torino](https://en.wikipedia.org/wiki/Turin) for my studies. Here I
 did my Ph.D. in electronics engineering, under the supervision of Professor
-Luciano Lavagno, working in an amazing team, focusing on high level
+Luciano Lavagno and Professor Mario R. Casue, working on high level
 synthesis of digital circuits and deep learning acceleration on FPGAs. 
 
 Now I am working as AI hardware architect in [NXP](https://www.nxp.com).
