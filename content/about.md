@@ -12,7 +12,7 @@ did my Ph.D. in electronics engineering, under the supervision of Professor
 Luciano Lavagno and Professor Mario R. Casue, working on high level
 synthesis of digital circuits and deep learning acceleration on FPGAs. 
 
-Now I am working as AI hardware architect in [NXP](https://www.nxp.com).
+Now I am working as AI/ML Processor Engineer at [NXP](https://www.nxp.com).
 
 ![Artù and Merlino](/images/about/gattacci.png)
 
@@ -21,8 +21,6 @@ I have two beautiful cats, Artù and Merlino. I love them. A lot.
 My main areas of interest are:
 * deep learning.
 * computer architecture.
-* deep learning hardware acceleration for edge AI.
-* deep learing models quantization.
 * computer science (still trying to finish a proper algorithms and data
   structures course since 2020).
 
